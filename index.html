@@ -471,6 +471,8 @@
     }
 
     .name-highlight {
+      display: inline-block; /* VERY IMPORTANT */
+    
       background: linear-gradient(
         120deg,
         var(--accent-2),
@@ -478,12 +480,14 @@
         var(--accent-2)
       );
       background-size: 200% 200%;
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
     
-    .name-highlight:hover {
-      animation: gradientFlow 4s ease-in-out infinite;
+      -webkit-background-clip: text;
+      background-clip: text; /* add this for compatibility */
+    
+      -webkit-text-fill-color: transparent;
+      color: transparent; /* IMPORTANT fallback */
+    
+      animation: gradientFlow 6s ease-in-out infinite;
     }
     
     /* Smooth flowing animation */
