@@ -470,6 +470,35 @@
       font-size: 0.92rem;
     }
 
+    .name-highlight {
+      background: linear-gradient(
+        120deg,
+        var(--accent-2),
+        var(--accent-3),
+        var(--accent-2)
+      );
+      background-size: 200% 200%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    
+    .name-highlight:hover {
+      animation: gradientFlow 4s ease-in-out infinite;
+    }
+    
+    /* Smooth flowing animation */
+    @keyframes gradientFlow {
+      0% {
+        background-position: 0% 50%;
+      }
+      50% {
+        background-position: 100% 50%;
+      }
+      100% {
+        background-position: 0% 50%;
+      }
+    }
+
     @media (max-width: 980px) {
       .hero-grid,
       .about-grid,
@@ -524,7 +553,9 @@
   <nav class="nav">
     <div class="container nav-inner">
       <div class="brand">
-        <strong>Salman <span class="name-highlight">Youssef</span></strong>
+        <strong>
+          Salman <span class="name-highlight">Youssef</span>
+        </strong>
         <span>AI • Cybersecurity • Real-Time Systems</span>
       </div>
       <div class="nav-links">
