@@ -446,13 +446,27 @@
       margin-top: 0.95rem;
     }
 
+    .brand {
+      display: flex;
+      flex-direction: column;
+      gap: 0.05rem; /* VERY small spacing */
+    }
+    
+    .brand-main {
+      font-size: 0.85rem;
+      color: var(--muted);
+      line-height: 1.1;
+    }
+    
     .brand-sub {
-      font-size: 0.75rem;
-      color: var(--accent-2); /* green accent */
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      margin-top: 2px;
-      margin-bottom: 0px;
+      font-size: 0.78rem;
+      color: var(--muted);
+      line-height: 1; /* compress vertical space */
+      margin-top: -2px; /* pull it up slightly */
+    }
+
+    .brand strong {
+      line-height: 1.1;
     }
 
     .pill {
@@ -566,12 +580,12 @@
   <nav class="nav">
     <div class="container nav-inner">
       <div class="brand">
-        <strong>
-          Salman Youssef
-        </strong>
-        <span>AI • Cybersecurity • Real-Time Systems</span>
-        <span class="brand-sub">Education</span>
-      </div>
+      <strong>
+        Salman <span class="name-highlight">Youssef</span>
+      </strong>
+      <span class="brand-main">AI • Cybersecurity • Real-Time Systems</span>
+      <span class="brand-sub">Education</span>
+    </div>
       <div class="nav-links">
       <a href="#about">About</a>
       <a href="#skills">Skills</a>
