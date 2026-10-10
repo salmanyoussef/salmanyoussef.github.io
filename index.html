@@ -126,7 +126,7 @@
 
     .hero-grid {
       display: grid;
-      grid-template-columns: 1.3fr 0.9fr;
+      grid-template-columns: 1.12fr 1.18fr;
       gap: 1.5rem;
       align-items: stretch;
     }
@@ -228,34 +228,41 @@
     }
 
     .hero-side {
-      padding: 1.4rem;
+      padding: 0.2rem 0;
       display: grid;
       gap: 1rem;
+      align-content: start;
+      background: transparent;
+      border: none;
+      box-shadow: none;
     }
 
     .profile-card {
-      padding: 1rem;
-      background: var(--card-strong);
-      border: 1px solid var(--border);
-      border-radius: calc(var(--radius) - 4px);
+      padding: 0;
+      background: transparent;
+      border: none;
+      border-radius: 0;
       text-align: center;
+      box-shadow: none;
     }
 
     .profile-photo {
-      width: min(100%, 280px);
-      aspect-ratio: 1/1;
+      width: 100%;
+      max-width: 520px;
+      aspect-ratio: 1 / 1;
       object-fit: cover;
-      border-radius: 22px;
+      object-position: center top;
+      border-radius: 0;
       display: block;
       margin: 0 auto;
-      border: 1px solid rgba(255,255,255,0.1);
-      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.28);
+      border: 1px solid rgba(255,255,255,0.08);
+      box-shadow: 0 18px 42px rgba(0, 0, 0, 0.28);
     }
 
     .profile-caption {
-      margin: 0.8rem 0 0;
+      margin: 0.9rem 0 0;
       color: var(--muted);
-      font-size: 0.92rem;
+      font-size: 0.96rem;
       line-height: 1.45;
     }
 
@@ -264,6 +271,10 @@
       display: block;
       margin-bottom: 0.1rem;
       font-size: 1rem;
+    }
+
+    .hero-side .mini-heading {
+      margin-top: 0.35rem;
     }
 
     .mini-heading {
@@ -675,34 +686,9 @@
 </nav>
 <header class="hero">
 <div class="container hero-grid">
-<div class="hero-main">
-<div class="eyebrow">
-<span class="eyebrow-dot"></span>
-          Open to remote part-time, freelance, and project-based engineering opportunities
-        </div>
-<h1>AI systems and cybersecurity engineering built for real-world delivery.</h1>
-<p class="subtitle">
-          I build multi-agent AI systems, retrieval pipelines, security analytics, and data-intensive
-          software with an emphasis on explainability, maintainability, and practical delivery.
-          My work spans open-data intelligence, network detection, applied machine learning,
-          full-stack AI applications, and client-facing engineering.
-        </p>
-<div class="hero-actions">
-<a class="btn btn-primary" href="https://github.com/salmanyoussef" rel="noopener noreferrer" target="_blank">
-            View GitHub
-          </a>
-<a class="btn" href="#projects">
-            Explore Projects
-          </a>
-<a class="btn" href="https://www.linkedin.com/in/salman-youssef-13028a361/" rel="noopener noreferrer" target="_blank">
-            LinkedIn
-          </a>
-</div>
-</div>
 <aside class="hero-side">
 <div class="profile-card">
 <img class="profile-photo" src="assets/salman-headshot.png" alt="Portrait of Salman Youssef"/>
-<p class="profile-caption"><strong>Salman Youssef</strong>AI Systems &amp; Cybersecurity Engineer</p>
 </div>
 <div>
 <p class="mini-heading">Snapshot</p>
@@ -739,6 +725,30 @@
 </div>
 </div>
 </aside>
+<div class="hero-main">
+<div class="eyebrow">
+<span class="eyebrow-dot"></span>
+          Open to remote part-time, freelance, and project-based engineering opportunities
+        </div>
+<h1>AI systems and cybersecurity engineering built for real-world delivery.</h1>
+<p class="subtitle">
+          I build multi-agent AI systems, retrieval pipelines, security analytics, and data-intensive
+          software with an emphasis on explainability, maintainability, and practical delivery.
+          My work spans open-data intelligence, network detection, applied machine learning,
+          full-stack AI applications, and client-facing engineering.
+        </p>
+<div class="hero-actions">
+<a class="btn btn-primary" href="https://github.com/salmanyoussef" rel="noopener noreferrer" target="_blank">
+            View GitHub
+          </a>
+<a class="btn" href="#projects">
+            Explore Projects
+          </a>
+<a class="btn" href="https://www.linkedin.com/in/salman-youssef-13028a361/" rel="noopener noreferrer" target="_blank">
+            LinkedIn
+          </a>
+</div>
+</div>
 </div>
 </header>
 <main>
