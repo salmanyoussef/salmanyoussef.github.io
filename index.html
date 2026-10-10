@@ -233,6 +233,39 @@
       gap: 1rem;
     }
 
+    .profile-card {
+      padding: 1rem;
+      background: var(--card-strong);
+      border: 1px solid var(--border);
+      border-radius: calc(var(--radius) - 4px);
+      text-align: center;
+    }
+
+    .profile-photo {
+      width: min(100%, 280px);
+      aspect-ratio: 1/1;
+      object-fit: cover;
+      border-radius: 22px;
+      display: block;
+      margin: 0 auto;
+      border: 1px solid rgba(255,255,255,0.1);
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.28);
+    }
+
+    .profile-caption {
+      margin: 0.8rem 0 0;
+      color: var(--muted);
+      font-size: 0.92rem;
+      line-height: 1.45;
+    }
+
+    .profile-caption strong {
+      color: var(--text);
+      display: block;
+      margin-bottom: 0.1rem;
+      font-size: 1rem;
+    }
+
     .mini-heading {
       margin: 0 0 0.5rem;
       font-size: 0.88rem;
@@ -667,6 +700,10 @@
 </div>
 </div>
 <aside class="hero-side">
+<div class="profile-card">
+<img class="profile-photo" src="assets/salman-headshot.png" alt="Portrait of Salman Youssef"/>
+<p class="profile-caption"><strong>Salman Youssef</strong>AI Systems &amp; Cybersecurity Engineer</p>
+</div>
 <div>
 <p class="mini-heading">Snapshot</p>
 <div class="stat-grid">
