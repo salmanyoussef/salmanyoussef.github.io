@@ -13,21 +13,21 @@ BASE = 'https://salmanyoussef.github.io/'
 PATHS = {'en': '', 'fr': 'fr/', 'ar': 'ar/'}
 LABELS = {'en': 'English', 'fr': 'Français', 'ar': 'العربية'}
 DESCRIPTIONS = {
- 'fr': 'Salman Youssef — ingénieur en systèmes d’IA et cybersécurité, chercheur, consultant indépendant et tuteur en informatique. Diplômé en informatique avec distinction et mineure en mathématiques.',
- 'ar': 'سلمان يوسف — مهندس أنظمة الذكاء الاصطناعي والأمن السيبراني، وباحث واستشاري مستقل ومدرّس لعلوم الحاسوب. خريج علوم الحاسوب بامتياز مع تخصص فرعي في الرياضيات.'
+ 'fr': 'Salman Ayman Youssef — ingénieur en systèmes d’IA et cybersécurité, chercheur, consultant indépendant et tuteur en informatique. Diplômé en informatique avec distinction et mineure en mathématiques.',
+ 'ar': 'سلمان أيمن يوسف — مهندس أنظمة الذكاء الاصطناعي والأمن السيبراني، وباحث واستشاري مستقل ومدرّس لعلوم الحاسوب. خريج علوم الحاسوب بامتياز مع تخصص فرعي في الرياضيات.'
 }
 ATTRIBUTES = {
  'fr': {
   'Read excerpts from my MITRE ATT&amp;CK article': 'Lire des extraits de mon article MITRE ATT&amp;CK',
   'Main navigation': 'Navigation principale', 'Portfolio sections': 'Rubriques du portfolio',
-  'Portrait of Salman Youssef': 'Portrait de Salman Youssef',
-  'Salman Youssef smiling in a suit and holding a bouquet': 'Salman Youssef souriant, en costume, tenant un bouquet',
+  'Portrait of Salman Ayman Youssef': 'Portrait de Salman Ayman Youssef',
+  'Salman Ayman Youssef smiling in a suit and holding a bouquet': 'Salman Ayman Youssef souriant, en costume, tenant un bouquet',
  },
  'ar': {
   'Read excerpts from my MITRE ATT&amp;CK article': 'قراءة مقتطفات من مقالي عن MITRE ATT&amp;CK',
   'Main navigation': 'التنقل الرئيسي', 'Portfolio sections': 'أقسام الموقع',
-  'Portrait of Salman Youssef': 'صورة سلمان يوسف',
-  'Salman Youssef smiling in a suit and holding a bouquet': 'سلمان يوسف مبتسماً ببدلة ويحمل باقة زهور',
+  'Portrait of Salman Ayman Youssef': 'صورة سلمان أيمن يوسف',
+  'Salman Ayman Youssef smiling in a suit and holding a bouquet': 'سلمان أيمن يوسف مبتسماً ببدلة ويحمل باقة زهور',
  }
 }
 
@@ -55,12 +55,12 @@ for lang in PATHS:
   for old,new in ATTRIBUTES[lang].items(): page=page.replace('"'+old+'"', '"'+new+'"')
   # Translate any other image descriptions below.
   image_alts = {
-   'fr': 'Aperçu du guide MITRE ATT&CK rédigé par Salman Youssef',
-   'ar': 'معاينة دليل MITRE ATT&CK الذي كتبه سلمان يوسف'
+   'fr': 'Aperçu du guide MITRE ATT&CK rédigé par Salman Ayman Youssef',
+   'ar': 'معاينة دليل MITRE ATT&CK الذي كتبه سلمان أيمن يوسف'
   }
   page=re.sub(r'(<img\b[^>]*\balt=")[^"]*("[^>]*\bsrc="assets/work/mitre-article-preview.png")',lambda m:m[1]+html.escape(image_alts[lang],quote=True)+m[2],page)
   page=re.sub(r'<meta content="[^"]*" (name="description"|property="og:description")\s*/>',lambda m:'<meta content="'+html.escape(DESCRIPTIONS[lang],quote=True)+'" '+m[1]+'/>',page)
-  title=html.escape(translations['Salman Youssef | AI Systems & Cybersecurity Engineer'],quote=True)
+  title=html.escape(translations['Salman Ayman Youssef | AI Systems & Cybersecurity Engineer'],quote=True)
   page=re.sub(r'<meta content="[^"]*" property="og:title"\s*/>', '<meta content="'+title+'" property="og:title"/>',page)
   page=page.replace('href="assets/', 'href="../assets/').replace('src="assets/', 'src="../assets/')
   page=page.replace('<link href="'+BASE+'" rel="canonical"/>','<link href="'+BASE+PATHS[lang]+'" rel="canonical"/>')
