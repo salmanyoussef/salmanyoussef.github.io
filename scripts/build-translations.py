@@ -13,7 +13,7 @@ BASE = 'https://salmanyoussef.github.io/'
 PATHS = {'en': '', 'fr': 'fr/', 'ar': 'ar/'}
 LABELS = {'en': 'English', 'fr': 'Français', 'ar': 'العربية'}
 DESCRIPTIONS = {
- 'fr': 'Salman Ayman Youssef — ingénieur en systèmes d’IA et cybersécurité, chercheur, consultant indépendant et tuteur en informatique. Diplômé en informatique avec distinction et mineure en mathématiques.',
+ 'fr': 'Salman Ayman Youssef — ingénieur en systèmes d’IA et cybersécurité, chercheur, consultant indépendant et enseignant en informatique. Diplômé en informatique avec distinction et mineure en mathématiques.',
  'ar': 'سلمان أيمن يوسف — مهندس أنظمة الذكاء الاصطناعي والأمن السيبراني، وباحث واستشاري مستقل ومدرّس لعلوم الحاسوب. خريج علوم الحاسوب بامتياز مع تخصص فرعي في الرياضيات.'
 }
 ATTRIBUTES = {
