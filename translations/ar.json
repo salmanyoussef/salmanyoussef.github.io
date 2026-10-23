@@ -396,5 +396,17 @@
   "Original 14-slide client presentation prepared in September 2024, connecting privileged access, security tools, monitoring, and defensive measures.": "عرض أصلي من 14 شريحة أعددته لعميل في سبتمبر 2024، يربط الوصول المميز وأدوات الأمن والمراقبة والإجراءات الدفاعية.",
   "Original presentation cover": "غلاف العرض الأصلي",
   "Read all 14 original slides (PDF)": "اقرأ الشرائح الأصلية الأربع عشرة (PDF)",
-  "Download the full presentation (PDF)": "تنزيل العرض التقديمي الكامل (PDF)"
+  "Download the full presentation (PDF)": "تنزيل العرض التقديمي الكامل (PDF)",
+  "AGORA — Original Research Paper": "AGORA — الورقة البحثية الأصلية",
+  "AI-IDS — Original Report & Presentation": "AI-IDS — التقرير والعرض التقديمي الأصليان",
+  "Network Telemetry — Original Deployment Notes": "بيانات الشبكة — ملاحظات النشر الأصلية",
+  "WASPLabs — Original Network Lab Guide": "WASPLabs — دليل مختبر الشبكات الأصلي",
+  "Read the original presentation (PDF)": "قراءة العرض التقديمي الأصلي (PDF)",
+  "Research manuscript describing AGORA’s architecture, implementation, preliminary eight-question evaluation, and limitations. Original anonymized manuscript; publication status is not claimed.": "مخطوطة بحثية تصف بنية AGORA وتنفيذها وتقييماً أولياً من ثمانية أسئلة وحدودها. مخطوطة أصلية مجهولة الهوية، دون ادعاء نشرها.",
+  "Original implementation report showing packet capture, flow features, model training, test output, and limitations from academic intrusion-detection work.": "تقرير التنفيذ الأصلي يعرض التقاط الحزم وخصائص التدفقات وتدريب النموذج ونتائج الاختبارات وحدود مشروع أكاديمي لكشف التسلل.",
+  "Original notes documenting my Zeek, Filebeat, Logstash, and Neo4j pipeline, lab topology, setup, troubleshooting, and remaining work. Database credentials have been removed.": "ملاحظات أصلية توثق مسار معالجة البيانات الذي بنيته باستخدام Zeek وFilebeat وLogstash وNeo4j، وبنية المختبر وإعداده واستكشاف الأخطاء والعمل المتبقي. أزيلت بيانات الدخول إلى قاعدة البيانات.",
+  "My 11-page illustrated setup guide for physical hosts, Windows/Linux VMs, VLANs, routing, and connectivity testing. Institution-assigned network addresses and router screenshots containing them are removed. Original working-document wording is preserved.": "دليل الإعداد المصور الذي أعددته في 11 صفحة للأجهزة الفعلية والأجهزة الافتراضية بنظامي Windows وLinux وشبكات VLAN والتوجيه واختبار الاتصال. أزيلت عناوين الشبكة المخصصة من المؤسسة ولقطات الموجهات التي تتضمنها. حُفظت صياغة وثيقة العمل الأصلية.",
+  "Read the complete original work →": "قراءة العمل الأصلي الكامل →",
+  "Read the complete original work": "قراءة العمل الأصلي الكامل",
+  "Page from the original work": "صفحة من العمل الأصلي"
 }

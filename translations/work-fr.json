@@ -89,5 +89,16 @@
   "Original 14-slide client presentation prepared in September 2024, connecting privileged access, security tools, monitoring, and defensive measures.": "Présentation originale de 14 diapositives préparée pour un client en septembre 2024, reliant les accès privilégiés, les outils de sécurité, la surveillance et les mesures défensives.",
   "Original presentation cover": "Couverture de la présentation originale",
   "Read all 14 original slides (PDF)": "Lire les 14 diapositives originales (PDF)",
-  "Download the full presentation (PDF)": "Télécharger la présentation complète (PDF)"
+  "Download the full presentation (PDF)": "Télécharger la présentation complète (PDF)",
+  "AGORA — Original Research Paper": "AGORA — Manuscrit de recherche original",
+  "AI-IDS — Original Report & Presentation": "AI-IDS — Rapport et présentation originaux",
+  "Network Telemetry — Original Deployment Notes": "Télémétrie réseau — Notes de déploiement originales",
+  "WASPLabs — Original Network Lab Guide": "WASPLabs — Guide original du laboratoire réseau",
+  "Read the original presentation (PDF)": "Lire la présentation originale (PDF)",
+  "Research manuscript describing AGORA’s architecture, implementation, preliminary eight-question evaluation, and limitations. Original anonymized manuscript; publication status is not claimed.": "Manuscrit de recherche décrivant l’architecture et la mise en œuvre d’AGORA, une évaluation préliminaire de huit questions et ses limites. Manuscrit original anonymisé, sans revendication de publication.",
+  "Original implementation report showing packet capture, flow features, model training, test output, and limitations from academic intrusion-detection work.": "Rapport original présentant la capture de paquets, les caractéristiques des flux, l’entraînement du modèle, les résultats des tests et les limites d’un projet universitaire de détection d’intrusions.",
+  "Original notes documenting my Zeek, Filebeat, Logstash, and Neo4j pipeline, lab topology, setup, troubleshooting, and remaining work. Database credentials have been removed.": "Notes originales documentant mon pipeline Zeek, Filebeat, Logstash et Neo4j, la topologie du laboratoire, la configuration, le dépannage et le travail restant. Les identifiants de la base de données ont été supprimés.",
+  "My 11-page illustrated setup guide for physical hosts, Windows/Linux VMs, VLANs, routing, and connectivity testing. Institution-assigned network addresses and router screenshots containing them are removed. Original working-document wording is preserved.": "Mon guide illustré de 11 pages sur les hôtes physiques, les machines virtuelles Windows/Linux, les VLAN, le routage et les tests de connectivité. Les adresses réseau attribuées par l’établissement et les captures de routeurs les contenant ont été supprimées. Le texte original du document de travail est conservé.",
+  "Read the complete original work →": "Lire le travail original complet →",
+  "Read the complete original work": "Lire le travail original complet"
 }
