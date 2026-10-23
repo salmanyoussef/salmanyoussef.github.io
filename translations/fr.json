@@ -61,7 +61,7 @@
   "Algorithms": "Algorithmes",
   "Software engineering": "Génie logiciel",
   "GitHub repository": "Dépôt GitHub",
-  "Actual output & report (PDF)": "Sorties réelles et rapport (PDF)",
+  "Actual output & report (PDF)": "Résultats réels et rapport (PDF)",
   "Freelance Client Work": "Mission pour un client",
   "Graph-Based Network Detection Pipeline": "Pipeline de détection réseau fondé sur les graphes",
   "A client pipeline connecting network telemetry to graph structures for behavioral analysis. The delivered work covers data ingestion and graph construction; GNN-based detection was a future application.": "Un pipeline client reliant la télémétrie réseau à des structures de graphes pour l’analyse comportementale. Le travail livré couvre l’ingestion des données et la construction des graphes ; la détection par GNN était une application envisagée pour la suite.",
@@ -408,5 +408,9 @@
   "My 11-page illustrated setup guide for physical hosts, Windows/Linux VMs, VLANs, routing, and connectivity testing. Institution-assigned network addresses and router screenshots containing them are removed. Original working-document wording is preserved.": "Mon guide illustré de 11 pages sur les hôtes physiques, les machines virtuelles Windows/Linux, les VLAN, le routage et les tests de connectivité. Les adresses réseau attribuées par l’établissement et les captures de routeurs les contenant ont été supprimées. Le texte original du document de travail est conservé.",
   "Read the complete original work →": "Lire le travail original complet →",
   "Read the complete original work": "Lire le travail original complet",
-  "Page from the original work": "Page du document original"
+  "Page from the original work": "Page du document original",
+  "LHDiff — Original Team Report": "LHDiff — Rapport original d’équipe",
+  "Co-authored software engineering report on tracking source-code lines across versions using textual, structural, and contextual similarity. Includes the team’s 25-pair evaluation and proposed GUI. Student IDs and university email addresses are removed.": "Rapport de génie logiciel coécrit sur le suivi des lignes de code entre versions à partir de similarités textuelles, structurelles et contextuelles. Il comprend l’évaluation de l’équipe sur 25 paires et une interface proposée. Les numéros étudiants et adresses universitaires ont été supprimés.",
+  "Actual command-line run · Team project": "Exécution réelle en ligne de commande · Projet d’équipe",
+  "The report describes the team’s approximately 92% result on its 25-pair dataset. The GUI images are design mockups; the implementation runs from the command line.": "Le rapport décrit le résultat d’environ 92 % obtenu par l’équipe sur son jeu de données de 25 paires. Les interfaces graphiques sont des maquettes ; l’implémentation s’exécute en ligne de commande."
 }

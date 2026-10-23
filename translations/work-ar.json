@@ -100,5 +100,10 @@
   "Original notes documenting my Zeek, Filebeat, Logstash, and Neo4j pipeline, lab topology, setup, troubleshooting, and remaining work. Database credentials have been removed.": "ملاحظات أصلية توثق مسار معالجة البيانات الذي بنيته باستخدام Zeek وFilebeat وLogstash وNeo4j، وبنية المختبر وإعداده واستكشاف الأخطاء والعمل المتبقي. أزيلت بيانات الدخول إلى قاعدة البيانات.",
   "My 11-page illustrated setup guide for physical hosts, Windows/Linux VMs, VLANs, routing, and connectivity testing. Institution-assigned network addresses and router screenshots containing them are removed. Original working-document wording is preserved.": "دليل الإعداد المصور الذي أعددته في 11 صفحة للأجهزة الفعلية والأجهزة الافتراضية بنظامي Windows وLinux وشبكات VLAN والتوجيه واختبار الاتصال. أزيلت عناوين الشبكة المخصصة من المؤسسة ولقطات الموجهات التي تتضمنها. حُفظت صياغة وثيقة العمل الأصلية.",
   "Read the complete original work →": "قراءة العمل الأصلي الكامل →",
-  "Read the complete original work": "قراءة العمل الأصلي الكامل"
+  "Read the complete original work": "قراءة العمل الأصلي الكامل",
+  "LHDiff — Original Team Report": "LHDiff — تقرير الفريق الأصلي",
+  "Co-authored software engineering report on tracking source-code lines across versions using textual, structural, and contextual similarity. Includes the team’s 25-pair evaluation and proposed GUI. Student IDs and university email addresses are removed.": "تقرير هندسة برمجيات شاركت في تأليفه حول تتبع أسطر الشيفرة بين الإصدارات باستخدام التشابه النصي والبنيوي والسياقي. يتضمن تقييم الفريق على 25 زوجاً وواجهة رسومية مقترحة. أزيلت أرقام الطلاب وعناوين البريد الجامعية.",
+  "Actual command-line run · Team project": "تشغيل فعلي من سطر الأوامر · مشروع جماعي",
+  "The report describes the team’s approximately 92% result on its 25-pair dataset. The GUI images are design mockups; the implementation runs from the command line.": "يصف التقرير نتيجة الفريق التي بلغت نحو 92% على مجموعة بياناته المكونة من 25 زوجاً. صور الواجهة الرسومية هي نماذج تصميمية؛ ويعمل التنفيذ من سطر الأوامر.",
+  "Actual output & report (PDF)": "المخرجات الفعلية والتقرير (PDF)"
 }
