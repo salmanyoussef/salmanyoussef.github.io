@@ -50,7 +50,18 @@ for lang in PATHS:
    text = html.unescape(raw.strip())
    if text not in translations: return raw  # Product names, code and symbols stay unchanged.
    return raw[:len(raw)-len(raw.lstrip())] + html.escape(translations[text], quote=False) + raw[len(raw.rstrip()):]
+  # Preserve the exact source wording of quotations explicitly marked as English.
+  originals = []
+  def preserve_original(match):
+   originals.append(match.group())
+   return f'<original-quote data-index="{len(originals)-1}"></original-quote>'
+  page = re.sub(r'<blockquote\b[^>]*lang="en"[^>]*>.*?</blockquote>|<p\b[^>]*class="review-heading"[^>]*>.*?</p>|<div lang="en" dir="ltr">.*?</div>', preserve_original, page, flags=re.S)
   page = token.sub(translate, page)
+  for i,original in enumerate(originals):
+   page = page.replace(f'<original-quote data-index="{i}"></original-quote>',original)
+  # Localize image descriptions and keep evidence-page navigation in this language.
+  page = re.sub(r'\b(alt|aria-label)="([^"]*)"', lambda m: m[1]+'="'+html.escape(translations.get(html.unescape(m[2]),html.unescape(m[2])),quote=True)+'"', page)
+  page = page.replace('href="/work/', f'href="/{lang}/work/')
   page = page.replace('<html lang="en">', f'<html lang="{lang}" dir="'+('rtl' if lang=='ar' else 'ltr')+'">')
   for old,new in ATTRIBUTES[lang].items(): page=page.replace('"'+old+'"', '"'+new+'"')
   # Translate any other image descriptions below.
