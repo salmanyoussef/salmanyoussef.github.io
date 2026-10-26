@@ -17,7 +17,6 @@
   "I build, explore,": "Je crée, j’explore",
   "and teach.": "et j’enseigne.",
   "I’m an AI and cybersecurity engineer, researcher, and computer science tutor. I enjoy connecting ideas and data to solve practical problems—and making the reasoning clear along the way.": "Je suis ingénieur en IA et cybersécurité, chercheur et tuteur en informatique. J’aime relier les idées et les données pour résoudre des problèmes concrets, tout en expliquant clairement le raisonnement.",
-  "Computer Science Honours graduate with distinction": "Diplômé en informatique, programme spécialisé, avec distinction",
   "University of Windsor · Artificial Intelligence specialization · Minor in Mathematics": "Université de Windsor · Spécialisation en intelligence artificielle · Mineure en mathématiques",
   "Explore my work": "Découvrir mes projets",
   "Let’s work together": "Travaillons ensemble",
@@ -260,7 +259,6 @@
   "Experimental design, model and pipeline evaluation, technical reporting,\n                reproducible prototyping, and evidence-driven iteration across AI and ML projects.": "Conception expérimentale, évaluation de modèles et de pipelines, rapports techniques, prototypage reproductible et amélioration itérative fondée sur les résultats dans des projets d’IA et d’apprentissage automatique.",
   "Technical Mentorship": "Accompagnement technique",
   "Learning & qualifications": "Formation et qualifications",
-  "Bachelor of Science (Honours), Computer Science · Artificial Intelligence Specialization · Minor in Mathematics · 2022–2026": "Baccalauréat ès sciences (programme spécialisé) en informatique · Spécialisation en intelligence artificielle · Mineure en mathématiques · 2022–2026",
   "Graduated with distinction": "Diplômé avec distinction",
   "Major average: 90.17%": "Moyenne de spécialité : 90,17 %",
   "President’s Level Scholarship": "Bourse du président",
@@ -419,5 +417,7 @@
   "Research manuscript presenting the co-authored AEDS framework and its implemented AGORA orchestration component, with a preliminary eight-question evaluation and discussion of limitations.": "Manuscrit de recherche présentant le cadre AEDS élaboré en collaboration et son composant d’orchestration AGORA implémenté, avec une évaluation préliminaire de huit questions et une discussion des limites.",
   "Authors: Nasredine Cheniki; Salman Youssef; Yacine Sam; Abderrahmane Maaradji.": "Auteurs : Nasredine Cheniki ; Salman Youssef ; Yacine Sam ; Abderrahmane Maaradji.",
   "Affiliations: Nasredine Cheniki and Yacine Sam — Université de Tours, France; Salman Youssef — University of Windsor, Canada; Abderrahmane Maaradji — University of Doha for Science and Technology, Qatar.": "Affiliations : Nasredine Cheniki et Yacine Sam — Université de Tours, France ; Salman Youssef — University of Windsor, Canada ; Abderrahmane Maaradji — University of Doha for Science and Technology, Qatar.",
-  "Research manuscript · Author-attributed portfolio copy": "Manuscrit de recherche · Version du portfolio avec attribution des auteurs"
+  "Research manuscript · Author-attributed portfolio copy": "Manuscrit de recherche · Version du portfolio avec attribution des auteurs",
+  "Bachelor of Computer Science (Honours) · Artificial Intelligence Specialization · Minor in Mathematics · September 2021–May 2026": "Baccalauréat en informatique (programme spécialisé) · Spécialisation en intelligence artificielle · Mineure en mathématiques · Septembre 2021–mai 2026",
+  "Bachelor of Computer Science (Honours), with distinction": "Baccalauréat en informatique (programme spécialisé), avec distinction"
 }
