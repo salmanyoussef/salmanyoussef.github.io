@@ -17,7 +17,6 @@
   "I build, explore,": "أبني وأستكشف",
   "and teach.": "وأُدرّس.",
   "I’m an AI and cybersecurity engineer, researcher, and computer science tutor. I enjoy connecting ideas and data to solve practical problems—and making the reasoning clear along the way.": "أنا مهندس في الذكاء الاصطناعي والأمن السيبراني، وباحث ومدرّس خصوصي لعلوم الحاسوب. أستمتع بالربط بين الأفكار والبيانات لحل المشكلات العملية، مع توضيح خطوات التفكير على طول الطريق.",
-  "Computer Science Honours graduate with distinction": "خريج برنامج الشرف في علوم الحاسوب بامتياز",
   "University of Windsor · Artificial Intelligence specialization · Minor in Mathematics": "جامعة وندسور · تخصص في الذكاء الاصطناعي · تخصص فرعي في الرياضيات",
   "Explore my work": "استكشف أعمالي",
   "Let’s work together": "لنعمل معاً",
@@ -260,7 +259,6 @@
   "Experimental design, model and pipeline evaluation, technical reporting,\n                reproducible prototyping, and evidence-driven iteration across AI and ML projects.": "تصميم التجارب، وتقييم النماذج وخطوط المعالجة، وإعداد التقارير التقنية، وبناء نماذج أولية قابلة لإعادة الإنتاج، والتحسين المتكرر القائم على الأدلة في مشاريع الذكاء الاصطناعي والتعلم الآلي.",
   "Technical Mentorship": "الإرشاد التقني",
   "Learning & qualifications": "التعليم والمؤهلات",
-  "Bachelor of Science (Honours), Computer Science · Artificial Intelligence Specialization · Minor in Mathematics · 2022–2026": "بكالوريوس العلوم (برنامج الشرف) في علوم الحاسوب · تخصص في الذكاء الاصطناعي · تخصص فرعي في الرياضيات · 2022–2026",
   "Graduated with distinction": "تخرّج بامتياز",
   "Major average: 90.17%": "معدل التخصص: 90.17٪",
   "President’s Level Scholarship": "منحة الرئيس",
@@ -419,5 +417,7 @@
   "Research manuscript presenting the co-authored AEDS framework and its implemented AGORA orchestration component, with a preliminary eight-question evaluation and discussion of limitations.": "مخطوطة بحثية تقدم إطار AEDS المشترك التأليف ومكوّن التنسيق المنفذ AGORA، مع تقييم أولي من ثمانية أسئلة ومناقشة للحدود.",
   "Authors: Nasredine Cheniki; Salman Youssef; Yacine Sam; Abderrahmane Maaradji.": "المؤلفون: Nasredine Cheniki؛ Salman Youssef؛ Yacine Sam؛ Abderrahmane Maaradji.",
   "Affiliations: Nasredine Cheniki and Yacine Sam — Université de Tours, France; Salman Youssef — University of Windsor, Canada; Abderrahmane Maaradji — University of Doha for Science and Technology, Qatar.": "الانتماءات: Nasredine Cheniki وYacine Sam — جامعة تور، فرنسا؛ Salman Youssef — جامعة وندسور، كندا؛ Abderrahmane Maaradji — جامعة الدوحة للعلوم والتكنولوجيا، قطر.",
-  "Research manuscript · Author-attributed portfolio copy": "مخطوطة بحثية · نسخة للموقع بأسماء المؤلفين"
+  "Research manuscript · Author-attributed portfolio copy": "مخطوطة بحثية · نسخة للموقع بأسماء المؤلفين",
+  "Bachelor of Computer Science (Honours) · Artificial Intelligence Specialization · Minor in Mathematics · September 2021–May 2026": "بكالوريوس علوم الحاسوب (برنامج الشرف) · تخصص في الذكاء الاصطناعي · تخصص فرعي في الرياضيات · سبتمبر 2021–مايو 2026",
+  "Bachelor of Computer Science (Honours), with distinction": "بكالوريوس علوم الحاسوب (برنامج الشرف)، بامتياز"
 }
