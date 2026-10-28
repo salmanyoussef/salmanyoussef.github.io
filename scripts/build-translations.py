@@ -18,13 +18,13 @@ DESCRIPTIONS = {
 }
 ATTRIBUTES = {
  'fr': {
-  'Read excerpts from my MITRE ATT&amp;CK article': 'Lire des extraits de mon article MITRE ATT&amp;CK',
+  'Read excerpts from Salman’s MITRE ATT&amp;CK article': 'Lire des extraits de l’article MITRE ATT&amp;CK de Salman',
   'Main navigation': 'Navigation principale', 'Portfolio sections': 'Rubriques du portfolio',
   'Portrait of Salman Ayman Youssef': 'Portrait de Salman Ayman Youssef',
   'Salman Ayman Youssef smiling in a suit and holding a bouquet': 'Salman Ayman Youssef souriant, en costume, tenant un bouquet',
  },
  'ar': {
-  'Read excerpts from my MITRE ATT&amp;CK article': 'قراءة مقتطفات من مقالي عن MITRE ATT&amp;CK',
+  'Read excerpts from Salman’s MITRE ATT&amp;CK article': 'قراءة مقتطفات من مقال سلمان عن MITRE ATT&amp;CK',
   'Main navigation': 'التنقل الرئيسي', 'Portfolio sections': 'أقسام الموقع',
   'Portrait of Salman Ayman Youssef': 'صورة سلمان أيمن يوسف',
   'Salman Ayman Youssef smiling in a suit and holding a bouquet': 'سلمان أيمن يوسف مبتسماً ببدلة ويحمل باقة زهور',
