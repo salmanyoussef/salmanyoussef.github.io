@@ -61,3 +61,6 @@ html[dir=rtl] .personal-label,html[dir=rtl] .personal-place{letter-spacing:0}
 html[lang=zh-Hans] .personal-title{font-family:"Songti SC",SimSun,serif;letter-spacing:normal;line-height:1.3;font-size:clamp(2.2rem,3.3vw,3.2rem)}
 @media(max-width:850px){.personal-story{gap:1.5rem}.personal-ticket{padding:.9rem}.personal-score{gap:.45rem;font-size:.7rem}.personal-place{left:1rem;font-size:.59rem}}
 @media(max-width:680px){.personal-card{border-radius:14px}.personal-perspectives{grid-template-columns:.9fr 1.2fr;height:280px}.personal-self>img{transform:scale(1.3);transform-origin:50% 100%}.personal-field>img{object-position:50% 78%;transform:scale(1.5);transform-origin:50% 78%}.personal-place{left:.65rem;bottom:.75rem;font-size:.52rem;letter-spacing:0;max-width:90%}.personal-play{right:.65rem;bottom:.7rem;padding:.5rem .6rem;gap:.4rem;font-size:.65rem}.personal-play small{display:none}.personal-story{grid-template-columns:1fr;gap:1.3rem;padding:1.5rem}.personal-title{font-size:2.6rem}.personal-copy{max-width:100%}.personal-label{font-size:.6rem}.personal-ticket-top{font-size:.55rem}.personal-score{font-size:.76rem}}
+
+/* Leave a full visual pause between the contact section and personal memory. */
+#contact + #beyond-work{margin-block-start:80vh;margin-block-start:80svh}
