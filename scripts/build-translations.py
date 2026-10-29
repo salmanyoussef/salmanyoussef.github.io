@@ -11,14 +11,15 @@ import argparse
 
 ROOT = Path(__file__).resolve().parent.parent
 BASE = 'https://salmanyoussef.github.io/'
-PATHS = {'en': '', 'fr': 'fr/', 'ar': 'ar/', 'zh': 'zh/'}
-LABELS = {'en': 'English', 'fr': 'Français', 'ar': 'العربية', 'zh': '中文'}
-LANG_TAGS = {'en': 'en', 'fr': 'fr', 'ar': 'ar', 'zh': 'zh-Hans'}
-LOCALES = {'en': 'en_CA', 'fr': 'fr_CA', 'ar': 'ar_AR', 'zh': 'zh_CN'}
+PATHS = {'en': '', 'fr': 'fr/', 'ar': 'ar/', 'tr': 'tr/', 'zh': 'zh/'}
+LABELS = {'en': 'English', 'fr': 'Français', 'ar': 'العربية', 'tr': 'Türkçe', 'zh': '中文'}
+LANG_TAGS = {'en': 'en', 'fr': 'fr', 'ar': 'ar', 'tr': 'tr', 'zh': 'zh-Hans'}
+LOCALES = {'en': 'en_CA', 'fr': 'fr_CA', 'ar': 'ar_AR', 'tr': 'tr_TR', 'zh': 'zh_CN'}
 DESCRIPTIONS = {
  'fr': 'Salman Ayman Youssef — ingénieur en systèmes d’IA et cybersécurité, chercheur, consultant indépendant et enseignant en informatique. Diplômé en informatique avec distinction et mineure en mathématiques.',
  'ar': 'سلمان أيمن يوسف — مهندس أنظمة الذكاء الاصطناعي والأمن السيبراني، وباحث واستشاري مستقل ومدرّس لعلوم الحاسوب. خريج علوم الحاسوب بامتياز مع تخصص فرعي في الرياضيات.',
- 'zh': '萨勒曼·艾曼·优素福 — AI 与网络安全系统工程师、研究员、独立顾问和计算机科学教师。计算机科学荣誉学士，优等毕业，数学辅修。'
+ 'zh': '萨勒曼·艾曼·优素福 — AI 与网络安全系统工程师、研究员、独立顾问和计算机科学教师。计算机科学荣誉学士，优等毕业，数学辅修。',
+ 'tr': 'Salman Ayman Youssef — yapay zekâ ve siber güvenlik sistemleri mühendisi, araştırmacı, bağımsız danışman ve bilgisayar bilimleri eğitmeni. Üstün başarıyla bilgisayar bilimleri lisans mezunu; matematik yan dalı.'
 }
 ATTRIBUTES = {
  'fr': {
@@ -33,7 +34,8 @@ ATTRIBUTES = {
   'Portrait of Salman Ayman Youssef': 'صورة سلمان أيمن يوسف',
   'Salman Ayman Youssef smiling in a suit and holding a bouquet': 'سلمان أيمن يوسف مبتسماً ببدلة ويحمل باقة زهور',
  },
- 'zh': {'Portrait of Salman Ayman Youssef': '萨勒曼·艾曼·优素福的肖像'}
+ 'zh': {'Portrait of Salman Ayman Youssef': '萨勒曼·艾曼·优素福的肖像'},
+ 'tr': {'Portrait of Salman Ayman Youssef': 'Salman Ayman Youssef’in portresi'}
 }
 
 source = (ROOT / 'index.html').read_text()
@@ -77,7 +79,8 @@ for lang in parser.parse_args().languages:
   image_alts = {
    'fr': 'Aperçu du guide MITRE ATT&CK rédigé par Salman Ayman Youssef',
    'ar': 'معاينة دليل MITRE ATT&CK الذي كتبه سلمان أيمن يوسف',
-   'zh': '萨勒曼·艾曼·优素福编写的 MITRE ATT&CK 指南预览'
+   'zh': '萨勒曼·艾曼·优素福编写的 MITRE ATT&CK 指南预览',
+   'tr': 'Salman Ayman Youssef’in yazdığı MITRE ATT&CK rehberinin ön izlemesi'
   }
   page=re.sub(r'(<img\b[^>]*\balt=")[^"]*("[^>]*\bsrc="assets/work/mitre-article-preview.png")',lambda m:m[1]+html.escape(image_alts[lang],quote=True)+m[2],page)
   page=re.sub(r'<meta content="[^"]*" (name="description"|property="og:description")\s*/>',lambda m:'<meta content="'+html.escape(DESCRIPTIONS[lang],quote=True)+'" '+m[1]+'/>',page)
@@ -94,7 +97,7 @@ for lang in parser.parse_args().languages:
  for other in PATHS:
   if other!=lang: links+='\n<meta property="og:locale:alternate" content="'+LOCALES[other]+'"/>'
  page=page.replace('</head>', '<!-- languages:start -->\n'+links+'\n<!-- languages:end -->\n<link href="/assets/languages.css?v=zh-20261029" rel="stylesheet"/><script src="/assets/languages.js" defer></script></head>')
- nav_label={'en':'Language','fr':'Langue','ar':'اللغة','zh':'语言'}[lang]
+ nav_label={'en':'Language','fr':'Langue','ar':'اللغة','tr':'Dil','zh':'语言'}[lang]
  nav=f'<!-- language-nav:start --><div class="language-switcher" role="group" aria-label="{nav_label}" dir="ltr">'
  for l,p in PATHS.items():
   nav+=f'<a href="/{p}" lang="{LANG_TAGS[l]}" hreflang="{LANG_TAGS[l]}"'+(' aria-current="page"' if l==lang else '')+f'>{LABELS[l]}</a>'

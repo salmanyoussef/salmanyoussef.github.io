@@ -8,8 +8,8 @@ import argparse
 
 ROOT = Path(__file__).resolve().parent.parent
 BASE = 'https://salmanyoussef.github.io'
-LABELS = {'en': 'English', 'fr': 'Français', 'ar': 'العربية', 'zh': '中文'}
-LANG_TAGS = {'en': 'en', 'fr': 'fr', 'ar': 'ar', 'zh': 'zh-Hans'}
+LABELS = {'en': 'English', 'fr': 'Français', 'ar': 'العربية', 'tr': 'Türkçe', 'zh': '中文'}
+LANG_TAGS = {'en': 'en', 'fr': 'fr', 'ar': 'ar', 'tr': 'tr', 'zh': 'zh-Hans'}
 parser = argparse.ArgumentParser(description=__doc__)
 parser.add_argument('--languages', nargs='+', choices=LABELS, default=list(LABELS))
 languages = parser.parse_args().languages
@@ -43,7 +43,7 @@ for source in sorted((ROOT / 'work').glob('*.html')):
             page = page.replace('<html lang="en">', f'<html lang="{LANG_TAGS[lang]}" dir="'+('rtl' if lang == 'ar' else 'ltr')+'">')
             page = page.replace('="../assets/', '="../../assets/')
             page = page.replace('href="../#', f'href="/{lang}/#')
-        nav = '<!-- work-languages:start --><nav class="language-switcher" aria-label="'+{'en':'Language','fr':'Langue','ar':'اللغة','zh':'语言'}[lang]+'" dir="ltr">'
+        nav = '<!-- work-languages:start --><nav class="language-switcher" aria-label="'+{'en':'Language','fr':'Langue','ar':'اللغة','tr':'Dil','zh':'语言'}[lang]+'" dir="ltr">'
         for other, label in LABELS.items():
             link = ('' if other == 'en' else '/' + other) + '/work/' + source.name
             nav += f'<a href="{link}" lang="{LANG_TAGS[other]}" hreflang="{LANG_TAGS[other]}"'+(' aria-current="page"' if other == lang else '')+'>'+label+'</a>'
