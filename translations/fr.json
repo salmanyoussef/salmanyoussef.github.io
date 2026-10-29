@@ -7,7 +7,6 @@
   "About": "À propos",
   "Experience": "Expérience",
   "Teaching": "Enseignement",
-  "Kind words": "Témoignages",
   "Say hello": "Contacter Salman",
   "Salman Ayman Youssef": "Salman Ayman Youssef",
   "Based in Windsor, Canada · Working across borders": "Basé à Windsor, au Canada · Des collaborations sans frontières",
@@ -435,5 +434,6 @@
   "Teaching sample": "Exemple d’enseignement",
   "Who is Salman?": "Qui est Youssef ?",
   "Salman combines the skills of an architect, engineer, and consultant. He identifies gaps, develops ideas, then builds practical solutions. He is also a practicing Computer Science Educator with teaching services available.": "Youssef réunit les compétences d’un architecte, d’un ingénieur et d’un consultant. Il repère les lacunes, développe des idées, puis construit des solutions pratiques. Il exerce également comme enseignant en informatique et propose des services d’enseignement.",
-  "AI & Cybersecurity • Architecture • Consultant": "IA et cybersécurité • Architecture • Consultant"
+  "AI & Cybersecurity • Architecture • Consultant": "IA et cybersécurité • Architecture • Consultant",
+  "Testimonials": "Témoignages"
 }
