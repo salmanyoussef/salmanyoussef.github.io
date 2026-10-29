@@ -7,17 +7,18 @@ from pathlib import Path
 import html
 import json
 import re
+import argparse
 
 ROOT = Path(__file__).resolve().parent.parent
 BASE = 'https://salmanyoussef.github.io/'
 PATHS = {'en': '', 'fr': 'fr/', 'ar': 'ar/', 'zh': 'zh/'}
-LABELS = {'en': 'English', 'fr': 'Français', 'ar': 'العربية', 'zh': '简体中文'}
+LABELS = {'en': 'English', 'fr': 'Français', 'ar': 'العربية', 'zh': '中文'}
 LANG_TAGS = {'en': 'en', 'fr': 'fr', 'ar': 'ar', 'zh': 'zh-Hans'}
 LOCALES = {'en': 'en_CA', 'fr': 'fr_CA', 'ar': 'ar_AR', 'zh': 'zh_CN'}
 DESCRIPTIONS = {
  'fr': 'Salman Ayman Youssef — ingénieur en systèmes d’IA et cybersécurité, chercheur, consultant indépendant et enseignant en informatique. Diplômé en informatique avec distinction et mineure en mathématiques.',
  'ar': 'سلمان أيمن يوسف — مهندس أنظمة الذكاء الاصطناعي والأمن السيبراني، وباحث واستشاري مستقل ومدرّس لعلوم الحاسوب. خريج علوم الحاسوب بامتياز مع تخصص فرعي في الرياضيات.',
- 'zh': 'Salman Ayman Youssef — AI 与网络安全系统工程师、研究员、独立顾问和计算机科学教师。计算机科学荣誉学士，优等毕业，数学辅修。'
+ 'zh': '萨勒曼·艾曼·优素福 — AI 与网络安全系统工程师、研究员、独立顾问和计算机科学教师。计算机科学荣誉学士，优等毕业，数学辅修。'
 }
 ATTRIBUTES = {
  'fr': {
@@ -32,7 +33,7 @@ ATTRIBUTES = {
   'Portrait of Salman Ayman Youssef': 'صورة سلمان أيمن يوسف',
   'Salman Ayman Youssef smiling in a suit and holding a bouquet': 'سلمان أيمن يوسف مبتسماً ببدلة ويحمل باقة زهور',
  },
- 'zh': {'Portrait of Salman Ayman Youssef': 'Salman Ayman Youssef 的肖像'}
+ 'zh': {'Portrait of Salman Ayman Youssef': '萨勒曼·艾曼·优素福的肖像'}
 }
 
 source = (ROOT / 'index.html').read_text()
@@ -42,7 +43,9 @@ source = re.sub(r'<!-- language-nav:start -->.*?<!-- language-nav:end -->', '', 
 source = re.sub(r'<script src="/?assets/languages.js" defer></script>', '', source)
 source = re.sub(r'<link href="/?assets/languages\.css(?:\?[^\"]*)?" rel="stylesheet"/>', '', source)
 
-for lang in PATHS:
+parser = argparse.ArgumentParser(description=__doc__)
+parser.add_argument('--languages', nargs='+', choices=PATHS, default=list(PATHS))
+for lang in parser.parse_args().languages:
  page = source
  if lang != 'en':
   translations = json.loads((ROOT / f'translations/{lang}.json').read_text())
@@ -63,6 +66,8 @@ for lang in PATHS:
   page = token.sub(translate, page)
   for i,original in enumerate(originals):
    page = page.replace(f'<original-quote data-index="{i}"></original-quote>',original)
+  if lang == 'zh':
+   page = page.replace('萨勒曼·艾曼· <span class="name-highlight">', '萨勒曼·艾曼·<span class="name-highlight">')
   # Localize image descriptions and keep evidence-page navigation in this language.
   page = re.sub(r'\b(alt|aria-label)="([^"]*)"', lambda m: m[1]+'="'+html.escape(translations.get(html.unescape(m[2]),html.unescape(m[2])),quote=True)+'"', page)
   page = page.replace('href="/work/', f'href="/{lang}/work/')
@@ -72,7 +77,7 @@ for lang in PATHS:
   image_alts = {
    'fr': 'Aperçu du guide MITRE ATT&CK rédigé par Salman Ayman Youssef',
    'ar': 'معاينة دليل MITRE ATT&CK الذي كتبه سلمان أيمن يوسف',
-   'zh': 'Salman Ayman Youssef 编写的 MITRE ATT&CK 指南预览'
+   'zh': '萨勒曼·艾曼·优素福编写的 MITRE ATT&CK 指南预览'
   }
   page=re.sub(r'(<img\b[^>]*\balt=")[^"]*("[^>]*\bsrc="assets/work/mitre-article-preview.png")',lambda m:m[1]+html.escape(image_alts[lang],quote=True)+m[2],page)
   page=re.sub(r'<meta content="[^"]*" (name="description"|property="og:description")\s*/>',lambda m:'<meta content="'+html.escape(DESCRIPTIONS[lang],quote=True)+'" '+m[1]+'/>',page)
@@ -101,4 +106,4 @@ for lang in PATHS:
  dest=ROOT / PATHS[lang] / 'index.html'
  dest.parent.mkdir(exist_ok=True,parents=True)
  dest.write_text(page)
-print('Built English, French, Arabic, and Simplified Chinese portfolio pages.')
+print('Built selected portfolio languages.')

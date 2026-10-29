@@ -423,7 +423,6 @@
   "Salman tested how ChatGPT responded to cybersecurity requests and to follow-up claims of authorization. He preserved prompts and responses as screen recordings and transcripts, creating evidence that reviewers could inspect.": "اختبر استجابة ChatGPT لطلبات الأمن السيبراني ولادعاءات التفويض التي تلتها. حفظ الطلبات والردود في تسجيلات شاشة ونصوص محادثات لتوثيق التفاعلات وإتاحة مراجعتها.",
   "The original five-page SOC guide and Enterprise tactics reference sheet Salman prepared in March 2025. Presented as a historical work sample.": "دليل مراكز العمليات الأمنية الأصلي من خمس صفحات وورقة مرجعية لتكتيكات Enterprise أعدّهما سلمان في مارس 2025. يُعرضان كنموذج للعمل المنجز في ذلك الوقت.",
   "A look inside the application Salman built: career profiles, structured experience, job-specific generation, and an example cover-letter output.": "نظرة داخل التطبيق الذي بناه سلمان: ملفات مهنية وخبرات منظمة وتوليد مخصص للوظائف ونموذج لخطاب تقديم ناتج عن التطبيق.",
-  "Who is Salman Youssef?": "من هو سلمان يوسف؟",
   "An innovator.": "مبتكر.",
   "Salman Youssef combines the skills of an architect, engineer, and consultant. He identifies gaps and opportunities, develops ideas to fill them, then builds practical solutions.": "يجمع سلمان يوسف بين مهارات مصمّم الأنظمة والمهندس والاستشاري. يرصد الفجوات والفرص، ويطوّر أفكاراً لسدّها، ثم يبني حلولاً عملية.",
   "AI & Cybersecurity · Architect · Consultant": "الذكاء الاصطناعي والأمن السيبراني · مصمّم أنظمة · استشاري",
@@ -434,5 +433,7 @@
   ") - bringing that same clarity to his projects and client work.": ")، ويطبّق الوضوح نفسه في مشاريعه وأعماله الاستشارية.",
   "Teaching sample: Linear vs. Binary Search": "نموذج تدريس: البحث الخطي والبحث الثنائي",
   "(20-minute video).": "(فيديو مدته 20 دقيقة باللغة الإنجليزية).",
-  "Teaching sample": "نموذج تدريس"
+  "Teaching sample": "نموذج تدريس",
+  "Who is Salman?": "من هو سلمان",
+  "Salman Youssef combines the skills of an architect, engineer, and consultant. He identifies gaps, develops ideas to fill them, then builds practical solutions. He is also a practicing Computer Science Educator with available teaching services.": "يجمع سلمان أيمن يوسف بين مهارات مصمّم الأنظمة والمهندس والاستشاري. يرصد الفجوات، ويطوّر أفكاراً لسدّها، ثم يبني حلولاً عملية. وهو ممارس في مجال تعليم علوم الحاسوب ويقدم خدمات تعليمية متعددة.."
 }

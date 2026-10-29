@@ -4,16 +4,20 @@ from pathlib import Path
 import html
 import json
 import re
+import argparse
 
 ROOT = Path(__file__).resolve().parent.parent
 BASE = 'https://salmanyoussef.github.io'
-LABELS = {'en': 'English', 'fr': 'Français', 'ar': 'العربية', 'zh': '简体中文'}
+LABELS = {'en': 'English', 'fr': 'Français', 'ar': 'العربية', 'zh': '中文'}
 LANG_TAGS = {'en': 'en', 'fr': 'fr', 'ar': 'ar', 'zh': 'zh-Hans'}
+parser = argparse.ArgumentParser(description=__doc__)
+parser.add_argument('--languages', nargs='+', choices=LABELS, default=list(LABELS))
+languages = parser.parse_args().languages
 
 for source in sorted((ROOT / 'work').glob('*.html')):
     original = source.read_text()
     original = re.sub(r'<!-- work-languages:start -->.*?<!-- work-languages:end -->', '', original, flags=re.S)
-    for lang in LABELS:
+    for lang in languages:
         prefix = '' if lang == 'en' else '/' + lang
         page = original
         if lang != 'en':
@@ -22,7 +26,7 @@ for source in sorted((ROOT / 'work').glob('*.html')):
                 value = html.unescape(value)
                 suffix = ' | Salman Youssef'
                 if value.endswith(suffix):
-                    return translations[value[:-len(suffix)]] + suffix
+                    return translations[value[:-len(suffix)]] + (' | 萨勒曼·优素福' if lang == 'zh' else suffix)
                 return translations.get(value, value)
             def translate_text(match):
                 raw = match.group()
@@ -53,4 +57,4 @@ for source in sorted((ROOT / 'work').glob('*.html')):
         dest = ROOT / lang / 'work' / source.name if lang != 'en' else source
         dest.parent.mkdir(parents=True,exist_ok=True)
         dest.write_text(page)
-print('Built English, French, Arabic, and Simplified Chinese work pages.')
+print('Built selected work-page languages.')
