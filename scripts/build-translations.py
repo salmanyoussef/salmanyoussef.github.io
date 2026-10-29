@@ -10,11 +10,14 @@ import re
 
 ROOT = Path(__file__).resolve().parent.parent
 BASE = 'https://salmanyoussef.github.io/'
-PATHS = {'en': '', 'fr': 'fr/', 'ar': 'ar/'}
-LABELS = {'en': 'English', 'fr': 'Français', 'ar': 'العربية'}
+PATHS = {'en': '', 'fr': 'fr/', 'ar': 'ar/', 'zh': 'zh/'}
+LABELS = {'en': 'English', 'fr': 'Français', 'ar': 'العربية', 'zh': '简体中文'}
+LANG_TAGS = {'en': 'en', 'fr': 'fr', 'ar': 'ar', 'zh': 'zh-Hans'}
+LOCALES = {'en': 'en_CA', 'fr': 'fr_CA', 'ar': 'ar_AR', 'zh': 'zh_CN'}
 DESCRIPTIONS = {
  'fr': 'Salman Ayman Youssef — ingénieur en systèmes d’IA et cybersécurité, chercheur, consultant indépendant et enseignant en informatique. Diplômé en informatique avec distinction et mineure en mathématiques.',
- 'ar': 'سلمان أيمن يوسف — مهندس أنظمة الذكاء الاصطناعي والأمن السيبراني، وباحث واستشاري مستقل ومدرّس لعلوم الحاسوب. خريج علوم الحاسوب بامتياز مع تخصص فرعي في الرياضيات.'
+ 'ar': 'سلمان أيمن يوسف — مهندس أنظمة الذكاء الاصطناعي والأمن السيبراني، وباحث واستشاري مستقل ومدرّس لعلوم الحاسوب. خريج علوم الحاسوب بامتياز مع تخصص فرعي في الرياضيات.',
+ 'zh': 'Salman Ayman Youssef — AI 与网络安全系统工程师、研究员、独立顾问和计算机科学教师。计算机科学荣誉学士，优等毕业，数学辅修。'
 }
 ATTRIBUTES = {
  'fr': {
@@ -28,7 +31,8 @@ ATTRIBUTES = {
   'Main navigation': 'التنقل الرئيسي', 'Portfolio sections': 'أقسام الموقع',
   'Portrait of Salman Ayman Youssef': 'صورة سلمان أيمن يوسف',
   'Salman Ayman Youssef smiling in a suit and holding a bouquet': 'سلمان أيمن يوسف مبتسماً ببدلة ويحمل باقة زهور',
- }
+ },
+ 'zh': {'Portrait of Salman Ayman Youssef': 'Salman Ayman Youssef 的肖像'}
 }
 
 source = (ROOT / 'index.html').read_text()
@@ -62,12 +66,13 @@ for lang in PATHS:
   # Localize image descriptions and keep evidence-page navigation in this language.
   page = re.sub(r'\b(alt|aria-label)="([^"]*)"', lambda m: m[1]+'="'+html.escape(translations.get(html.unescape(m[2]),html.unescape(m[2])),quote=True)+'"', page)
   page = page.replace('href="/work/', f'href="/{lang}/work/')
-  page = page.replace('<html lang="en">', f'<html lang="{lang}" dir="'+('rtl' if lang=='ar' else 'ltr')+'">')
+  page = page.replace('<html lang="en">', f'<html lang="{LANG_TAGS[lang]}" dir="'+('rtl' if lang=='ar' else 'ltr')+'">')
   for old,new in ATTRIBUTES[lang].items(): page=page.replace('"'+old+'"', '"'+new+'"')
   # Translate any other image descriptions below.
   image_alts = {
    'fr': 'Aperçu du guide MITRE ATT&CK rédigé par Salman Ayman Youssef',
-   'ar': 'معاينة دليل MITRE ATT&CK الذي كتبه سلمان أيمن يوسف'
+   'ar': 'معاينة دليل MITRE ATT&CK الذي كتبه سلمان أيمن يوسف',
+   'zh': 'Salman Ayman Youssef 编写的 MITRE ATT&CK 指南预览'
   }
   page=re.sub(r'(<img\b[^>]*\balt=")[^"]*("[^>]*\bsrc="assets/work/mitre-article-preview.png")',lambda m:m[1]+html.escape(image_alts[lang],quote=True)+m[2],page)
   page=re.sub(r'<meta content="[^"]*" (name="description"|property="og:description")\s*/>',lambda m:'<meta content="'+html.escape(DESCRIPTIONS[lang],quote=True)+'" '+m[1]+'/>',page)
@@ -78,16 +83,16 @@ for lang in PATHS:
   page=page.replace('<meta content="'+BASE+'" property="og:url"/>','<meta content="'+BASE+PATHS[lang]+'" property="og:url"/>')
   # Same person entity; localize the descriptive title, preserving profile links.
   page=page.replace('"jobTitle": "AI Systems & Cybersecurity Engineer"','"jobTitle": '+json.dumps(translations['AI & Cybersecurity Systems Engineer'],ensure_ascii=False))
- links='\n'.join(f'<link rel="alternate" hreflang="{l}" href="{BASE+p}"/>' for l,p in PATHS.items())
+ links='\n'.join(f'<link rel="alternate" hreflang="{LANG_TAGS[l]}" href="{BASE+p}"/>' for l,p in PATHS.items())
  links+=f'\n<link rel="alternate" hreflang="x-default" href="{BASE}"/>'
- links+=f'\n<meta property="og:locale" content="'+{'en':'en_CA','fr':'fr_CA','ar':'ar_AR'}[lang]+'"/>'
+ links+=f'\n<meta property="og:locale" content="'+LOCALES[lang]+'"/>'
  for other in PATHS:
-  if other!=lang: links+='\n<meta property="og:locale:alternate" content="'+{'en':'en_CA','fr':'fr_CA','ar':'ar_AR'}[other]+'"/>'
+  if other!=lang: links+='\n<meta property="og:locale:alternate" content="'+LOCALES[other]+'"/>'
  page=page.replace('</head>', '<!-- languages:start -->\n'+links+'\n<!-- languages:end -->\n<link href="/assets/languages.css" rel="stylesheet"/><script src="/assets/languages.js" defer></script></head>')
- nav_label={'en':'Language','fr':'Langue','ar':'اللغة'}[lang]
+ nav_label={'en':'Language','fr':'Langue','ar':'اللغة','zh':'语言'}[lang]
  nav=f'<!-- language-nav:start --><div class="language-switcher" role="group" aria-label="{nav_label}" dir="ltr">'
  for l,p in PATHS.items():
-  nav+=f'<a href="/{p}" lang="{l}" hreflang="{l}"'+(' aria-current="page"' if l==lang else '')+f'>{LABELS[l]}</a>'
+  nav+=f'<a href="/{p}" lang="{LANG_TAGS[l]}" hreflang="{LANG_TAGS[l]}"'+(' aria-current="page"' if l==lang else '')+f'>{LABELS[l]}</a>'
  nav+='</div><!-- language-nav:end -->'
  page=page.replace('</div>\n<div aria-label=',nav+'</div>\n<div aria-label=',1)
  # Brand markup contains a blank line before its closing tag in the original.
@@ -96,4 +101,4 @@ for lang in PATHS:
  dest=ROOT / PATHS[lang] / 'index.html'
  dest.parent.mkdir(exist_ok=True,parents=True)
  dest.write_text(page)
-print('Built English, French, and Arabic portfolio pages.')
+print('Built English, French, Arabic, and Simplified Chinese portfolio pages.')

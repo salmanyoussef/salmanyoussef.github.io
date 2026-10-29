@@ -1,10 +1,13 @@
-/* Shared language navigation and Arabic layout adaptations. */
+/* Shared language navigation and localized typography. */
 .language-switcher{display:flex;flex-wrap:wrap;gap:.35rem .7rem;margin-top:.45rem;font-size:.74rem;line-height:1.6;align-self:start}
 .language-switcher a{text-decoration:none;padding:.1rem .15rem;border-bottom:2px solid transparent}
 .language-switcher a:hover,.language-switcher a[aria-current=page]{border-bottom-color:var(--accent);color:var(--accent)}
 .brand{max-width:100%}.brand-main{white-space:normal}
 .nav-links{min-width:0}
 html[lang=fr] .hero-name{letter-spacing:.035em}
+html[lang=zh-Hans] body{font-family:"PingFang SC","Microsoft YaHei","Noto Sans CJK SC",system-ui,sans-serif;line-height:1.8}
+html[lang=zh-Hans] h1,html[lang=zh-Hans] h2,html[lang=zh-Hans] #testimonials .project-card>p:first-of-type{font-family:"Songti SC",SimSun,serif;letter-spacing:normal}
+html[lang=zh-Hans] .hero-name,html[lang=zh-Hans] .project-type{letter-spacing:normal;text-transform:none}
 html[dir=rtl] body{font-family:Tahoma,"Segoe UI",Arial,sans-serif;line-height:1.9}
 html[dir=rtl] h1,html[dir=rtl] h2,html[dir=rtl] #testimonials .project-card>p:first-of-type{font-family:Tahoma,"Segoe UI",Arial,sans-serif;letter-spacing:normal}
 html[dir=rtl] h1{font-size:clamp(2.8rem,5vw,4.3rem);line-height:1.35}
