@@ -7,6 +7,7 @@
 html[lang=fr] .hero-name{letter-spacing:.035em}
 html[lang=zh-Hans] body{font-family:"PingFang SC","Microsoft YaHei","Noto Sans CJK SC",system-ui,sans-serif;line-height:1.8}
 html[lang=zh-Hans] h1,html[lang=zh-Hans] h2,html[lang=zh-Hans] #testimonials .project-card>p:first-of-type{font-family:"Songti SC",SimSun,serif;letter-spacing:normal}
+html[lang=zh-Hans] .hero h1{font-size:clamp(2.1rem,4vw,3.6rem);line-height:1.2;word-break:keep-all}
 html[lang=zh-Hans] .hero-name,html[lang=zh-Hans] .project-type{letter-spacing:normal;text-transform:none}
 html[dir=rtl] body{font-family:Tahoma,"Segoe UI",Arial,sans-serif;line-height:1.9}
 html[dir=rtl] h1,html[dir=rtl] h2,html[dir=rtl] #testimonials .project-card>p:first-of-type{font-family:Tahoma,"Segoe UI",Arial,sans-serif;letter-spacing:normal}
