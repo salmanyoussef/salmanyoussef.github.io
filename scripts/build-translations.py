@@ -40,7 +40,7 @@ source = (ROOT / 'index.html').read_text()
 source = re.sub(r'<!-- languages:start -->.*?<!-- languages:end -->\n?', '', source, flags=re.S)
 source = re.sub(r'<!-- language-nav:start -->.*?<!-- language-nav:end -->', '', source, flags=re.S)
 source = re.sub(r'<script src="/?assets/languages.js" defer></script>', '', source)
-source = re.sub(r'<link href="/?assets/languages.css" rel="stylesheet"/>', '', source)
+source = re.sub(r'<link href="/?assets/languages\.css(?:\?[^\"]*)?" rel="stylesheet"/>', '', source)
 
 for lang in PATHS:
  page = source
@@ -88,7 +88,7 @@ for lang in PATHS:
  links+=f'\n<meta property="og:locale" content="'+LOCALES[lang]+'"/>'
  for other in PATHS:
   if other!=lang: links+='\n<meta property="og:locale:alternate" content="'+LOCALES[other]+'"/>'
- page=page.replace('</head>', '<!-- languages:start -->\n'+links+'\n<!-- languages:end -->\n<link href="/assets/languages.css" rel="stylesheet"/><script src="/assets/languages.js" defer></script></head>')
+ page=page.replace('</head>', '<!-- languages:start -->\n'+links+'\n<!-- languages:end -->\n<link href="/assets/languages.css?v=zh-20261029" rel="stylesheet"/><script src="/assets/languages.js" defer></script></head>')
  nav_label={'en':'Language','fr':'Langue','ar':'اللغة','zh':'语言'}[lang]
  nav=f'<!-- language-nav:start --><div class="language-switcher" role="group" aria-label="{nav_label}" dir="ltr">'
  for l,p in PATHS.items():

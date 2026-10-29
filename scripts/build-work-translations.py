@@ -48,7 +48,7 @@ for source in sorted((ROOT / 'work').glob('*.html')):
         metadata = '<!-- work-languages:start -->'
         for other in LABELS:
             metadata += '<link rel="alternate" hreflang="'+LANG_TAGS[other]+'" href="'+BASE+('' if other=='en' else '/'+other)+'/work/'+source.name+'"/>'
-        metadata += '<link rel="canonical" href="'+BASE+prefix+'/work/'+source.name+'"/><link rel="stylesheet" href="/assets/languages.css"/><!-- work-languages:end -->'
+        metadata += '<link rel="canonical" href="'+BASE+prefix+'/work/'+source.name+'"/><link rel="stylesheet" href="/assets/languages.css?v=zh-20261029"/><!-- work-languages:end -->'
         page = page.replace('</head>',metadata+'</head>')
         dest = ROOT / lang / 'work' / source.name if lang != 'en' else source
         dest.parent.mkdir(parents=True,exist_ok=True)
