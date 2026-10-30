@@ -122,4 +122,5 @@ html[lang=zh-Hans] .personal-title{font-family:"Songti SC",SimSun,serif;letter-s
 .binary-toggle{position:absolute;inset-inline-end:max(1rem,calc((100% - 1160px)/2));bottom:3rem;display:flex;align-items:center;justify-content:center;width:36px;height:36px;border:1px solid #587863;border-radius:50%;background:#f6f3ec;color:#365f49;cursor:pointer;z-index:1}
 .binary-toggle:hover{background:#e8eddf}.binary-toggle[hidden]{display:none}.binary-toggle .play-symbol{display:none}.is-paused .binary-toggle .play-symbol{display:block}.is-paused .binary-toggle .pause-symbol{display:none}
 #beyond-work{margin-block-start:0;padding-top:2rem}
+#beyond-work .section-head{border-top:0}
 @media(prefers-reduced-motion:reduce){main>section:hover>.container,.project-card:hover,.section-card:hover,.strength-card:hover,.personal-card:hover,.timeline-item:hover,.contact-card:hover{transform:none;box-shadow:none}}
