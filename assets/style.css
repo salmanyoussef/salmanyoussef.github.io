@@ -64,3 +64,17 @@ html[lang=zh-Hans] .personal-title{font-family:"Songti SC",SimSun,serif;letter-s
 
 /* Leave a full visual pause between the contact section and personal memory. */
 #contact + #beyond-work{margin-block-start:80vh;margin-block-start:80svh}
+
+/* Compact credentials, location cues, and social links. */
+.hero-credential>span:not(.credential-separator){display:inline-block}
+.hero-credential .credential-separator{padding-inline:.2em;opacity:.6}
+.profile-caption .location-line{display:flex;align-items:center;gap:.5rem;font-size:.73rem;color:var(--muted);line-height:1.5;margin-top:.4rem}
+.location-icon{width:16px;height:16px;flex-shrink:0}
+.profile-caption .location-flag{font-size:16px;line-height:1;width:18px;text-align:center;margin-top:0}
+.social-links{display:flex;align-items:center;gap:.65rem;margin-top:1rem;flex-wrap:wrap}
+.contact-card .social-link{display:inline-flex;align-items:center;justify-content:center;width:46px;height:46px;border:1px solid var(--line);border-radius:10px;text-decoration:none;transition:background .2s ease,transform .2s ease}
+.social-link svg{width:25px;height:25px;fill:currentColor}
+.contact-card .social-github{color:#24292f}.contact-card .social-linkedin{color:#0a66c2}.contact-card .social-upwork{color:#108a00}
+.contact-card .social-link:hover{background:#e9ede3;transform:translateY(-2px)}
+.contact-card .social-link:focus-visible{outline:2px solid currentColor;outline-offset:4px}
+@media(prefers-reduced-motion:reduce){.contact-card .social-link{transition:none}.contact-card .social-link:hover{transform:none}}
