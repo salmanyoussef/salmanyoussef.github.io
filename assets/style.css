@@ -78,3 +78,5 @@ html[lang=zh-Hans] .personal-title{font-family:"Songti SC",SimSun,serif;letter-s
 .contact-card .social-link:hover{background:#e9ede3;transform:translateY(-2px)}
 .contact-card .social-link:focus-visible{outline:2px solid currentColor;outline-offset:4px}
 @media(prefers-reduced-motion:reduce){.contact-card .social-link{transition:none}.contact-card .social-link:hover{transform:none}}
+
+.hero-credential>span.hero-degree{display:block;margin-bottom:.2rem;color:var(--ink);font-weight:500}
