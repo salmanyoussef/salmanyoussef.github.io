@@ -188,3 +188,8 @@ html[lang=zh-Hans] .personal-title{font-family:"Songti SC",SimSun,serif;letter-s
 .hero-main>.hero-actions{margin-bottom:1.4rem}
 .hero-main>.hero-affiliations{margin-top:0}
 .hero-affiliations>.affiliations-label{margin-bottom:0}
+
+/* Each Selected work card keeps its natural content height. */
+#projects .project-grid{align-items:start}
+#projects .project-card{height:auto;align-self:start}
+#projects .project-card>:last-child{margin-bottom:0}
