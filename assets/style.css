@@ -203,3 +203,9 @@ html[lang=zh-Hans] .personal-title{font-family:"Songti SC",SimSun,serif;letter-s
 
 /* Pack project cards upward while retaining their document order. */
 @media(min-width:681px){#projects .project-grid.is-packed{grid-auto-rows:4px;row-gap:0;grid-auto-flow:row}}
+
+/* Gently lift the complete Worked with entry on hover or keyboard focus. */
+.hero-affiliation{position:relative;transition:transform .18s ease}
+@media(hover:hover) and (pointer:fine){.hero-affiliation:hover{transform:translateY(-3px) scale(1.035);z-index:1}}
+.hero-affiliation:focus-visible{transform:translateY(-3px) scale(1.035);z-index:1}
+@media(prefers-reduced-motion:reduce){.hero-affiliation{transition:none}.hero-affiliation:hover,.hero-affiliation:focus-visible{transform:none}}
