@@ -124,3 +124,19 @@ html[lang=zh-Hans] .personal-title{font-family:"Songti SC",SimSun,serif;letter-s
 #beyond-work{margin-block-start:0;padding-top:2rem}
 #beyond-work .section-head{border-top:0}
 @media(prefers-reduced-motion:reduce){main>section:hover>.container,.project-card:hover,.section-card:hover,.strength-card:hover,.personal-card:hover,.timeline-item:hover,.contact-card:hover{transform:none;box-shadow:none}}
+
+
+/* A compact, clearly historical introduction to the two organizations. */
+.hero-affiliations{margin:1.25rem 0 1.6rem;max-width:100%}
+.affiliations-label{font-size:.62rem;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);margin:0 0 .7rem;font-weight:600}
+.affiliations-list{display:flex;align-items:center;flex-wrap:wrap;gap:1rem 1.6rem}
+.hero-affiliation{display:inline-flex;align-items:center;gap:.6rem;text-decoration:none;max-width:100%;color:var(--ink)}
+.affiliation-logo{display:block;width:32px;height:34px;object-fit:contain;flex:0 0 32px;overflow:hidden}
+.affiliation-copy{display:flex;flex-direction:column;min-width:0;gap:.15rem}
+.affiliation-name{font-size:.73rem;line-height:1.35;font-weight:650}
+.affiliation-copy small{font-size:.63rem;line-height:1.5;color:var(--muted)}
+.hero-affiliation:hover .affiliation-name{text-decoration:underline;text-underline-offset:3px}
+.timeline-item[id]{scroll-margin-top:130px}
+@media(max-width:1000px){.timeline-item[id]{scroll-margin-top:180px}}
+@media(max-width:680px){.affiliations-list{gap:.9rem 1.5rem}.hero-affiliations{margin-block:1.2rem 1.4rem}}
+
