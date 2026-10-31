@@ -174,3 +174,8 @@ html[lang=zh-Hans] .personal-title{font-family:"Songti SC",SimSun,serif;letter-s
 /* Lift only the photo/caption, preserving the tutoring link's layout slot. */
 .hero-side .profile-card{position:relative;top:-1rem}
 .hero-affiliations .affiliations-list{row-gap:.4rem}
+
+/* Reduce the pause after More about Salman. */
+#about .continue-link{margin-top:.6rem}
+#projects{padding-top:1.5rem}
+@media(max-width:680px){#projects{padding-top:1.25rem}}
