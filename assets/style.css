@@ -200,3 +200,6 @@ html[lang=zh-Hans] .personal-title{font-family:"Songti SC",SimSun,serif;letter-s
 #experience .stack-panel:hover{transform:translateY(-4px) scale(1.025);box-shadow:0 14px 28px -8px #263d3340;border-color:var(--accent);z-index:2}
 }
 @media(prefers-reduced-motion:reduce){#experience .stack-panel{transition:none}#experience .stack-panel:hover{transform:none}}
+
+/* Pack project cards upward while retaining their document order. */
+@media(min-width:681px){#projects .project-grid.is-packed{grid-auto-rows:4px;row-gap:0;grid-auto-flow:row}}
