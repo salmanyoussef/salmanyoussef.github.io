@@ -164,3 +164,9 @@ html[lang=zh-Hans] .personal-title{font-family:"Songti SC",SimSun,serif;letter-s
 .hero-affiliations .affiliation-copy{flex-direction:row;align-items:center;gap:.35rem;direction:ltr}
 .affiliation-flag{font-size:.9rem;line-height:1;flex:0 0 auto}
 .hero-continue{margin-top:.5rem}
+
+/* Close the opening section neatly and keep tutoring beside the portrait. */
+.hero{padding-bottom:.75rem}
+.hero-side .hero-bottom{margin:.85rem 0 0 .5rem}
+#about{padding-top:1.5rem}
+@media(max-width:680px){.hero-grid{row-gap:1.5rem}#about{padding-top:1.25rem}}
