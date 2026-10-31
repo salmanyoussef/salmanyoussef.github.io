@@ -154,5 +154,5 @@ html[lang=zh-Hans] .personal-title{font-family:"Songti SC",SimSun,serif;letter-s
 .affiliation-teksavvy{width:32px;flex-basis:32px;background:none;padding:0;border-radius:0;filter:drop-shadow(0 0 .6px rgba(255,255,255,.85))}
 
 /* Display tints distinguish these symbols and maintain contrast on light and dark surfaces. */
-.affiliation-asfour{color:#a87920}
+.affiliation-asfour{color:inherit;filter:grayscale(1) contrast(100)}
 .affiliation-cec,.affiliation-wasp{filter:drop-shadow(0 0 .45px rgba(255,255,255,.7))}
