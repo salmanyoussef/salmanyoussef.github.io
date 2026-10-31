@@ -14,3 +14,5 @@ CEC: official LinkedIn company logo, https://www.linkedin.com/company/cec-consul
 Display refinements: Tours symbol uses blue #287f9d and Asfour symbol matches official black #000 on light surfaces, reversing to white on dark surfaces, as authorized by the site owner. Asfour LinkedIn identity checked at https://www.linkedin.com/company/asfourcrystal . TekSavvy retains the full official unmodified SVG at a 32px display width, without a surrounding background.
 
 Asfour official colour verified from https://www.asfourcrystal.com/ logo SVG https://asfourcorp.com/wp-content/uploads/2022/12/Group-29-2.svg ; paths have no fill override, using default SVG black (#000). Portfolio follows the surrounding text colour through grayscale and contrast to produce exact black on light surfaces and a white reversed logo on dark surfaces, without a background tile.
+
+Dark-surface Asfour treatment matched to the user's official-site phone screenshot: dominant logo grey RGB(179,179,179), #b3b3b3. Grayscale/contrast followed by brightness(.702) preserves black on light surfaces and changes the reversed logo to silver-grey on dark surfaces.
