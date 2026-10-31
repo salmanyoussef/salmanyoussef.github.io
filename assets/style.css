@@ -167,7 +167,7 @@ html[lang=zh-Hans] .personal-title{font-family:"Songti SC",SimSun,serif;letter-s
 
 /* Close the opening section neatly and keep tutoring beside the portrait. */
 .hero{padding-bottom:.75rem}
-.hero-side .hero-bottom{margin:.85rem 0 0 .5rem}
+.hero-side .hero-bottom{margin:1.6rem 0 0 .5rem}
 #about{padding-top:1.5rem}
 @media(max-width:680px){.hero-grid{row-gap:1.5rem}#about{padding-top:1.25rem}}
 
