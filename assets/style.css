@@ -163,7 +163,7 @@ html[lang=zh-Hans] .personal-title{font-family:"Songti SC",SimSun,serif;letter-s
 /* Compact affiliation names with the country flag on their right. */
 .hero-affiliations .affiliation-copy{flex-direction:row;align-items:center;gap:.35rem;direction:ltr}
 .affiliation-flag{font-size:.9rem;line-height:1;flex:0 0 auto}
-.hero-continue{margin-top:.5rem}
+.hero>.hero-continue{margin:.75rem auto 0}
 
 /* Close the opening section neatly and keep tutoring beside the portrait. */
 .hero{padding-bottom:.75rem}
