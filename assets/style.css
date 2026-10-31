@@ -140,3 +140,12 @@ html[lang=zh-Hans] .personal-title{font-family:"Songti SC",SimSun,serif;letter-s
 @media(max-width:1000px){.timeline-item[id]{scroll-margin-top:180px}}
 @media(max-width:680px){.affiliations-list{gap:.9rem 1.5rem}.hero-affiliations{margin-block:1.2rem 1.4rem}}
 
+
+
+/* Keep four past organizations balanced and compact beneath education. */
+.affiliations-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.9rem 1.4rem;max-width:560px}
+.hero-affiliation{min-width:0}
+.affiliation-wasp{border-radius:4px}
+.affiliation-tours{filter:brightness(0)}
+@media(max-width:450px){.affiliations-list{gap:.85rem 1rem}.hero-affiliation{gap:.5rem}}
+@media(max-width:360px){.affiliations-list{grid-template-columns:1fr}}

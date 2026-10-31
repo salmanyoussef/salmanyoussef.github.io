@@ -1,3 +1,5 @@
 Organization logos from official websites, used to identify past work experience.
 CNL: https://www.cnl.ca/wp-content/uploads/2020/05/logo-icon.png
 Athena Security Group: https://athenasecuritygroup.ai/wp-content/uploads/2026/08/athena-owl-logo-lite-mode.png
+WASP Labs: https://github.com/WASPLab (organization avatar: https://avatars.githubusercontent.com/u/66134334?s=200&v=4)
+Université de Tours: https://phototheque.univ-tours.fr/assets/components/img/logo_tours_white.png
