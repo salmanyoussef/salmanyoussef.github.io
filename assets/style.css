@@ -193,3 +193,10 @@ html[lang=zh-Hans] .personal-title{font-family:"Songti SC",SimSun,serif;letter-s
 #projects .project-grid{align-items:start}
 #projects .project-card{height:auto;align-self:start}
 #projects .project-card>:last-child{margin-bottom:0}
+
+/* Pop the experience technology panel forward when using a mouse. */
+#experience .stack-panel{position:relative;transition:transform .2s ease,box-shadow .2s ease,border-color .2s ease}
+@media(hover:hover) and (pointer:fine){
+#experience .stack-panel:hover{transform:translateY(-4px) scale(1.025);box-shadow:0 14px 28px -8px #263d3340;border-color:var(--accent);z-index:2}
+}
+@media(prefers-reduced-motion:reduce){#experience .stack-panel{transition:none}#experience .stack-panel:hover{transform:none}}
