@@ -3,4 +3,7 @@ CNL: https://www.cnl.ca/wp-content/uploads/2020/05/logo-icon.png
 Athena Security Group: https://athenasecuritygroup.ai/wp-content/uploads/2026/08/athena-owl-logo-lite-mode.png
 WASP Labs: https://github.com/WASPLab (organization avatar: https://avatars.githubusercontent.com/u/66134334?s=200&v=4)
 Université de Tours: https://phototheque.univ-tours.fr/assets/components/img/logo_tours_white.png
-TekSavvy: https://www.teksavvy.com/wp-content/themes/teksavvy/assets/svg/teksavvy-logo.svg (Tek portion cropped for compact identification)
+TekSavvy: https://www.teksavvy.com/wp-content/themes/teksavvy/assets/svg/teksavvy-logo.svg (complete official wordmark, unmodified)
+
+WASP display asset: wasp-transparent.png, transparent derivative made with the built-in image editing tool from the official organization avatar; resized to 128×128 for web use. Prompt: remove the white background and negative spaces; preserve the blue wasp and yellow circuit outlines, proportions, positions and colors; no redesign, added text, or shadow.
+Tours display: original official white symbol used as a mask filled with currentColor for light and dark background contrast.

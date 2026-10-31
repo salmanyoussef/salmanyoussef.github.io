@@ -146,6 +146,9 @@ html[lang=zh-Hans] .personal-title{font-family:"Songti SC",SimSun,serif;letter-s
 .affiliations-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.9rem 1.4rem;max-width:560px}
 .hero-affiliation{min-width:0}
 .affiliation-wasp{border-radius:4px}
-.affiliation-tours{filter:brightness(0)}
+.affiliation-tours{color:inherit}
 @media(max-width:450px){.affiliations-list{gap:.85rem 1rem}.hero-affiliation{gap:.5rem}}
 @media(max-width:360px){.affiliations-list{grid-template-columns:1fr}}
+
+/* Preserve the complete TekSavvy wordmark on both light and dark backgrounds. */
+.affiliation-teksavvy{width:64px;flex-basis:64px;background:#fff;padding:3px;border-radius:3px}
