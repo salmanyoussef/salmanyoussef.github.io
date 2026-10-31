@@ -7,3 +7,6 @@ TekSavvy: https://www.teksavvy.com/wp-content/themes/teksavvy/assets/svg/teksavv
 
 WASP display asset: wasp-transparent.png, transparent derivative made with the built-in image editing tool from the official organization avatar; resized to 128×128 for web use. Prompt: remove the white background and negative spaces; preserve the blue wasp and yellow circuit outlines, proportions, positions and colors; no redesign, added text, or shadow.
 Tours display: original official white symbol used as a mask filled with currentColor for light and dark background contrast.
+
+Asfour Crystal: https://shop.asfourcrystal.com/cdn/shop/files/ASFOUR_Horizontal_Logo_Transparent_Black_220x.png?v=1613552308 (official shop; bird symbol displayed via native SVG alpha mask with currentColor).
+CEC: neutral initials monogram created for the portfolio; not an official company logo. Employer logo has not been verified because multiple companies share this acronym.

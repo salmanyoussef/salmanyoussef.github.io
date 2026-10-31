@@ -128,7 +128,7 @@ html[lang=zh-Hans] .personal-title{font-family:"Songti SC",SimSun,serif;letter-s
 
 /* A compact, clearly historical introduction to the two organizations. */
 .hero-affiliations{margin:1.25rem 0 1.6rem;max-width:100%}
-.affiliations-label{font-size:.62rem;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);margin:0 0 .7rem;font-weight:600}
+.affiliations-label{font-size:.54rem;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);margin:0 0 .7rem;font-weight:600}
 .affiliations-list{display:flex;align-items:center;flex-wrap:wrap;gap:1rem 1.6rem}
 .hero-affiliation{display:inline-flex;align-items:center;gap:.6rem;text-decoration:none;max-width:100%;color:var(--ink)}
 .affiliation-logo{display:block;width:32px;height:34px;object-fit:contain;flex:0 0 32px;overflow:hidden}
