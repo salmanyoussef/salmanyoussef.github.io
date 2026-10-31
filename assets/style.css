@@ -156,3 +156,6 @@ html[lang=zh-Hans] .personal-title{font-family:"Songti SC",SimSun,serif;letter-s
 /* Display tints distinguish these symbols and maintain contrast on light and dark surfaces. */
 .affiliation-asfour{color:inherit;filter:grayscale(1) contrast(100) brightness(.702)}
 .affiliation-cec,.affiliation-wasp{filter:drop-shadow(0 0 .45px rgba(255,255,255,.7))}
+
+/* Fine light edge keeps UDST's official blue symbol readable on dark surfaces. */
+.affiliation-udst{filter:drop-shadow(0 0 .65px rgba(255,255,255,.8))}

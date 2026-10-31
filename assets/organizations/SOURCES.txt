@@ -16,3 +16,6 @@ Display refinements: Tours symbol uses blue #287f9d and Asfour symbol matches of
 Asfour official colour verified from https://www.asfourcrystal.com/ logo SVG https://asfourcorp.com/wp-content/uploads/2022/12/Group-29-2.svg ; paths have no fill override, using default SVG black (#000). Portfolio follows the surrounding text colour through grayscale and contrast to produce exact black on light surfaces and a white reversed logo on dark surfaces, without a background tile.
 
 Dark-surface Asfour treatment matched to the user's official-site phone screenshot: dominant logo grey RGB(179,179,179), #b3b3b3. Grayscale/contrast followed by brightness(.702) preserves black on light surfaces and changes the reversed logo to silver-grey on dark surfaces.
+
+University of Windsor: official header logo https://www.uwindsor.ca/sites/all/themes/uwindsor_bootstrap/images/uwindsor_logo.svg ; viewBox narrowed to the full-colour shield symbol for the compact affiliation slot.
+UDST: official compact logo https://www.udst.edu.qa/themes/custom/cnaq/logo-sm.svg ; original #0055B8 symbol, with a fine light drop-shadow edge for dark-background contrast. Full institution name: University of Doha for Science and Technology.
