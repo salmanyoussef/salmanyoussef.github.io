@@ -9,4 +9,6 @@ WASP display asset: wasp-transparent.png, transparent derivative made with the b
 Tours display: original official white symbol used as a mask filled with currentColor for light and dark background contrast.
 
 Asfour Crystal: https://shop.asfourcrystal.com/cdn/shop/files/ASFOUR_Horizontal_Logo_Transparent_Black_220x.png?v=1613552308 (official shop; bird symbol displayed via native SVG alpha mask with currentColor).
-CEC: neutral initials monogram created for the portfolio; not an official company logo. Employer logo has not been verified because multiple companies share this acronym.
+CEC: official LinkedIn company logo, https://www.linkedin.com/company/cec-consulting-engineering-co ; CEC portion displayed without a border, with native SVG white removal. Official site: http://www.elsaie-engineering.com/fixed.php?id=1
+
+Display refinements: Tours symbol uses blue #287f9d and Asfour symbol uses gold #a87920 for contrast across light/dark surfaces, as authorized by the site owner. Asfour LinkedIn identity checked at https://www.linkedin.com/company/asfourcrystal . TekSavvy retains the full official unmodified SVG at a 32px display width, without a surrounding background.

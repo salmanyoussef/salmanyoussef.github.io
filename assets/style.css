@@ -146,9 +146,13 @@ html[lang=zh-Hans] .personal-title{font-family:"Songti SC",SimSun,serif;letter-s
 .affiliations-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.9rem 1.4rem;max-width:560px}
 .hero-affiliation{min-width:0}
 .affiliation-wasp{border-radius:4px}
-.affiliation-tours{color:inherit}
+.affiliation-tours{color:#287f9d}
 @media(max-width:450px){.affiliations-list{gap:.85rem 1rem}.hero-affiliation{gap:.5rem}}
 @media(max-width:360px){.affiliations-list{grid-template-columns:1fr}}
 
-/* Preserve the complete TekSavvy wordmark on both light and dark backgrounds. */
-.affiliation-teksavvy{width:64px;flex-basis:64px;background:#fff;padding:3px;border-radius:3px}
+/* Complete official wordmark, with the same icon width and no surrounding background. */
+.affiliation-teksavvy{width:32px;flex-basis:32px;background:none;padding:0;border-radius:0;filter:drop-shadow(0 0 .6px rgba(255,255,255,.85))}
+
+/* Display tints distinguish these symbols and maintain contrast on light and dark surfaces. */
+.affiliation-asfour{color:#a87920}
+.affiliation-cec,.affiliation-wasp{filter:drop-shadow(0 0 .45px rgba(255,255,255,.7))}
