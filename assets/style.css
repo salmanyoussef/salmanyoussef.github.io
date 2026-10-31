@@ -185,6 +185,6 @@ html[lang=zh-Hans] .personal-title{font-family:"Songti SC",SimSun,serif;letter-s
 #teaching{padding-top:1.25rem}
 
 /* Keep the hero buttons, affiliation label, and first row close together. */
-.hero-main>.hero-actions{margin-bottom:.25rem}
+.hero-main>.hero-actions{margin-bottom:.9rem}
 .hero-main>.hero-affiliations{margin-top:0}
 .hero-affiliations>.affiliations-label{margin-bottom:0}
