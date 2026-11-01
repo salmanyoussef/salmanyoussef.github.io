@@ -244,3 +244,6 @@ html[lang=zh-Hans] .personal-title{font-family:"Songti SC",SimSun,serif;letter-s
 #testimonials>.container>.project-grid>.reference-wide{grid-column:1/-1}
 .reference-text p:first-child{margin-top:0}
 .reference-text p:last-child{margin-bottom:0}
+
+/* Keep the teaching sample close to its section heading. */
+#teaching .section-head{margin-bottom:.5rem}
