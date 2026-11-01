@@ -6,7 +6,8 @@
   let mode = 'idle', allowed = false, frame = 0, lastFrame = 0;
   let box, width = 0, height = 0, maxX = 0, maxY = 0, homeX = 0, homeY = 0;
   let x = 0, y = 0, vx = 0, vy = 0, goal = { x: 0, y: 0 };
-  let pointer = null, pointerVX = 0, pointerVY = 0, lastPointerTime = 0;
+  let pointer = null, pointerVX = 0, pointerVY = 0, lastPointerTime = 0, lastMotionTime = 0;
+  let motionAnchor = null;
   let routeUntil = 0, feint = 1, started = 0, lastInside = 0, cooldown = 0;
   const clamp = (v, min, max) => Math.max(min, Math.min(max, v));
   const clock = () => performance.now();
@@ -51,7 +52,7 @@
     x = homeX; y = homeY;
     allowed = eligible.matches && maxX >= 50 && maxY >= 160;
     button.classList.toggle('chase-ready', allowed);
-    pointer = null; pointerVX = pointerVY = 0;
+    pointer = null; motionAnchor = null; lastMotionTime = 0; pointerVX = pointerVY = 0;
   }
   function localPointer() { return pointer && { x: pointer.x - box.left, y: pointer.y - box.top }; }
   function insideArena(p, margin = 0) { return p && p.x >= -margin && p.y >= -margin && p.x <= maxX + width + margin && p.y <= maxY + height + margin; }
@@ -105,6 +106,20 @@
     const p = localPointer();
     if (insideArena(p, 20)) lastInside = now;
     else if (now - lastInside > 350) { returnHome(); return; }
+    // A cat finishes its escape, then rests while the pursuer is still.
+    // Coast to a complete stop instead of continually choosing escape routes.
+    if (now - lastMotionTime > 160) {
+      const coast = Math.exp(-dt / .09);
+      vx *= coast; vy *= coast;
+      if (Math.hypot(vx, vy) < 3) {
+        vx = vy = pointerVX = pointerVY = 0;
+        lastFrame = 0;
+        return;
+      }
+      x = clamp(x + vx * dt, 0, maxX);
+      y = clamp(y + vy * dt, 0, maxY);
+      render(); wake(); return;
+    }
     if (now > routeUntil || Math.hypot(goal.x - x, goal.y - y) < 65) chooseRoute(now);
     const threat = Math.max(0, 1 - distance(p) / 170);
     const gx = goal.x - x, gy = goal.y - y, gl = Math.hypot(gx, gy) || 1;
@@ -141,11 +156,14 @@
       pointerVY = clamp(pointerVY * .6 + (pointer.y - previous.y) / dt * .4, -1800, 1800);
     }
     lastPointerTime = now;
+    const moved = !motionAnchor || Math.hypot(pointer.x - motionAnchor.x, pointer.y - motionAnchor.y) >= 1;
+    if (moved) { lastMotionTime = now; motionAnchor = { ...pointer }; }
     const p = localPointer();
     if (mode === 'caught') { if (!insideArena(p, 28)) returnHome(); return; }
     if (mode === 'returning') return;
     if (mode === 'chasing') {
       if (now - started > 140 && inCore(p)) catchButton();
+      else if (moved) { if (!frame) { lastFrame = 0; routeUntil = 0; } wake(); }
       return;
     }
     const otherControl = event.target?.closest?.('a,button');
