@@ -280,9 +280,9 @@ html[lang=zh-Hans] .personal-title{font-family:"Songti SC",SimSun,serif;letter-s
  .hero-affiliations .hero-affiliation{inset-inline-start:var(--affiliation-row-inset,0px)}
  .hero-affiliations .affiliation-name{white-space:normal;overflow-wrap:anywhere}
 }
-/* Warm sunlight surrounds the portrait on hover without covering the image. */
+/* Pure white light surrounds the portrait without covering the image. */
 @media(min-width:681px) and (hover:hover) and (pointer:fine){
- .profile-photo-frame:hover{box-shadow:0 0 16px rgba(255,247,217,.85),0 0 34px rgba(255,218,145,.48),0 0 55px rgba(255,196,102,.2)}
+ .profile-photo-frame:hover{box-shadow:0 0 3px 1px rgba(255,255,255,.95),0 0 22px rgba(255,255,255,.85),0 0 48px rgba(255,255,255,.5)}
 }
 
 /* Local SVG flags render consistently, including on Windows browsers. */
@@ -344,3 +344,14 @@ html[lang=zh-Hans] .personal-title{font-family:"Songti SC",SimSun,serif;letter-s
  #beyond-work .personal-play,#beyond-work .personal-source{transition:none}
  #beyond-work .personal-field:hover .personal-play,#beyond-work .personal-source:hover{transform:none}
 }
+
+/* Keep the final memory and the collaboration panel still; only their links lift. */
+#beyond-work:hover>.container,#beyond-work .personal-card:hover,#about:hover>.container,#about .work-with-card:hover{transform:none}
+#beyond-work .personal-card:hover{box-shadow:none;border-color:#243e48}
+#about .work-with-card:hover{box-shadow:none}
+#beyond-work .personal-field{cursor:default}
+.personal-memory{display:inline-block;margin-top:.35rem}
+/* Match the subtle resource-link lift on the teaching booking link. */
+#teaching .project-links a{display:inline-block;transition:transform .2s ease,color .2s ease}
+@media(hover:hover) and (pointer:fine){#teaching .project-links a:hover{transform:translateY(-2px)}}
+@media(prefers-reduced-motion:reduce){#teaching .project-links a{transition:none}#teaching .project-links a:hover{transform:none}}

@@ -46,6 +46,7 @@
   const section = list.closest('.hero-affiliations');
   let bodies = [], pointer = null, animation = 0, lastTime = 0;
   let origin = { left: 0, top: 0 }, focused = false, pressing = false;
+  let aim = { body: null, held: null, direction: 0 }, aimedAt = null;
   function clearMotion() {
     cancelAnimationFrame(animation);
     animation = 0;
@@ -64,6 +65,7 @@
   }
   function measureBodies() {
     clearMotion();
+    aim = { body: null, held: null, direction: 0 }; aimedAt = null;
     list.classList.toggle('has-proximity', playful.matches);
     const box = list.getBoundingClientRect();
     origin = { left: box.left, top: box.top };
@@ -75,6 +77,28 @@
     pointer = null;
   }
   const inside = (p, b, x = 0, y = 0, inset = 0) => p.x >= b.left + x + inset && p.x <= b.left + x + b.width - inset && p.y >= b.top + y + inset && p.y <= b.top + y + b.height - inset;
+  // Pick a target only from real pointer movement, not from the tiles moving.
+  function chooseAim(client) {
+    const p = { x: client.x - origin.left, y: client.y - origin.top };
+    const held = bodies.find(b => inside(p, b, b.x, b.y, Math.min(12, b.height * .32, b.width * .15)));
+    if (held) { aim = { body: held, held, direction: 0 }; aimedAt = client; return; }
+    let candidate = null, best = 90;
+    bodies.forEach(b => {
+      const left = b.left + b.x, top = b.top + b.y;
+      const distance = Math.hypot(Math.max(left - p.x, 0, p.x - left - b.width), Math.max(top - p.y, 0, p.y - top - b.height));
+      if (distance < best) { best = distance; candidate = b; }
+    });
+    let direction = 0;
+    if (candidate) {
+      const left = candidate.left + candidate.x;
+      direction = candidate === aim.body && !aim.held ? aim.direction : Math.sign(left + candidate.width / 2 - p.x);
+      if (p.x < left - 3) direction = 1;
+      else if (p.x > left + candidate.width + 3) direction = -1;
+      if (!direction) direction = left + candidate.width / 2 < list.clientWidth / 2 ? 1 : -1;
+    }
+    aim = { body: candidate, held: null, direction };
+    aimedAt = client;
+  }
   function tick(time) {
     animation = 0;
     if (!playful.matches || focused || pressing) return;
@@ -85,22 +109,22 @@
     // this smaller home step gives non-active tiles an independent slow return.
     const homeStep = (1 - Math.exp(-dt / 850)) / alpha;
     const p = pointer && { x: pointer.x - origin.left, y: pointer.y - origin.top };
-    const hovered = p && bodies.find(b => inside(p, b, b.x, b.y, Math.min(12, b.height * .32, b.width * .15)));
-    let nearest = null, nearestDistance = 90;
-    if (p && !hovered) bodies.forEach(b => {
-      const left = b.left + b.x, top = b.top + b.y;
-      const distance = Math.hypot(Math.max(left - p.x, 0, p.x - left - b.width), Math.max(top - p.y, 0, p.y - top - b.height));
-      if (distance < nearestDistance) { nearestDistance = distance; nearest = b; }
-    });
+    const hovered = p && aim.held;
+    const nearest = p && !hovered ? aim.body : null;
+    let nearestDistance = 1000;
+    if (nearest) {
+      const left = nearest.left + nearest.x, top = nearest.top + nearest.y;
+      nearestDistance = Math.hypot(Math.max(left - p.x, 0, p.x - left - nearest.width), Math.max(top - p.y, 0, p.y - top - nearest.height));
+    }
     const targets = bodies.map(b => {
       const left = b.left + b.x, top = b.top + b.y;
       const held = b === hovered;
-      const strength = b === nearest ? Math.pow(1 - nearestDistance / 90, 2) : 0;
-      let direction = !strength ? 0 : Math.sign(left + b.width / 2 - p.x);
-      if (strength && !direction) direction = left + b.width / 2 < list.clientWidth / 2 ? 1 : -1;
+      const strength = b === nearest ? Math.pow(Math.max(0, 1 - nearestDistance / 90), 2) : 0;
+      const direction = b === nearest ? aim.direction : 0;
+      const restingAtBarrier = b === nearest && !strength;
       return { b, held,
-        left: held ? left : strength ? left + direction * 36 * strength : left - b.x * homeStep,
-        y: held ? b.y : strength ? Math.max(-3, Math.min(3, b.y + Math.sign(top + b.height / 2 - p.y) * .6 * strength)) : b.y * (1 - homeStep),
+        left: held || restingAtBarrier ? left : strength ? left + direction * 36 * strength : left - b.x * homeStep,
+        y: held || restingAtBarrier ? b.y : strength ? Math.max(-3, Math.min(3, b.y + Math.sign(top + b.height / 2 - p.y) * .6 * strength)) : b.y * (1 - homeStep),
         border: held ? 1 : strength, force: direction * strength };
     });
     const rows = [];
@@ -151,6 +175,8 @@
     const near = p.x >= origin.left - 100 && p.x <= origin.left + list.clientWidth + 100 && p.y >= origin.top - 100 && p.y <= origin.top + list.clientHeight + 100;
     const displaced = bodies.some(b => Math.abs(b.x) + Math.abs(b.y) > .05);
     if (!near && !pointer && !animation && !displaced) return;
+    if (near && (!pointer || !aimedAt || Math.hypot(p.x - aimedAt.x, p.y - aimedAt.y) >= 3)) chooseAim(p);
+    if (!near) { aim = { body: null, held: null, direction: 0 }; aimedAt = null; }
     pointer = near ? p : null;
     animate();
   }, { passive: true });
