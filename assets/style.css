@@ -322,3 +322,13 @@ html[lang=zh-Hans] .personal-title{font-family:"Songti SC",SimSun,serif;letter-s
  #about .btn,#contact .contact-card a:not(.social-link){transition:none}
  #about .btn:hover,#contact .contact-card a:not(.social-link):hover{transform:none}
 }
+
+/* Subtle hover lift for the resource links at the bottom of project cards. */
+#projects .project-card .project-links a{display:inline-block;transition:transform .2s ease,color .2s ease}
+@media(hover:hover) and (pointer:fine){
+ #projects .project-card .project-links a:hover{transform:translateY(-2px)}
+}
+@media(prefers-reduced-motion:reduce){
+ #projects .project-card .project-links a{transition:none}
+ #projects .project-card .project-links a:hover{transform:none}
+}
