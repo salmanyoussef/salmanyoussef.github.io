@@ -1,6 +1,5 @@
 (() => {
-  const grid = document.querySelector('#projects .project-grid');
-  if (!grid) return;
+  document.querySelectorAll('#projects .project-grid, #teaching .project-grid').forEach(grid => {
   const cards = [...grid.children].filter(card => card.matches('.project-card'));
   const mobile = window.matchMedia('(max-width: 680px)');
   let queued = false;
@@ -37,4 +36,5 @@
   window.addEventListener('resize', schedule, { passive: true });
   if (document.fonts) document.fonts.ready.then(schedule);
   schedule();
+  });
 })();
