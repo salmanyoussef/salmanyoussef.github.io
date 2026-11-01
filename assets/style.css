@@ -274,5 +274,20 @@ html[lang=zh-Hans] .personal-title{font-family:"Songti SC",SimSun,serif;letter-s
 /* A gentle photographic grade for the new matchday selfie. */
 .personal-self>img{object-position:50% 50%;filter:contrast(1.02) saturate(.95);transform:none}
 
-/* Centre each desktop affiliation row while retaining natural entry widths. */
-@media(min-width:681px){.hero-affiliations .affiliations-list{justify-content:center}}
+/* Anchor the widest row at the start, with smaller insets for shorter rows. */
+@media(min-width:681px){
+ .hero-affiliations .affiliations-list{justify-content:flex-start;column-gap:2rem}
+ .hero-affiliations .hero-affiliation{inset-inline-start:var(--affiliation-row-inset,0px)}
+}
+/* A soft, single sweep of light on desktop portrait hover. */
+@media(min-width:681px) and (hover:hover) and (pointer:fine) and (prefers-reduced-motion:no-preference){
+ .profile-photo-frame{position:relative}
+ .profile-photo-frame::after{content:"";position:absolute;inset:0 auto 0 0;width:45%;background:linear-gradient(110deg,transparent,rgba(255,255,255,.28),transparent);transform:translateX(-120%) skewX(-18deg);opacity:0;pointer-events:none}
+ .profile-photo-frame:hover::after{animation:portrait-shine .85s ease-out}
+}
+@keyframes portrait-shine{
+ 0%{transform:translateX(-120%) skewX(-18deg);opacity:0}
+ 18%{opacity:1}
+ 80%{opacity:1}
+ 100%{transform:translateX(360%) skewX(-18deg);opacity:0}
+}
