@@ -297,7 +297,7 @@ html[lang=zh-Hans] .personal-title{font-family:"Songti SC",SimSun,serif;letter-s
 }
 
 /* Keep the collaboration boundaries visible even when the pointer is away. */
-@media(min-width:681px){.hero-affiliations .hero-affiliation::after{content:"";position:absolute;inset:-4px -5px;border:1px solid rgba(89,100,93,calc(.12 + var(--proximity-outline,0)*.08));border-radius:5px;opacity:1;pointer-events:none}}
+@media(min-width:681px){.hero-affiliations .hero-affiliation::after{content:"";position:absolute;inset:-2px -5px;border:1px solid rgba(89,100,93,calc(.12 + var(--proximity-outline,0)*.08));border-radius:5px;opacity:1;pointer-events:none}}
 
 /* A quiet tile highlight replaces the text underline in the collaboration menu. */
 .hero-affiliations .hero-affiliation:hover .affiliation-name{text-decoration:none}
