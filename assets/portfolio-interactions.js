@@ -2,12 +2,11 @@
   const region = document.querySelector('.binary-transition');
   if (!region) return;
   const canvas = region.querySelector('canvas');
-  const button = region.querySelector('.binary-toggle');
   const context = canvas.getContext('2d');
-  if (!context) { button.hidden = true; return; }
+  if (!context) return;
   const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
   let width = 0, height = 0, columns = [], frame = 0, lastTime = 0;
-  let visible = false, paused = false;
+  let visible = false;
   const pixels = { '0': ['111','101','101','101','111'], '1': ['010','110','010','010','111'] };
 
   function resize() {
@@ -64,15 +63,10 @@
     cancelAnimationFrame(frame);
     frame = 0;
     lastTime = 0;
-    button.hidden = reduced.matches;
-    button.setAttribute('aria-pressed', String(paused));
-    button.setAttribute('aria-label', paused ? button.dataset.resumeLabel : button.dataset.pauseLabel);
-    region.classList.toggle('is-paused', paused);
-    if (visible && !document.hidden && !paused && !reduced.matches) frame = requestAnimationFrame(tick);
+    if (visible && !document.hidden && !reduced.matches) frame = requestAnimationFrame(tick);
     else draw(0);
   }
 
-  button.addEventListener('click', () => { paused = !paused; update(); });
   document.addEventListener('visibilitychange', update);
   reduced.addEventListener('change', update);
   new ResizeObserver(resize).observe(region);
