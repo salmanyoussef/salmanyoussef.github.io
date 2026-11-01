@@ -21,10 +21,14 @@
       items,
       width: items.reduce((sum, e) => sum + e.offsetWidth, 0) + gap * (items.length - 1)
     }));
-    const widest = Math.max(0, ...measured.map(row => row.width));
+    const boundary = list.clientWidth;
+    const extraGapLimit = parseFloat(getComputedStyle(document.documentElement).fontSize) * 2.5;
     measured.forEach(row => {
-      const inset = Math.max(0, (widest - row.width) * .25);
-      row.items.forEach(e => e.style.setProperty('--affiliation-row-inset', inset + 'px'));
+      const free = Math.max(0, boundary - row.width);
+      const gaps = row.items.length - 1;
+      const extra = gaps > 0 ? Math.min(extraGapLimit, free * .5 / gaps) : 0;
+      const inset = Math.max(0, (free - extra * gaps) * .25);
+      row.items.forEach((e, index) => e.style.setProperty('--affiliation-row-inset', (inset + index * extra) + 'px'));
     });
   }
   function schedule() {
