@@ -260,3 +260,6 @@ html[lang=zh-Hans] .personal-title{font-family:"Songti SC",SimSun,serif;letter-s
 /* Match the height of each feedback pair, preserving the full-width final reference. */
 #testimonials .project-grid{align-items:stretch}
 #testimonials .project-card{align-self:stretch}
+
+/* Give the mobile Worked with label a little breathing room. */
+@media(max-width:680px){.hero-affiliations>.affiliations-label{margin-bottom:.65rem}}
