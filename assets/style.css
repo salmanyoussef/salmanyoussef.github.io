@@ -272,7 +272,7 @@ html[lang=zh-Hans] .personal-title{font-family:"Songti SC",SimSun,serif;letter-s
 .profile-photo-frame{box-shadow:none}
 
 /* A gentle photographic grade for the new matchday selfie. */
-.personal-self>img{object-position:50% 50%;filter:contrast(1.05) saturate(.9) brightness(1.03);transform:none}
+.personal-self>img{object-position:50% 50%;filter:contrast(1.02) saturate(.95);transform:none}
 
-/* Give shorter desktop affiliation rows room while preserving the minimum gap on fuller rows. */
-@media(min-width:681px){.hero-affiliations .affiliations-list{justify-content:space-between}}
+/* Centre each desktop affiliation row while retaining natural entry widths. */
+@media(min-width:681px){.hero-affiliations .affiliations-list{justify-content:center}}
