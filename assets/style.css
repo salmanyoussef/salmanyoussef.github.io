@@ -366,3 +366,6 @@ html[lang=zh-Hans] .personal-title{font-family:"Songti SC",SimSun,serif;letter-s
  .hero-main[data-chase-mode="chasing"] .hero-affiliations,.hero-main[data-chase-mode="caught"] .hero-affiliations,.hero-main[data-chase-mode="returning"] .hero-affiliations{pointer-events:none}
  .hero-main[data-chase-mode="chasing"] .hero-affiliation::after,.hero-main[data-chase-mode="caught"] .hero-affiliation::after,.hero-main[data-chase-mode="returning"] .hero-affiliation::after{background:transparent;box-shadow:none;border-color:rgba(89,100,93,.12)}
 }
+
+/* Native fragment navigation also clears the measured sticky header. */
+html{scroll-padding-top:var(--anchor-header-space,140px)}
