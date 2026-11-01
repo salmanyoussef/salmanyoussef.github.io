@@ -270,3 +270,6 @@ html[lang=zh-Hans] .personal-title{font-family:"Songti SC",SimSun,serif;letter-s
 
 /* Keep the portrait shadow-free on every device. */
 .profile-photo-frame{box-shadow:none}
+
+/* A gentle photographic grade for the new matchday selfie. */
+.personal-self>img{object-position:50% 50%;filter:contrast(1.05) saturate(.9) brightness(1.03);transform:none}
