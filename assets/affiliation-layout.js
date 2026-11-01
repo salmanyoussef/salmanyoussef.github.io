@@ -56,6 +56,12 @@
       b.el.style.removeProperty('--proximity-outline');
     });
   }
+  // Stop the game where it is; never send links back home on hover or click.
+  function pauseMotion() {
+    cancelAnimationFrame(animation);
+    animation = 0;
+    lastTime = 0;
+  }
   function measureBodies() {
     clearMotion();
     list.classList.toggle('has-proximity', playful.matches);
@@ -80,7 +86,7 @@
     lastTime = time;
     const alpha = 1 - Math.exp(-dt / 90);
     const p = pointer && { x: pointer.x - origin.left, y: pointer.y - origin.top };
-    if (p && directHit(p)) { clearMotion(); return; }
+    if (p && directHit(p)) { pointer = null; pauseMotion(); return; }
     const targets = bodies.map(b => {
       const left = b.left + b.x, top = b.top + b.y;
       const dx = p ? Math.max(left - p.x, 0, p.x - left - b.width) : 1000;
@@ -89,8 +95,8 @@
       const strength = Math.pow(Math.max(0, 1 - distance / 96), 2);
       let direction = !p ? 0 : p.x < left ? 1 : p.x > left + b.width ? -1 : Math.max(-1, Math.min(1, (left + b.width / 2 - p.x) / (b.width / 2)));
       if (strength > 0) direction = Math.abs(direction) < .2 ? (left + b.width / 2 < list.clientWidth / 2 ? 1 : -1) : Math.sign(direction);
-      return { b, left: b.left + direction * 170 * strength,
-        y: p ? Math.sign(top + b.height / 2 - p.y) * 2.5 * strength : 0,
+      return { b, left: left + direction * 18 * strength,
+        y: p ? Math.max(-3, Math.min(3, b.y + Math.sign(top + b.height / 2 - p.y) * .6 * strength)) : b.y,
         border: strength, force: direction * strength };
     });
     const rows = [];
@@ -136,20 +142,20 @@
     if (!playful.matches || focused || event.pointerType === 'touch') return;
     const p = { x: event.clientX, y: event.clientY };
     if (directHit({ x: p.x - origin.left, y: p.y - origin.top })) {
-      pointer = null; clearMotion(); return;
+      pointer = null; pauseMotion(); return;
     }
     const near = p.x >= origin.left - 104 && p.x <= origin.left + list.clientWidth + 104 && p.y >= origin.top - 104 && p.y <= origin.top + list.clientHeight + 104;
     if (!near && !pointer && !animation) return;
     pointer = near ? p : null;
     animate();
   }, { passive: true });
-  section.addEventListener('pointerdown', event => { if (event.target.closest('.hero-affiliation')) { pointer = null; clearMotion(); } }, { capture: true });
-  section.addEventListener('focusin', event => { focused = event.target.matches(':focus-visible'); pointer = null; clearMotion(); });
+  section.addEventListener('pointerdown', event => { if (event.target.closest('.hero-affiliation')) { pointer = null; pauseMotion(); } }, { capture: true });
+  section.addEventListener('focusin', event => { focused = event.target.matches(':focus-visible'); pointer = null; pauseMotion(); });
   section.addEventListener('focusout', () => { focused = false; });
-  window.addEventListener('blur', () => { pointer = null; clearMotion(); });
+  window.addEventListener('blur', () => { pointer = null; pauseMotion(); });
   document.documentElement.addEventListener('pointerleave', () => { pointer = null; animate(); });
   window.addEventListener('scroll', () => {
-    pointer = null; clearMotion();
+    pointer = null; pauseMotion();
     const r = list.getBoundingClientRect(); origin = { left: r.left, top: r.top };
   }, { passive: true });
   playful.addEventListener('change', schedule);
