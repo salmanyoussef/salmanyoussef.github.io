@@ -332,3 +332,15 @@ html[lang=zh-Hans] .personal-title{font-family:"Songti SC",SimSun,serif;letter-s
  #projects .project-card .project-links a{transition:none}
  #projects .project-card .project-links a:hover{transform:none}
 }
+
+/* Give the matchday video control and source link the same gentle lift. */
+#beyond-work .personal-play{transition:background .2s ease,transform .2s ease}
+#beyond-work .personal-source{transition:color .2s ease,transform .2s ease}
+@media(hover:hover) and (pointer:fine){
+ #beyond-work .personal-field:hover .personal-play{transform:translateY(-2px)}
+ #beyond-work .personal-source:hover{transform:translateY(-2px)}
+}
+@media(prefers-reduced-motion:reduce){
+ #beyond-work .personal-play,#beyond-work .personal-source{transition:none}
+ #beyond-work .personal-field:hover .personal-play,#beyond-work .personal-source:hover{transform:none}
+}
