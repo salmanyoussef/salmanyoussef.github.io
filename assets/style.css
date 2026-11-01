@@ -192,12 +192,12 @@ html[lang=zh-Hans] .personal-title{font-family:"Songti SC",SimSun,serif;letter-s
 #projects .project-card{height:auto;align-self:start}
 #projects .project-card>:last-child{margin-bottom:0}
 
-/* Pop the experience technology panel forward when using a mouse. */
+/* Lift each experience technology panel together with its parent entry. */
 #experience .stack-panel{position:relative;transition:transform .2s ease,box-shadow .2s ease}
 @media(hover:hover) and (pointer:fine){
-#experience .stack-panel:hover{transform:translateY(-2px) scale(1.01);box-shadow:0 8px 18px -8px #263d332e;z-index:2}
+#experience .timeline-item:hover .stack-panel{transform:translateY(-2px) scale(1.01);box-shadow:0 8px 18px -8px #263d332e;z-index:2}
 }
-@media(prefers-reduced-motion:reduce){#experience .stack-panel{transition:none}#experience .stack-panel:hover{transform:none}}
+@media(prefers-reduced-motion:reduce){#experience .stack-panel{transition:none}#experience .timeline-item:hover .stack-panel{transform:none;box-shadow:none}}
 
 /* Pack project cards upward while retaining their document order. */
 @media(min-width:681px){#projects .project-grid.is-packed{grid-auto-rows:4px;row-gap:0;grid-auto-flow:row}}
