@@ -371,13 +371,15 @@ html[lang=zh-Hans] .personal-title{font-family:"Songti SC",SimSun,serif;letter-s
 /* Native fragment navigation also clears the measured sticky header. */
 html{scroll-padding-top:var(--anchor-header-space,140px)}
 
-/* Lift every skill badge when the surrounding expertise card is hovered. */
-#skills .skills-block>.tech-badge,#skills .skills-block>.pill{
+/* Lift skill and education badges when their surrounding card is hovered. */
+#skills .skills-block>.tech-badge,#skills .skills-block>.pill,
+#education .skills-block>.pill{
  position:relative;transition:transform .2s ease,box-shadow .2s ease;
 }
 @media(hover:hover) and (pointer:fine) and (prefers-reduced-motion:no-preference){
  #skills .section-card:hover .skills-block>.tech-badge,
- #skills .section-card:hover .skills-block>.pill{
+ #skills .section-card:hover .skills-block>.pill,
+ #education .section-card:hover .skills-block>.pill{
   transform:translateY(-2px) scale(1.01);
   box-shadow:0 8px 18px -8px #263d332e;
   z-index:2;
