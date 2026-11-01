@@ -45,6 +45,7 @@
   const playful = matchMedia('(min-width:681px) and (hover:hover) and (pointer:fine) and (prefers-reduced-motion:no-preference)');
   const section = list.closest('.hero-affiliations');
   let bodies = [], pointer = null, animation = 0, lastTime = 0;
+  let chasePaused = false;
   let origin = { left: 0, top: 0 }, focused = false, pressing = false;
   let aim = { held: null, responses: new Map() }, aimedAt = null;
   function clearMotion() {
@@ -114,7 +115,7 @@
   }
   function tick(time) {
     animation = 0;
-    if (!playful.matches || focused || pressing) return;
+    if (!playful.matches || focused || pressing || chasePaused) return;
     const dt = Math.min(40, lastTime ? time - lastTime : 16);
     lastTime = time;
     const alpha = 1 - Math.exp(-dt / 70);
@@ -179,9 +180,9 @@
     });
     if (moving) animation = requestAnimationFrame(tick);
   }
-  function animate() { if (!animation) { lastTime = 0; animation = requestAnimationFrame(tick); } }
+  function animate() { if (chasePaused) return; if (!animation) { lastTime = 0; animation = requestAnimationFrame(tick); } }
   window.addEventListener('pointermove', event => {
-    if (!playful.matches || focused || event.pointerType === 'touch') return;
+    if (!playful.matches || focused || chasePaused || event.pointerType === 'touch') return;
     const p = { x: event.clientX, y: event.clientY, time: event.timeStamp };
     const near = p.x >= origin.left - 100 && p.x <= origin.left + list.clientWidth + 100 && p.y >= origin.top - 100 && p.y <= origin.top + list.clientHeight + 100;
     const displaced = bodies.some(b => Math.abs(b.x) + Math.abs(b.y) > .05);
@@ -202,6 +203,14 @@
     pointer = null; animate();
     const r = list.getBoundingClientRect(); origin = { left: r.left, top: r.top };
   }, { passive: true });
+  window.addEventListener('hero-chase-state', event => {
+    const active = !!event.detail?.active;
+    if (active === chasePaused) return;
+    chasePaused = active; pointer = null; pressing = false;
+    aim = { held: null, responses: new Map() }; aimedAt = null;
+    pauseMotion();
+    if (!active) animate();
+  });
   playful.addEventListener('change', schedule);
   mobile.addEventListener('change', schedule);
 
