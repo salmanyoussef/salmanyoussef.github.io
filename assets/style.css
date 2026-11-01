@@ -179,8 +179,9 @@ html[lang=zh-Hans] .personal-title{font-family:"Songti SC",SimSun,serif;letter-s
 @media(max-width:680px){#projects{padding-top:1.25rem}}
 
 /* Bring Teaching & Mentorship closer to the final experience entry. */
-#experience .timeline-item:last-child{padding-bottom:0}
-#teaching{padding-top:.75rem}
+#experience .timeline-item:last-child{padding-bottom:2.3rem}
+#teaching{padding-top:0}
+@media(max-width:760px){#experience .timeline-item:last-child{padding-bottom:1.6rem}}
 
 /* Keep the hero buttons, affiliation label, and first row close together. */
 .hero-main>.hero-actions{margin-bottom:1.4rem}
