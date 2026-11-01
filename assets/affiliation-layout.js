@@ -56,7 +56,7 @@
       b.el.style.removeProperty('--proximity-outline');
     });
   }
-  // Stop the game where it is; never send links back home on hover or click.
+  // Hold links steady for clicking; after leaving, ease back home slowly.
   function pauseMotion() {
     cancelAnimationFrame(animation);
     animation = 0;
@@ -84,19 +84,19 @@
     if (!playful.matches || focused) return;
     const dt = Math.min(40, lastTime ? time - lastTime : 16);
     lastTime = time;
-    const alpha = 1 - Math.exp(-dt / 90);
     const p = pointer && { x: pointer.x - origin.left, y: pointer.y - origin.top };
+    const alpha = 1 - Math.exp(-dt / (p ? 140 : 800));
     if (p && directHit(p)) { pointer = null; pauseMotion(); return; }
     const targets = bodies.map(b => {
       const left = b.left + b.x, top = b.top + b.y;
       const dx = p ? Math.max(left - p.x, 0, p.x - left - b.width) : 1000;
       const dy = p ? Math.max(top - p.y, 0, p.y - top - b.height) : 1000;
       const distance = Math.hypot(dx, dy);
-      const strength = Math.pow(Math.max(0, 1 - distance / 96), 2);
+      const strength = Math.pow(Math.max(0, 1 - distance / 64), 2);
       let direction = !p ? 0 : p.x < left ? 1 : p.x > left + b.width ? -1 : Math.max(-1, Math.min(1, (left + b.width / 2 - p.x) / (b.width / 2)));
       if (strength > 0) direction = Math.abs(direction) < .2 ? (left + b.width / 2 < list.clientWidth / 2 ? 1 : -1) : Math.sign(direction);
-      return { b, left: left + direction * 18 * strength,
-        y: p ? Math.max(-3, Math.min(3, b.y + Math.sign(top + b.height / 2 - p.y) * .6 * strength)) : b.y,
+      return { b, left: p ? left + direction * 8 * strength : b.left,
+        y: p ? Math.max(-3, Math.min(3, b.y + Math.sign(top + b.height / 2 - p.y) * .35 * strength)) : 0,
         border: strength, force: direction * strength };
     });
     const rows = [];
@@ -144,18 +144,19 @@
     if (directHit({ x: p.x - origin.left, y: p.y - origin.top })) {
       pointer = null; pauseMotion(); return;
     }
-    const near = p.x >= origin.left - 104 && p.x <= origin.left + list.clientWidth + 104 && p.y >= origin.top - 104 && p.y <= origin.top + list.clientHeight + 104;
-    if (!near && !pointer && !animation) return;
+    const near = p.x >= origin.left - 76 && p.x <= origin.left + list.clientWidth + 76 && p.y >= origin.top - 76 && p.y <= origin.top + list.clientHeight + 76;
+    const displaced = bodies.some(b => Math.abs(b.x) + Math.abs(b.y) > .05);
+    if (!near && !pointer && !animation && !displaced) return;
     pointer = near ? p : null;
     animate();
   }, { passive: true });
   section.addEventListener('pointerdown', event => { if (event.target.closest('.hero-affiliation')) { pointer = null; pauseMotion(); } }, { capture: true });
   section.addEventListener('focusin', event => { focused = event.target.matches(':focus-visible'); pointer = null; pauseMotion(); });
-  section.addEventListener('focusout', () => { focused = false; });
-  window.addEventListener('blur', () => { pointer = null; pauseMotion(); });
+  section.addEventListener('focusout', () => { focused = false; animate(); });
+  window.addEventListener('blur', () => { pointer = null; animate(); });
   document.documentElement.addEventListener('pointerleave', () => { pointer = null; animate(); });
   window.addEventListener('scroll', () => {
-    pointer = null; pauseMotion();
+    pointer = null; animate();
     const r = list.getBoundingClientRect(); origin = { left: r.left, top: r.top };
   }, { passive: true });
   playful.addEventListener('change', schedule);
