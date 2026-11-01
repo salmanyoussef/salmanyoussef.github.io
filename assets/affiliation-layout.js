@@ -45,7 +45,7 @@
   const playful = matchMedia('(min-width:681px) and (hover:hover) and (pointer:fine) and (prefers-reduced-motion:no-preference)');
   const section = list.closest('.hero-affiliations');
   let bodies = [], pointer = null, animation = 0, lastTime = 0;
-  let origin = { left: 0, top: 0 }, focused = false;
+  let origin = { left: 0, top: 0 }, focused = false, pressing = false;
   function clearMotion() {
     cancelAnimationFrame(animation);
     animation = 0;
@@ -75,29 +75,33 @@
     pointer = null;
   }
   const inside = (p, b, x = 0, y = 0, inset = 0) => p.x >= b.left + x + inset && p.x <= b.left + x + b.width - inset && p.y >= b.top + y + inset && p.y <= b.top + y + b.height - inset;
-  function directHit(p) {
-    // Only the inner part of the moving entry opens the barrier. Its old footprint does not.
-    return bodies.some(b => inside(p, b, b.x, b.y, Math.min(12, b.height * .32, b.width * .15)));
-  }
   function tick(time) {
     animation = 0;
-    if (!playful.matches || focused) return;
+    if (!playful.matches || focused || pressing) return;
     const dt = Math.min(40, lastTime ? time - lastTime : 16);
     lastTime = time;
+    const alpha = 1 - Math.exp(-dt / 70);
+    // One shared interpolation keeps every collision constraint intact, while
+    // this smaller home step gives non-active tiles an independent slow return.
+    const homeStep = (1 - Math.exp(-dt / 850)) / alpha;
     const p = pointer && { x: pointer.x - origin.left, y: pointer.y - origin.top };
-    const alpha = 1 - Math.exp(-dt / (p ? 140 : 800));
-    if (p && directHit(p)) { pointer = null; pauseMotion(); return; }
+    const hovered = p && bodies.find(b => inside(p, b, b.x, b.y, Math.min(12, b.height * .32, b.width * .15)));
+    let nearest = null, nearestDistance = 90;
+    if (p && !hovered) bodies.forEach(b => {
+      const left = b.left + b.x, top = b.top + b.y;
+      const distance = Math.hypot(Math.max(left - p.x, 0, p.x - left - b.width), Math.max(top - p.y, 0, p.y - top - b.height));
+      if (distance < nearestDistance) { nearestDistance = distance; nearest = b; }
+    });
     const targets = bodies.map(b => {
       const left = b.left + b.x, top = b.top + b.y;
-      const dx = p ? Math.max(left - p.x, 0, p.x - left - b.width) : 1000;
-      const dy = p ? Math.max(top - p.y, 0, p.y - top - b.height) : 1000;
-      const distance = Math.hypot(dx, dy);
-      const strength = Math.pow(Math.max(0, 1 - distance / 64), 2);
-      let direction = !p ? 0 : p.x < left ? 1 : p.x > left + b.width ? -1 : Math.max(-1, Math.min(1, (left + b.width / 2 - p.x) / (b.width / 2)));
-      if (strength > 0) direction = Math.abs(direction) < .2 ? (left + b.width / 2 < list.clientWidth / 2 ? 1 : -1) : Math.sign(direction);
-      return { b, left: p ? left + direction * 8 * strength : b.left,
-        y: p ? Math.max(-3, Math.min(3, b.y + Math.sign(top + b.height / 2 - p.y) * .35 * strength)) : 0,
-        border: strength, force: direction * strength };
+      const held = b === hovered;
+      const strength = b === nearest ? Math.pow(1 - nearestDistance / 90, 2) : 0;
+      let direction = !strength ? 0 : Math.sign(left + b.width / 2 - p.x);
+      if (strength && !direction) direction = left + b.width / 2 < list.clientWidth / 2 ? 1 : -1;
+      return { b, held,
+        left: held ? left : strength ? left + direction * 36 * strength : left - b.x * homeStep,
+        y: held ? b.y : strength ? Math.max(-3, Math.min(3, b.y + Math.sign(top + b.height / 2 - p.y) * .6 * strength)) : b.y * (1 - homeStep),
+        border: held ? 1 : strength, force: direction * strength };
     });
     const rows = [];
     targets.forEach(t => {
@@ -105,32 +109,35 @@
       if (!row) rows.push(row = []);
       row.push(t);
     });
+    const wall = list.getBoundingClientRect().width;
     rows.forEach(row => {
       row.sort((a, b) => a.b.left - b.b.left);
-      const last = row.length - 1, wall = list.getBoundingClientRect().width;
+      const last = row.length - 1;
       const gap = Math.min(12, ...row.slice(1).map((t, i) => t.b.left - row[i].b.left - row[i].b.width));
       const forward = () => { for (let i = 1; i <= last; i++) row[i].left = Math.max(row[i].left, row[i - 1].left + row[i - 1].b.width + gap); };
       const backward = () => { for (let i = last - 1; i >= 0; i--) row[i].left = Math.min(row[i].left, row[i + 1].left - row[i].b.width - gap); };
-      if (row.reduce((sum, t) => sum + t.force, 0) >= 0) {
-        row[0].left = Math.max(0, row[0].left);
-        forward();
-        row[last].left = Math.min(wall - row[last].b.width, row[last].left);
-        backward();
+      const heldIndex = row.findIndex(t => t.held);
+      if (heldIndex >= 0) {
+        // Returning neighbours cannot dislodge the link being selected.
+        for (let i = heldIndex - 1; i >= 0; i--) row[i].left = Math.min(row[i].left, row[i + 1].left - row[i].b.width - gap);
+        for (let i = heldIndex + 1; i <= last; i++) row[i].left = Math.max(row[i].left, row[i - 1].left + row[i - 1].b.width + gap);
+      } else if (row.reduce((sum, t) => sum + t.force, 0) >= 0) {
+        row[0].left = Math.max(0, row[0].left); forward();
+        row[last].left = Math.min(wall - row[last].b.width, row[last].left); backward();
       } else {
-        row[last].left = Math.min(wall - row[last].b.width, row[last].left);
-        backward();
-        row[0].left = Math.max(0, row[0].left);
-        forward();
+        row[last].left = Math.min(wall - row[last].b.width, row[last].left); backward();
+        row[0].left = Math.max(0, row[0].left); forward();
       }
-      row.forEach(t => { if (Math.abs(t.left - t.b.left) > .5) t.border = Math.max(t.border, .65); });
+      row.forEach(t => { if (Math.abs(t.left - t.b.left) > .5 && Math.abs(t.left - t.b.left - t.b.x) > .5) t.border = Math.max(t.border, .65); });
     });
     let moving = false;
     targets.forEach(t => {
       const b = t.b, x = t.left - b.left;
+      const oldX = b.x, oldY = b.y;
       b.x += (x - b.x) * alpha;
       b.y += (t.y - b.y) * alpha;
       b.outline += (t.border - b.outline) * alpha;
-      if (Math.abs(x - b.x) + Math.abs(t.y - b.y) + Math.abs(t.border - b.outline) > .02) moving = true;
+      if (Math.abs(b.x - oldX) + Math.abs(b.y - oldY) + Math.abs(t.border - b.outline) > .001) moving = true;
       b.el.style.setProperty('--nudge-x', b.x.toFixed(3) + 'px');
       b.el.style.setProperty('--nudge-y', b.y.toFixed(3) + 'px');
       b.el.style.setProperty('--proximity-outline', b.outline.toFixed(3));
@@ -141,19 +148,18 @@
   window.addEventListener('pointermove', event => {
     if (!playful.matches || focused || event.pointerType === 'touch') return;
     const p = { x: event.clientX, y: event.clientY };
-    if (directHit({ x: p.x - origin.left, y: p.y - origin.top })) {
-      pointer = null; pauseMotion(); return;
-    }
-    const near = p.x >= origin.left - 76 && p.x <= origin.left + list.clientWidth + 76 && p.y >= origin.top - 76 && p.y <= origin.top + list.clientHeight + 76;
+    const near = p.x >= origin.left - 100 && p.x <= origin.left + list.clientWidth + 100 && p.y >= origin.top - 100 && p.y <= origin.top + list.clientHeight + 100;
     const displaced = bodies.some(b => Math.abs(b.x) + Math.abs(b.y) > .05);
     if (!near && !pointer && !animation && !displaced) return;
     pointer = near ? p : null;
     animate();
   }, { passive: true });
-  section.addEventListener('pointerdown', event => { if (event.target.closest('.hero-affiliation')) { pointer = null; pauseMotion(); } }, { capture: true });
-  section.addEventListener('focusin', event => { focused = event.target.matches(':focus-visible'); pointer = null; pauseMotion(); });
+  section.addEventListener('pointerdown', event => { if (event.target.closest('.hero-affiliation')) { pressing = true; pauseMotion(); } }, { capture: true });
+  section.addEventListener('focusin', event => { focused = event.target.matches(':focus-visible'); if (focused) { pointer = null; pauseMotion(); } else animate(); });
+  window.addEventListener('pointerup', () => { pressing = false; animate(); }, { passive: true });
+  window.addEventListener('pointercancel', () => { pressing = false; animate(); }, { passive: true });
   section.addEventListener('focusout', () => { focused = false; animate(); });
-  window.addEventListener('blur', () => { pointer = null; animate(); });
+  window.addEventListener('blur', () => { pressing = false; pointer = null; animate(); });
   document.documentElement.addEventListener('pointerleave', () => { pointer = null; animate(); });
   window.addEventListener('scroll', () => {
     pointer = null; animate();

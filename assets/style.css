@@ -306,3 +306,7 @@ html[lang=zh-Hans] .personal-title{font-family:"Songti SC",SimSun,serif;letter-s
  .hero-affiliations .hero-affiliation:hover::after,.hero-affiliations .hero-affiliation:focus-visible::after{background:rgba(179,200,166,.14);border-color:rgba(54,95,73,.3);box-shadow:0 3px 12px -7px rgba(38,61,51,.3)}
 }
 @media(prefers-reduced-motion:reduce){.hero-affiliations .hero-affiliation::after{transition:none}}
+
+/* A little separation between the collaboration label and its first row. */
+.hero-affiliations>.affiliations-label{margin-bottom:.4rem}
+@media(max-width:680px){.hero-affiliations>.affiliations-label{margin-bottom:.85rem}}
