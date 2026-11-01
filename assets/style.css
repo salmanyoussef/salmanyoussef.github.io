@@ -88,7 +88,7 @@ html[lang=zh-Hans] .personal-title{font-family:"Songti SC",SimSun,serif;letter-s
 .youtube-link:hover{background:#f7ded7;color:#9b191e}
 .continue-link{display:flex;align-items:center;justify-content:center;width:38px;height:38px;margin:1.2rem auto 0;color:var(--accent);border-radius:50%;transition:transform .2s ease,background .2s ease}
 .continue-link:hover{background:var(--sage);transform:translateY(3px)}
-#experience{padding-top:2.25rem}
+#experience{padding-top:2rem}
 
 /* Technology badges beside each experience, with real logos and readable names. */
 .experience-layout{display:grid;grid-template-columns:minmax(0,1fr) 245px;gap:2.5rem;align-items:start}
@@ -112,7 +112,7 @@ html[lang=zh-Hans] .personal-title{font-family:"Songti SC",SimSun,serif;letter-s
  .contact-card:hover{transform:translateY(-4px);border-color:#54765a}
 }
 @media(max-width:1000px){.experience-layout{grid-template-columns:minmax(0,1fr) 220px;gap:1.5rem}.contact-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media(max-width:760px){.experience-layout{grid-template-columns:1fr;gap:1rem}.stack-panel{padding:.9rem}.stack-heading{margin-bottom:.6rem}.stack-badges{gap:.45rem}.tech-badge{padding:.4rem .6rem}.timeline-item{padding-block:1.6rem}#experience{padding-top:1.75rem}}
+@media(max-width:760px){.experience-layout{grid-template-columns:1fr;gap:1rem}.stack-panel{padding:.9rem}.stack-heading{margin-bottom:.6rem}.stack-badges{gap:.45rem}.tech-badge{padding:.4rem .6rem}.timeline-item{padding-block:1.6rem}#experience{padding-top:1.5rem}}
 @media(max-width:600px){.contact-grid{grid-template-columns:1fr}}
 
 /* A live binary stream carries the pause into the personal section. */
@@ -370,3 +370,6 @@ html[lang=zh-Hans] .personal-title{font-family:"Songti SC",SimSun,serif;letter-s
 
 /* Native fragment navigation also clears the measured sticky header. */
 html{scroll-padding-top:var(--anchor-header-space,140px)}
+
+/* Bring Experience slightly closer to Selected Work without a separator. */
+#experience .section-head{border-top:0;padding-top:1rem}
