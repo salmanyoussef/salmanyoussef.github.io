@@ -280,7 +280,7 @@ html[lang=zh-Hans] .personal-title{font-family:"Songti SC",SimSun,serif;letter-s
  .hero-affiliations .hero-affiliation{inset-inline-start:var(--affiliation-row-inset,0px)}
  .hero-affiliations .affiliation-name{white-space:normal;overflow-wrap:anywhere}
 }
-/* A soft outer glow complements the portrait lift without covering the image. */
+/* Warm sunlight surrounds the portrait on hover without covering the image. */
 @media(min-width:681px) and (hover:hover) and (pointer:fine){
- .profile-photo-frame:hover{box-shadow:0 0 18px rgba(185,210,160,.5),0 0 40px rgba(95,145,110,.22)}
+ .profile-photo-frame:hover{box-shadow:0 0 16px rgba(255,247,217,.85),0 0 34px rgba(255,218,145,.48),0 0 55px rgba(255,196,102,.2)}
 }
