@@ -250,3 +250,13 @@ html[lang=zh-Hans] .personal-title{font-family:"Songti SC",SimSun,serif;letter-s
 
 /* Keep colleague feedback close to the end of Teaching & Mentorship. */
 #testimonials{padding-top:1.5rem}
+
+/* Keep mobile affiliation names and country labels in a consistent compact stack. */
+@media(max-width:680px){
+ .hero-affiliations .hero-affiliation{width:100%;align-items:center}
+ .hero-affiliations .affiliation-copy{flex:1;flex-direction:column;align-items:flex-start;gap:.1rem}
+ .hero-affiliations .affiliation-name{overflow-wrap:anywhere}
+}
+/* Match the height of each feedback pair, preserving the full-width final reference. */
+#testimonials .project-grid{align-items:stretch}
+#testimonials .project-card{align-self:stretch}
