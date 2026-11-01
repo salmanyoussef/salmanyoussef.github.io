@@ -230,10 +230,10 @@ html[lang=zh-Hans] .personal-title{font-family:"Songti SC",SimSun,serif;letter-s
  .hero-main>.hero-actions .btn:hover{transform:translateY(-2px);box-shadow:0 5px 12px -7px #263d3350}
  .hero-side .hero-bottom a:hover{transform:translateY(-2px)}
 }
-/* Reveal the portrait shadow only while hovering on desktop. */
+/* Lift and gently enlarge the desktop portrait without a shadow. */
 @media(min-width:681px) and (hover:hover) and (pointer:fine){
- .profile-photo-frame{box-shadow:0 0 0 rgba(226,231,216,0)}
- .profile-photo-frame:hover{transform:translateY(-3px) scale(1.01);box-shadow:14px 14px 0 #e2e7d8}
+ .profile-photo-frame{box-shadow:none}
+ .profile-photo-frame:hover{transform:translateY(-6px) scale(1.025);box-shadow:none}
 }
 @media(prefers-reduced-motion:reduce){
  .profile-photo-frame,.hero-main>.hero-actions .btn,.hero-side .hero-bottom a{transition:none}
@@ -267,3 +267,6 @@ html[lang=zh-Hans] .personal-title{font-family:"Songti SC",SimSun,serif;letter-s
 
 /* Give the mobile Worked with label a little breathing room. */
 @media(max-width:680px){.hero-affiliations>.affiliations-label{margin-bottom:.65rem}}
+
+/* Keep the portrait shadow-free on every device. */
+.profile-photo-frame{box-shadow:none}
