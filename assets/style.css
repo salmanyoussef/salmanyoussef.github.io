@@ -247,3 +247,6 @@ html[lang=zh-Hans] .personal-title{font-family:"Songti SC",SimSun,serif;letter-s
 
 /* Keep the teaching sample close to its section heading. */
 #teaching .section-head{margin-bottom:.5rem}
+
+/* Keep colleague feedback close to the end of Teaching & Mentorship. */
+#testimonials{padding-top:1.5rem}
