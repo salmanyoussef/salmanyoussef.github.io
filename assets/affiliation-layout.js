@@ -68,16 +68,17 @@
     }) : [];
     pointer = null;
   }
-  const inside = (p, b, x = 0, y = 0) => p.x >= b.left + x && p.x <= b.left + x + b.width && p.y >= b.top + y && p.y <= b.top + y + b.height;
+  const inside = (p, b, x = 0, y = 0, inset = 0) => p.x >= b.left + x + inset && p.x <= b.left + x + b.width - inset && p.y >= b.top + y + inset && p.y <= b.top + y + b.height - inset;
   function directHit(p) {
-    return bodies.some(b => inside(p, b) || inside(p, b, b.x, b.y));
+    // Only the inner part of the moving entry opens the barrier. Its old footprint does not.
+    return bodies.some(b => inside(p, b, b.x, b.y, Math.min(12, b.height * .32, b.width * .15)));
   }
   function tick(time) {
     animation = 0;
     if (!playful.matches || focused) return;
     const dt = Math.min(40, lastTime ? time - lastTime : 16);
     lastTime = time;
-    const alpha = 1 - Math.exp(-dt / 70);
+    const alpha = 1 - Math.exp(-dt / 90);
     const p = pointer && { x: pointer.x - origin.left, y: pointer.y - origin.top };
     if (p && directHit(p)) { clearMotion(); return; }
     const targets = bodies.map(b => {
@@ -85,9 +86,10 @@
       const dx = p ? Math.max(left - p.x, 0, p.x - left - b.width) : 1000;
       const dy = p ? Math.max(top - p.y, 0, p.y - top - b.height) : 1000;
       const distance = Math.hypot(dx, dy);
-      const strength = Math.pow(Math.max(0, 1 - distance / 64), 2);
-      const direction = !p ? 0 : p.x < left ? 1 : p.x > left + b.width ? -1 : Math.max(-1, Math.min(1, (left + b.width / 2 - p.x) / (b.width / 2)));
-      return { b, left: b.left + direction * 96 * strength,
+      const strength = Math.pow(Math.max(0, 1 - distance / 96), 2);
+      let direction = !p ? 0 : p.x < left ? 1 : p.x > left + b.width ? -1 : Math.max(-1, Math.min(1, (left + b.width / 2 - p.x) / (b.width / 2)));
+      if (strength > 0) direction = Math.abs(direction) < .2 ? (left + b.width / 2 < list.clientWidth / 2 ? 1 : -1) : Math.sign(direction);
+      return { b, left: b.left + direction * 170 * strength,
         y: p ? Math.sign(top + b.height / 2 - p.y) * 2.5 * strength : 0,
         border: strength, force: direction * strength };
     });
@@ -136,7 +138,7 @@
     if (directHit({ x: p.x - origin.left, y: p.y - origin.top })) {
       pointer = null; clearMotion(); return;
     }
-    const near = p.x >= origin.left - 70 && p.x <= origin.left + list.clientWidth + 70 && p.y >= origin.top - 70 && p.y <= origin.top + list.clientHeight + 70;
+    const near = p.x >= origin.left - 104 && p.x <= origin.left + list.clientWidth + 104 && p.y >= origin.top - 104 && p.y <= origin.top + list.clientHeight + 104;
     if (!near && !pointer && !animation) return;
     pointer = near ? p : null;
     animate();
