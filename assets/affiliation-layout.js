@@ -46,8 +46,7 @@
   const section = list.closest('.hero-affiliations');
   let bodies = [], pointer = null, animation = 0, lastTime = 0;
   let origin = { left: 0, top: 0 }, focused = false, pressing = false;
-  let aim = { body: null, held: null, direction: 0, vertical: 0 }, aimedAt = null;
-  let aimChangedAt = 0, directionAt = null;
+  let aim = { held: null, responses: new Map() }, aimedAt = null;
   function clearMotion() {
     cancelAnimationFrame(animation);
     animation = 0;
@@ -66,8 +65,7 @@
   }
   function measureBodies() {
     clearMotion();
-    aim = { body: null, held: null, direction: 0, vertical: 0 }; aimedAt = null;
-    aimChangedAt = 0; directionAt = null;
+    aim = { held: null, responses: new Map() }; aimedAt = null;
     list.classList.toggle('has-proximity', playful.matches);
     const box = list.getBoundingClientRect();
     origin = { left: box.left, top: box.top };
@@ -79,54 +77,39 @@
     pointer = null;
   }
   const inside = (p, b, x = 0, y = 0, inset = 0) => p.x >= b.left + x + inset && p.x <= b.left + x + b.width - inset && p.y >= b.top + y + inset && p.y <= b.top + y + b.height - inset;
-  // Pick a target only from real pointer movement, not from the tiles moving.
+  // Update each tile only from real pointer movement, never from tile motion.
   function chooseAim(client) {
     const p = { x: client.x - origin.left, y: client.y - origin.top };
     const now = typeof client.time === 'number' ? client.time : lastTime;
-    const distanceTo = b => {
-      const left = b.left + b.x, top = b.top + b.y;
-      return Math.hypot(Math.max(left - p.x, 0, p.x - left - b.width), Math.max(top - p.y, 0, p.y - top - b.height));
-    };
-    // After entry, keep the link steady until the pointer clearly leaves it.
-    if (aim.held && inside(p, aim.held, aim.held.x, aim.held.y, -8)) { aimedAt = client; return; }
-    const held = bodies.find(b => inside(p, b, b.x, b.y, Math.min(12, b.height * .32, b.width * .15)));
-    if (held) {
-      aim = { body: held, held, direction: 0, vertical: 0 }; aimedAt = client;
-      aimChangedAt = now; directionAt = client; return;
-    }
-    let candidate = null, best = 90;
+    const held = aim.held && inside(p, aim.held, aim.held.x, aim.held.y, -8)
+      ? aim.held : bodies.find(b => inside(p, b, b.x, b.y, Math.min(12, b.height * .32, b.width * .15)));
+    const responses = new Map();
     bodies.forEach(b => {
-      const distance = distanceTo(b);
-      if (distance < best) { best = distance; candidate = b; }
+      if (b === held) return;
+      const left = b.left + b.x, top = b.top + b.y;
+      const distance = Math.hypot(Math.max(left - p.x, 0, p.x - left - b.width), Math.max(top - p.y, 0, p.y - top - b.height));
+      const previous = aim.responses.get(b);
+      if (distance >= (previous ? 110 : 90)) return;
+      let direction = previous ? previous.direction : Math.sign(left + b.width / 2 - p.x);
+      let vertical = previous ? previous.vertical : Math.sign(top + b.height / 2 - p.y);
+      let directionAt = previous ? previous.directionAt : client;
+      let changedAt = previous ? previous.changedAt : now;
+      if (!direction) direction = left + b.width / 2 < list.clientWidth / 2 ? 1 : -1;
+      if (previous && now - changedAt >= 220) {
+        if (Math.abs(client.y - directionAt.y) >= 24) {
+          if (p.y < top - 12) vertical = 1;
+          else if (p.y > top + b.height + 12) vertical = -1;
+        }
+        if (Math.abs(client.x - directionAt.x) >= 48) {
+          const oldDirection = direction;
+          if (direction > 0 && p.x > left + b.width + 20) direction = -1;
+          else if (direction < 0 && p.x < left - 20) direction = 1;
+          if (direction !== oldDirection) { directionAt = client; changedAt = now; }
+        }
+      }
+      responses.set(b, { direction, vertical, directionAt, changedAt });
     });
-    // A new tile must be clearly closer; near-equal distances keep the old one.
-    if (aim.body && !aim.held && candidate !== aim.body) {
-      const previousDistance = distanceTo(aim.body);
-      if (previousDistance < 110 && (now - aimChangedAt < 220 || previousDistance < best + 18)) candidate = aim.body;
-    }
-    let direction = 0, vertical = 0;
-    if (candidate) {
-      const left = candidate.left + candidate.x;
-      const same = candidate === aim.body && !aim.held;
-      const top = candidate.top + candidate.y;
-      vertical = same ? aim.vertical : Math.sign(top + candidate.height / 2 - p.y);
-      if (same && directionAt && Math.abs(client.y - directionAt.y) >= 24) {
-        if (p.y < top - 12) vertical = 1;
-        else if (p.y > top + candidate.height + 12) vertical = -1;
-      }
-      direction = same ? aim.direction : Math.sign(left + candidate.width / 2 - p.x);
-      if (!same) directionAt = client;
-      // Reverse only after a deliberate trip around the opposite side.
-      const travelled = directionAt ? Math.abs(client.x - directionAt.x) : 0;
-      if (same && travelled >= 48 && now - aimChangedAt >= 220) {
-        if (direction > 0 && p.x > left + candidate.width + 20) direction = -1;
-        else if (direction < 0 && p.x < left - 20) direction = 1;
-      }
-      if (!direction) direction = left + candidate.width / 2 < list.clientWidth / 2 ? 1 : -1;
-      if (same && direction !== aim.direction) { directionAt = client; aimChangedAt = now; }
-    }
-    if (candidate !== aim.body || aim.held) aimChangedAt = now;
-    aim = { body: candidate, held: null, direction, vertical };
+    aim = { held: held || null, responses };
     aimedAt = client;
   }
   function tick(time) {
@@ -140,23 +123,18 @@
     const homeStep = (1 - Math.exp(-dt / 850)) / alpha;
     const p = pointer && { x: pointer.x - origin.left, y: pointer.y - origin.top };
     const hovered = p && aim.held;
-    const nearest = p && !hovered ? aim.body : null;
-    let nearestDistance = 1000;
-    if (nearest) {
-      const left = nearest.left + nearest.x, top = nearest.top + nearest.y;
-      nearestDistance = Math.hypot(Math.max(left - p.x, 0, p.x - left - nearest.width), Math.max(top - p.y, 0, p.y - top - nearest.height));
-    }
     const targets = bodies.map(b => {
       const left = b.left + b.x, top = b.top + b.y;
       const held = b === hovered;
-      const strength = b === nearest ? Math.pow(Math.max(0, 1 - nearestDistance / 90), 2) : 0;
-      const requestedDrive = b === nearest ? aim.direction * strength : 0;
-      b.drive = held || b !== nearest ? 0 : b.drive + (requestedDrive - b.drive) * (1 - Math.exp(-dt / 90));
-      const direction = b === nearest ? aim.direction : 0;
-      const restingAtBarrier = b === nearest && !strength;
+      const response = p && !held ? aim.responses.get(b) : null;
+      const distance = response ? Math.hypot(Math.max(left - p.x, 0, p.x - left - b.width), Math.max(top - p.y, 0, p.y - top - b.height)) : 1000;
+      const strength = response ? Math.pow(Math.max(0, 1 - distance / 90), 2) : 0;
+      const requestedDrive = response ? response.direction * strength : 0;
+      b.drive = held || !response ? 0 : b.drive + (requestedDrive - b.drive) * (1 - Math.exp(-dt / 90));
+      const restingAtBarrier = response && !strength;
       return { b, held,
         left: held || restingAtBarrier ? left : strength ? left + b.drive * 36 : left - b.x * homeStep,
-        y: held || restingAtBarrier ? b.y : strength ? Math.max(-3, Math.min(3, b.y + aim.vertical * .6 * strength)) : b.y * (1 - homeStep),
+        y: held || restingAtBarrier ? b.y : strength ? Math.max(-3, Math.min(3, b.y + response.vertical * .6 * strength)) : b.y * (1 - homeStep),
         border: held ? 1 : strength, force: b.drive };
     });
     const rows = [];
@@ -170,19 +148,20 @@
       row.sort((a, b) => a.b.left - b.b.left);
       const last = row.length - 1;
       const gap = Math.min(12, ...row.slice(1).map((t, i) => t.b.left - row[i].b.left - row[i].b.width));
-      const forward = () => { for (let i = 1; i <= last; i++) row[i].left = Math.max(row[i].left, row[i - 1].left + row[i - 1].b.width + gap); };
-      const backward = () => { for (let i = last - 1; i >= 0; i--) row[i].left = Math.min(row[i].left, row[i + 1].left - row[i].b.width - gap); };
-      const heldIndex = row.findIndex(t => t.held);
-      if (heldIndex >= 0) {
-        // Returning neighbours cannot dislodge the link being selected.
-        for (let i = heldIndex - 1; i >= 0; i--) row[i].left = Math.min(row[i].left, row[i + 1].left - row[i].b.width - gap);
-        for (let i = heldIndex + 1; i <= last; i++) row[i].left = Math.max(row[i].left, row[i - 1].left + row[i - 1].b.width + gap);
-      } else if (row.reduce((sum, t) => sum + t.force, 0) >= 0) {
-        row[0].left = Math.max(0, row[0].left); forward();
-        row[last].left = Math.min(wall - row[last].b.width, row[last].left); backward();
-      } else {
-        row[last].left = Math.min(wall - row[last].b.width, row[last].left); backward();
-        row[0].left = Math.max(0, row[0].left); forward();
+      // Symmetric contact resolution avoids a winning-side flip when two tiles
+      // push in opposite directions. Hovered links stay fixed for selection.
+      const projectPair = i => {
+        const a = row[i], b = row[i + 1];
+        const overlap = a.left + a.b.width + gap - b.left;
+        if (overlap <= 0) return;
+        const wa = a.held ? 0 : 1, wb = b.held ? 0 : 1;
+        const mass = wa + wb;
+        if (mass) { a.left -= overlap * wa / mass; b.left += overlap * wb / mass; }
+      };
+      for (let pass = 0; pass < 32; pass++) {
+        row.forEach(t => { if (!t.held) t.left = Math.max(0, Math.min(wall - t.b.width, t.left)); });
+        if (pass % 2) { for (let i = last - 1; i >= 0; i--) projectPair(i); }
+        else { for (let i = 0; i < last; i++) projectPair(i); }
       }
       row.forEach(t => { if (Math.abs(t.left - t.b.left) > .5 && Math.abs(t.left - t.b.left - t.b.x) > .5) t.border = Math.max(t.border, .65); });
     });
@@ -208,7 +187,7 @@
     const displaced = bodies.some(b => Math.abs(b.x) + Math.abs(b.y) > .05);
     if (!near && !pointer && !animation && !displaced) return;
     if (near && (!pointer || !aimedAt || Math.hypot(p.x - aimedAt.x, p.y - aimedAt.y) >= 6)) chooseAim(p);
-    if (!near) { aim = { body: null, held: null, direction: 0, vertical: 0 }; aimedAt = null; }
+    if (!near) { aim = { held: null, responses: new Map() }; aimedAt = null; }
     pointer = near ? p : null;
     animate();
   }, { passive: true });
