@@ -84,18 +84,24 @@
   const portrait = document.querySelector('.profile-photo-frame');
   if (!portrait) return;
   const enabled = window.matchMedia('(min-width:681px) and (hover:hover) and (pointer:fine) and (prefers-reduced-motion:no-preference)');
-  const scales = [1.6, 1.64, 1.68, 1.72];
+  const scales = [1.6, 1.76, 1.94, 2.14];
   let level = 0;
   portrait.addEventListener('pointerenter', event => {
     if (!enabled.matches || event.pointerType === 'touch') return;
     level = (level + 1) % scales.length;
     portrait.style.setProperty('--portrait-zoom-scale', String(scales[level]));
+    // Keep the face at its starting position as the crop moves closer.
+    const extraZoom = scales[level] / scales[0] - 1;
+    portrait.style.setProperty('--portrait-pan-x', String(6 * extraZoom) + '%');
+    portrait.style.setProperty('--portrait-pan-y', String(48 * extraZoom) + '%');
     portrait.dataset.portraitZoom = String(level);
   });
   enabled.addEventListener('change', () => {
     if (enabled.matches) return;
     level = 0;
     portrait.style.removeProperty('--portrait-zoom-scale');
+    portrait.style.removeProperty('--portrait-pan-x');
+    portrait.style.removeProperty('--portrait-pan-y');
     portrait.dataset.portraitZoom = '0';
   });
 })();
