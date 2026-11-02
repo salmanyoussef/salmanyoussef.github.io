@@ -417,3 +417,11 @@ html{scroll-padding-top:var(--anchor-header-space,140px)}
 @media(min-width:681px) and (hover:hover) and (pointer:fine){
  .profile-photo-frame:hover{box-shadow:0 0 22px rgba(255,255,255,.85),0 0 48px rgba(255,255,255,.5)}
 }
+
+/* TutorOcean-style five-star ratings and a quiet attribution beneath each review. */
+#student-reviews .student-review-stars{display:flex;align-items:center;gap:2px;color:#f4c169;margin:0 0 .35rem}
+#student-reviews .student-review-stars svg{display:block;width:24px;height:24px;fill:currentColor;flex:0 0 24px}
+#student-reviews .review-heading{margin:0 0 .75rem;font-weight:600;line-height:1.4}
+#student-reviews .student-review-footer{margin-top:auto;padding-top:1rem}
+#student-reviews .student-review-name{margin:0;font-size:.8rem;font-weight:600;color:var(--muted)}
+#student-reviews .student-card-source{margin:.4rem 0 0!important;padding-top:0}
