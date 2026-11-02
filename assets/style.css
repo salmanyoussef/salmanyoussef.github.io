@@ -411,17 +411,12 @@ html{scroll-padding-top:var(--anchor-header-space,140px)}
 @media(hover:hover) and (pointer:fine){#student-reviews .project-links a:hover{transform:translateY(-2px)}}
 @media(prefers-reduced-motion:reduce){#student-reviews .project-links a{transition:none}#student-reviews .project-links a:hover{transform:none}}
 
-/* Feather the portrait into the paper while retaining its gentle hover lift. */
-.profile-photo-frame{position:relative;border:0}
-.profile-photo-frame::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;box-shadow:inset 0 0 18px 12px var(--paper)}
-@media(min-width:681px) and (hover:hover) and (pointer:fine){
- .profile-photo-frame:hover{box-shadow:0 0 22px rgba(255,255,255,.85),0 0 48px rgba(255,255,255,.5)}
-}
 
-/* TutorOcean-style five-star ratings and a quiet attribution beneath each review. */
-#student-reviews .student-review-stars{display:flex;align-items:center;gap:2px;color:#f4c169;margin:0 0 .35rem}
-#student-reviews .student-review-stars svg{display:block;width:24px;height:24px;fill:currentColor;flex:0 0 24px}
-#student-reviews .review-heading{margin:0 0 .75rem;font-weight:600;line-height:1.4}
-#student-reviews .student-review-footer{margin-top:auto;padding-top:1rem}
-#student-reviews .student-review-name{margin:0;font-size:.8rem;font-weight:600;color:var(--muted)}
-#student-reviews .student-card-source{margin:.4rem 0 0!important;padding-top:0}
+/* A shallow alpha fade reveals the page itself at every portrait edge. */
+.profile-photo-frame,.profile-photo-frame:hover{
+ border:0;border-radius:0;background:transparent;box-shadow:none!important;
+ -webkit-mask-image:url("/assets/portrait-edge-mask.png");mask-image:url("/assets/portrait-edge-mask.png");
+ -webkit-mask-size:100% 100%;mask-size:100% 100%;
+ -webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;
+}
+.profile-photo-frame::after{content:none}
