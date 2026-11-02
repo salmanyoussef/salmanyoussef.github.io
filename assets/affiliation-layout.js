@@ -310,8 +310,14 @@
   window.addEventListener('blur', () => { pressing = false; pointer = null; animate(); });
   document.documentElement.addEventListener('pointerleave', () => { pointer = null; animate(); });
   window.addEventListener('scroll', () => {
-    pointer = null; animate();
-    const r = list.getBoundingClientRect(); origin = { left: r.left, top: r.top };
+    const r = list.getBoundingClientRect();
+    const dx = r.left - origin.left, dy = r.top - origin.top;
+    // Preserve the logical contact while the viewport moves. Fresh pointer
+    // input will pick up from the entry's new on-screen position.
+    const shift = point => point && ({ ...point, x: point.x + dx, y: point.y + dy });
+    pointer = shift(pointer); aimedAt = shift(aimedAt);
+    aim.responses.forEach(response => { response.directionAt = shift(response.directionAt); });
+    origin = { left: r.left, top: r.top };
   }, { passive: true });
   window.addEventListener('hero-chase-state', event => {
     const active = !!event.detail?.active;
