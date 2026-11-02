@@ -439,3 +439,11 @@ html{scroll-padding-top:var(--anchor-header-space,140px)}
 #student-reviews .student-review-footer{margin-top:auto;padding-top:1rem}
 #student-reviews .student-review-name{margin:0;font-size:.8rem;font-weight:600;color:var(--muted)}
 #student-reviews .student-card-source{margin:.4rem 0 0!important;padding-top:0}
+
+/* Emily's typography is shared by every client, colleague and student review. */
+#testimonials .project-card h3{font-family:inherit;font-size:.97rem;font-weight:650;line-height:1.35;margin:0 0 .6rem;color:var(--ink)}
+#testimonials .project-card>p:not(.project-links),#testimonials .project-card blockquote p{
+ font-family:Georgia,"Times New Roman",serif;font-size:1.08rem;font-weight:400;line-height:1.65;color:var(--ink)
+}
+#testimonials .project-card .review-heading{font-family:Georgia,"Times New Roman",serif;font-size:1.08rem;font-weight:600;line-height:1.65;margin:0 0 .75rem;color:var(--ink)}
+#student-reviews .student-review-stars{margin-bottom:.65rem}
