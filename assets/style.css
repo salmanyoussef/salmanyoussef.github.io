@@ -468,3 +468,6 @@ html{scroll-padding-top:var(--anchor-header-space,140px)}
  box-shadow:0 3px 14px -7px rgba(38,61,51,.3)
 }
 .hero-main[data-chase-mode="locked"] .hero-affiliations{pointer-events:none}
+
+/* Keep every hero interaction below the sticky navigation header. */
+.hero{isolation:isolate}
