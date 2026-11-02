@@ -84,7 +84,7 @@
   const portrait = document.querySelector('.profile-photo-frame');
   if (!portrait) return;
   const enabled = window.matchMedia('(min-width:681px) and (hover:hover) and (pointer:fine) and (prefers-reduced-motion:no-preference)');
-  const scales = [1.6, 1.76, 1.94, 2.14];
+  const scales = [1.6, 1.76, 1.94];
   let level = 0;
   portrait.addEventListener('pointerenter', event => {
     if (!enabled.matches || event.pointerType === 'touch') return;
