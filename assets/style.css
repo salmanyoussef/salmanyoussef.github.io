@@ -460,3 +460,11 @@ html{scroll-padding-top:var(--anchor-header-space,140px)}
 
 /* Preserve the first-hover crop even when the viewport or pointer mode changes. */
 .profile-photo-frame .profile-photo{transform:translate(var(--portrait-pan-x,0%),var(--portrait-pan-y,0%)) scale(var(--portrait-zoom-scale,1.6))}
+
+/* A clicked catch stays highlighted and keeps the chase active until refresh. */
+.hero-main>.hero-actions .btn.is-locked{
+ position:relative;transform:translate(var(--chase-x,0px),var(--chase-y,0px));
+ z-index:30;background:var(--sage);color:var(--ink);border-color:var(--accent);
+ box-shadow:0 3px 14px -7px rgba(38,61,51,.3)
+}
+.hero-main[data-chase-mode="locked"] .hero-affiliations{pointer-events:none}

@@ -16,7 +16,8 @@
     mode = next;
     host.dataset.chaseMode = mode;
     button.classList.toggle('is-chasing', mode === 'chasing');
-    button.classList.toggle('is-caught', mode === 'caught');
+    button.classList.toggle('is-caught', mode === 'caught' || mode === 'locked');
+    button.classList.toggle('is-locked', mode === 'locked');
     button.classList.toggle('is-returning', mode === 'returning');
     if (active !== (mode !== 'idle')) window.dispatchEvent(new CustomEvent('hero-chase-state', { detail: { active: mode !== 'idle' } }));
   }
@@ -26,11 +27,13 @@
   }
   function stopFrame() { cancelAnimationFrame(frame); frame = 0; lastFrame = 0; }
   function reset() {
+    if (mode === 'locked') return;
     stopFrame(); setMode('idle');
     x = homeX; y = homeY; vx = vy = 0;
     button.style.removeProperty('--chase-x'); button.style.removeProperty('--chase-y');
   }
   function measure() {
+    if (mode === 'locked') { stopFrame(); box = host.getBoundingClientRect(); return; }
     const preserve = eligible.matches && (mode === 'chasing' || mode === 'caught');
     const offsetX = preserve ? x - homeX : 0, offsetY = preserve ? y - homeY : 0;
     stopFrame();
@@ -103,7 +106,7 @@
   }
   function tick(now) {
     frame = 0;
-    if (!allowed || mode === 'idle' || mode === 'caught') return;
+    if (!allowed || mode === 'idle' || mode === 'caught' || mode === 'locked') return;
     const dt = Math.min(.035, lastFrame ? (now - lastFrame) / 1000 : 1 / 60);
     lastFrame = now;
     if (mode === 'returning') {
@@ -155,7 +158,7 @@
     render(); wake();
   }
   window.addEventListener('pointermove', event => {
-    if (!allowed || event.pointerType === 'touch') return;
+    if (mode === 'locked' || !allowed || event.pointerType === 'touch') return;
     const now = clock(), previous = pointer;
     pointer = { x: event.clientX, y: event.clientY };
     const dt = clamp((now - lastPointerTime) / 1000, .008, .12);
@@ -185,7 +188,10 @@
   }, { passive: true });
   button.addEventListener('pointerdown', () => { if (mode === 'chasing') catchButton(); });
   button.addEventListener('pointerleave', () => { if (mode === 'caught') { cooldown = clock() + 2500; returnHome(); } });
-  button.addEventListener('click', () => { if (mode === 'chasing') catchButton(); if (mode === 'caught') reset(); });
+  button.addEventListener('click', () => {
+    if (mode === 'chasing') catchButton();
+    if (mode === 'caught') { stopFrame(); vx = vy = 0; setMode('locked'); render(); }
+  });
   host.addEventListener('focusin', event => { if (event.target === button && event.target.matches(':focus-visible') && mode === 'chasing') catchButton(); });
   window.addEventListener('keydown', event => { if (event.key === 'Escape' && mode !== 'idle') { cooldown = clock() + 2500; returnHome(); } });
   window.addEventListener('blur', () => { if (mode === 'caught') returnHome(); else if (mode === 'chasing') pauseChase(); });
