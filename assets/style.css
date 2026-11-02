@@ -394,3 +394,8 @@ html{scroll-padding-top:var(--anchor-header-space,140px)}
   z-index:2;
  }
 }
+
+/* Student feedback stays visible beneath colleague feedback, without a divider. */
+#student-reviews{margin-top:2.5rem;scroll-margin-top:var(--anchor-header-space,140px)}
+#student-feedback-heading{margin:0 0 1.7rem;border:0;padding:0}
+#student-reviews .gold-standard{color:#7c6a38}
