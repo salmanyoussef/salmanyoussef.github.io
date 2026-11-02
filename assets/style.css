@@ -406,10 +406,10 @@ html{scroll-padding-top:var(--anchor-header-space,140px)}
 /* Keep each student review source at the card's bottom with a gentle link lift. */
 #student-reviews .project-card{display:flex;flex-direction:column}
 #student-reviews blockquote p:last-child{margin-bottom:0}
-#student-reviews .student-card-source{margin:auto 0 0!important;padding-top:1rem}
-#student-reviews .project-links a{display:inline-block;transition:transform .2s ease,color .2s ease}
-@media(hover:hover) and (pointer:fine){#student-reviews .project-links a:hover{transform:translateY(-2px)}}
-@media(prefers-reduced-motion:reduce){#student-reviews .project-links a{transition:none}#student-reviews .project-links a:hover{transform:none}}
+#testimonials .student-card-source{margin:auto 0 0!important;padding-top:1rem}
+#testimonials .student-card-source a{display:inline-block;transition:transform .2s ease,color .2s ease}
+@media(hover:hover) and (pointer:fine){#testimonials .student-card-source a:hover{transform:translateY(-2px)}}
+@media(prefers-reduced-motion:reduce){#testimonials .student-card-source a{transition:none}#testimonials .student-card-source a:hover{transform:none}}
 
 
 /* A shallow alpha fade reveals the page itself at every portrait edge. */
@@ -433,12 +433,12 @@ html{scroll-padding-top:var(--anchor-header-space,140px)}
 @media(prefers-reduced-motion:reduce){.client-review-source a{transition:none}.client-review-source a:hover{transform:none}}
 
 /* Keep TutorOcean stars compact and attribution at the bottom of each student card. */
-#student-reviews .student-review-stars{display:flex;align-items:center;flex-wrap:nowrap;gap:2px;color:#f4c169;margin:0 0 .35rem;align-self:flex-start}
-#student-reviews .student-review-stars svg{display:block;width:24px;height:24px;max-width:24px;max-height:24px;fill:currentColor;flex:0 0 24px}
+#testimonials .student-review-stars{display:flex;align-items:center;flex-wrap:nowrap;gap:2px;color:#f4c169;margin:0 0 .35rem;align-self:flex-start}
+#testimonials .student-review-stars svg{display:block;width:24px;height:24px;max-width:24px;max-height:24px;fill:currentColor;flex:0 0 24px}
 #student-reviews .review-heading{margin:0 0 .75rem;font-weight:600;line-height:1.4}
-#student-reviews .student-review-footer{margin-top:auto;padding-top:1rem}
+#testimonials .student-review-footer{margin-top:auto;padding-top:1rem}
 #student-reviews .student-review-name{margin:0;font-size:.8rem;font-weight:600;color:var(--muted)}
-#student-reviews .student-card-source{margin:.4rem 0 0!important;padding-top:0}
+#testimonials .student-card-source{margin:.4rem 0 0!important;padding-top:0}
 
 /* Emily's typography is shared by every client, colleague and student review. */
 #testimonials .project-card h3{font-family:inherit;font-size:.97rem;font-weight:650;line-height:1.35;margin:0 0 .6rem;color:var(--ink)}
@@ -446,7 +446,10 @@ html{scroll-padding-top:var(--anchor-header-space,140px)}
  font-family:Georgia,"Times New Roman",serif;font-size:1.08rem;font-weight:400;line-height:1.65;color:var(--ink)
 }
 #testimonials .project-card .review-heading{font-family:Georgia,"Times New Roman",serif;font-size:1.08rem;font-weight:600;line-height:1.65;margin:0 0 .75rem;color:var(--ink)}
-#student-reviews .student-review-stars{margin-bottom:.65rem}
+#testimonials .student-review-stars{margin-bottom:.65rem}
 
 /* Continue directly beneath Eman with the same gap as the feedback cards. */
 #student-reviews>.project-grid{margin-block:0}
+
+/* Thomas uses the same compact student rating and source-link layout. */
+#thomas-testimonial{display:flex;flex-direction:column}
