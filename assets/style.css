@@ -410,3 +410,10 @@ html{scroll-padding-top:var(--anchor-header-space,140px)}
 #student-reviews .project-links a{display:inline-block;transition:transform .2s ease,color .2s ease}
 @media(hover:hover) and (pointer:fine){#student-reviews .project-links a:hover{transform:translateY(-2px)}}
 @media(prefers-reduced-motion:reduce){#student-reviews .project-links a{transition:none}#student-reviews .project-links a:hover{transform:none}}
+
+/* Feather the portrait into the paper while retaining its gentle hover lift. */
+.profile-photo-frame{position:relative;border:0}
+.profile-photo-frame::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;box-shadow:inset 0 0 18px 12px var(--paper)}
+@media(min-width:681px) and (hover:hover) and (pointer:fine){
+ .profile-photo-frame:hover{box-shadow:0 0 22px rgba(255,255,255,.85),0 0 48px rgba(255,255,255,.5)}
+}
