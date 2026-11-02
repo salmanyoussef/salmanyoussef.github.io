@@ -77,3 +77,25 @@
   resize();
   update();
 })();
+
+
+// Each new pointer entry advances the portrait zoom; leaving preserves the level.
+(() => {
+  const portrait = document.querySelector('.profile-photo-frame');
+  if (!portrait) return;
+  const enabled = window.matchMedia('(min-width:681px) and (hover:hover) and (pointer:fine) and (prefers-reduced-motion:no-preference)');
+  const scales = [1.6, 1.64, 1.68, 1.72];
+  let level = 0;
+  portrait.addEventListener('pointerenter', event => {
+    if (!enabled.matches || event.pointerType === 'touch') return;
+    level = (level + 1) % scales.length;
+    portrait.style.setProperty('--portrait-zoom-scale', String(scales[level]));
+    portrait.dataset.portraitZoom = String(level);
+  });
+  enabled.addEventListener('change', () => {
+    if (enabled.matches) return;
+    level = 0;
+    portrait.style.removeProperty('--portrait-zoom-scale');
+    portrait.dataset.portraitZoom = '0';
+  });
+})();

@@ -455,5 +455,5 @@ html{scroll-padding-top:var(--anchor-header-space,140px)}
 .profile-photo-frame,.profile-photo-frame:hover{transform:none;transition:none}
 @media(min-width:681px) and (hover:hover) and (pointer:fine) and (prefers-reduced-motion:no-preference){
  .profile-photo-frame .profile-photo{transition:transform .3s ease}
- .profile-photo-frame:hover .profile-photo{transform:scale(1.64)}
+ .profile-photo-frame .profile-photo{transform:scale(var(--portrait-zoom-scale,1.6))}
 }
