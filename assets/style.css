@@ -395,7 +395,10 @@ html{scroll-padding-top:var(--anchor-header-space,140px)}
  }
 }
 
-/* Student feedback stays visible beneath colleague feedback, without a divider. */
-#student-reviews{margin-top:2.5rem;scroll-margin-top:var(--anchor-header-space,140px)}
+/* Student feedback follows a divider and ends close to its source link. */
+#student-reviews{margin-top:2.5rem;margin-bottom:0;border-top:1px solid var(--line);padding-top:1.5rem;scroll-margin-top:var(--anchor-header-space,140px)}
 #student-feedback-heading{margin:0 0 1.7rem;border:0;padding:0}
-#student-reviews .gold-standard{color:#7c6a38}
+#student-reviews .gold-standard{color:#f4c169}
+
+#student-reviews .student-review-source{margin:1rem 0 0!important}
+#skills{padding-top:2rem}
