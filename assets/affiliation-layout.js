@@ -3,15 +3,64 @@
   if (!list) return;
   const entries = [...list.children];
   const ns = 'http://www.w3.org/2000/svg';
-  const contactPaths = new Map(entries.map(el => {
+  // Full rounded rectangles under soft radial gradients let light wrap corners.
+  const sides = ['left', 'right', 'top', 'bottom'];
+  const contactLights = new Map(entries.map((el, index) => {
     const svg = document.createElementNS(ns, 'svg');
     svg.classList.add('affiliation-contact');
     svg.setAttribute('aria-hidden', 'true');
     svg.setAttribute('focusable', 'false');
-    const path = document.createElementNS(ns, 'path');
-    svg.append(path); el.append(svg);
-    return [el, path];
+    const defs = document.createElementNS(ns, 'defs'); svg.append(defs);
+    const lights = sides.map(side => {
+      const gradient = document.createElementNS(ns, 'radialGradient');
+      const id = `affiliation-light-${index}-${side}`;
+      gradient.setAttribute('id', id);
+      gradient.setAttribute('gradientUnits', 'userSpaceOnUse');
+      gradient.setAttribute('r', '76');
+      [['0%', '#d7b977', 1], ['22%', '#608b69', .9], ['58%', '#608b69', .35], ['100%', '#608b69', 0]].forEach(([offset, color, opacity]) => {
+        const stop = document.createElementNS(ns, 'stop');
+        stop.setAttribute('offset', offset); stop.setAttribute('stop-color', color);
+        stop.setAttribute('stop-opacity', opacity); gradient.append(stop);
+      });
+      defs.append(gradient);
+      const group = document.createElementNS(ns, 'g'); group.style.opacity = '0';
+      const rects = ['halo', 'rim'].map(kind => {
+        const rect = document.createElementNS(ns, 'rect');
+        rect.classList.add(`contact-${kind}`);
+        rect.setAttribute('x', '.5'); rect.setAttribute('y', '.5');
+        rect.setAttribute('rx', '5'); rect.setAttribute('stroke', `url(#${id})`);
+        group.append(rect); return rect;
+      });
+      svg.append(group);
+      return { side, gradient, group, rects, center: null, opacity: 0 };
+    });
+    el.append(svg); return [el, lights];
   }));
+  const impacts = new Map();
+  const particles = new Set();
+  function clearSparks() {
+    particles.forEach(p => { p.animation.cancel(); p.el.remove(); });
+    particles.clear(); impacts.clear();
+  }
+  function spark(x, y) {
+    if (!playful.matches || particles.size > 30) return;
+    for (let i = 0; i < 6; i++) {
+      const el = document.createElement('span');
+      el.className = 'affiliation-spark'; el.setAttribute('aria-hidden', 'true');
+      el.style.left = x + 'px'; el.style.top = y + 'px'; list.append(el);
+      const angle = Math.random() * Math.PI * 2;
+      const distance = 14 + Math.random() * 25;
+      const dx = Math.cos(angle) * distance, dy = Math.sin(angle) * distance;
+      const rotation = angle * 180 / Math.PI;
+      const animation = el.animate([
+        { transform: `translate(0,0) rotate(${rotation}deg) scale(.45)`, opacity: 0 },
+        { transform: `translate(${dx * .18}px,${dy * .18}px) rotate(${rotation}deg) scale(1)`, opacity: .9, offset: .13 },
+        { transform: `translate(${dx}px,${dy + 10}px) rotate(${rotation + 30}deg) scale(.1)`, opacity: 0 }
+      ], { duration: 380 + Math.random() * 180, easing: 'cubic-bezier(.12,.6,.3,1)', fill: 'forwards' });
+      const particle = { el, animation }; particles.add(particle);
+      animation.onfinish = () => { el.remove(); particles.delete(particle); };
+    }
+  }
   const mobile = matchMedia('(max-width:680px)');
   let queued = false;
   function layout() {
@@ -61,10 +110,11 @@
   function clearMotion() {
     cancelAnimationFrame(animation);
     animation = 0;
+    clearSparks();
     bodies.forEach(b => {
       b.x = b.y = b.outline = b.drive = b.contact = 0;
       b.el.style.removeProperty('--contact-opacity');
-      contactPaths.get(b.el).setAttribute('d', '');
+      contactLights.get(b.el).forEach(light => { light.opacity = 0; light.center = null; light.group.style.opacity = '0'; });
       b.el.style.removeProperty('--nudge-x');
       b.el.style.removeProperty('--nudge-y');
       b.el.style.removeProperty('--proximity-outline');
@@ -84,6 +134,7 @@
     origin = { left: box.left, top: box.top };
     bodies = playful.matches ? entries.map(el => {
       const r = el.getBoundingClientRect();
+      contactLights.get(el).forEach(light => light.rects.forEach(rect => { rect.setAttribute('width', r.width + 9); rect.setAttribute('height', r.height + 3); }));
       return { el, left: r.left - box.left, top: r.top - box.top,
         width: r.width, height: r.height, x: 0, y: 0, outline: 0, drive: 0, contact: 0 };
     }) : [];
@@ -130,7 +181,9 @@
     if (!playful.matches || focused || pressing || chasePaused) return;
     const dt = Math.min(40, lastTime ? time - lastTime : 16);
     lastTime = time;
-    const alpha = 1 - Math.exp(-dt / 70);
+    const alpha = 1 - Math.exp(-dt / 95);
+    const lightAlpha = 1 - Math.exp(-dt / 140);
+    impacts.forEach(impact => { impact.seen = false; });
     // One shared interpolation keeps every collision constraint intact, while
     // this smaller home step gives non-active tiles an independent slow return.
     const homeStep = (1 - Math.exp(-dt / 850)) / alpha;
@@ -186,6 +239,15 @@
         if (bottom <= top) continue;
         a.contacts.push({ side: 'right', center: (top + bottom) / 2 - a.b.top - a.y, length: bottom - top });
         b.contacts.push({ side: 'left', center: (top + bottom) / 2 - b.b.top - b.y, length: bottom - top });
+        const key = entries.indexOf(a.b.el) + ':' + entries.indexOf(b.b.el);
+        const previous = impacts.get(key);
+        const actualGap = b.b.left + b.b.x - a.b.left - a.b.x - a.b.width;
+        const touching = actualGap <= gap + 2.5;
+        const approaching = previous && previous.gap - actualGap > .08;
+        if (p && touching && !previous?.touching && approaching && time - (previous?.lastSpark ?? -1000) > 600) {
+          spark((a.b.left + a.b.x + a.b.width + b.b.left + b.b.x) / 2, (top + bottom) / 2);
+          impacts.set(key, { touching, gap: actualGap, lastSpark: time, seen: true });
+        } else impacts.set(key, { touching, gap: actualGap, lastSpark: previous?.lastSpark ?? -1000, seen: true });
       }
     });
     let moving = false;
@@ -206,25 +268,26 @@
       b.outline += (t.border - b.outline) * alpha;
       const contact = t.contacts.length ? 1 : 0;
       b.contact += (contact - b.contact) * alpha;
-      if (t.contacts.length) {
-        const paths = t.contacts.map(c => {
-          const vertical = c.side === 'left' || c.side === 'right';
-          const limit = vertical ? b.height : b.width;
-          const start = Math.max(4, c.center - c.length / 2);
-          const end = Math.min(limit - 4, c.center + c.length / 2);
-          if (end <= start) return '';
-          // Match the inset outline, preserving the entry's original hit area.
-          const edge = c.side === 'left' || c.side === 'top' ? .5 : vertical ? b.width + 9.5 : b.height + 3.5;
-          return vertical ? `M${edge},${start + 2}V${end + 2}` : `M${start + 5},${edge}H${end + 5}`;
-        });
-        contactPaths.get(b.el).setAttribute('d', paths.join(' '));
-      }
+      contactLights.get(b.el).forEach(light => {
+        const hit = t.contacts.find(c => c.side === light.side);
+        const goal = hit ? 1 : 0;
+        light.opacity += (goal - light.opacity) * lightAlpha;
+        if (hit) {
+          light.center = light.center === null ? hit.center : light.center + (hit.center - light.center) * lightAlpha;
+          const vertical = light.side === 'left' || light.side === 'right';
+          light.gradient.setAttribute('cx', vertical ? light.side === 'left' ? .5 : b.width + 9.5 : light.center + 5);
+          light.gradient.setAttribute('cy', vertical ? light.center + 2 : light.side === 'top' ? .5 : b.height + 3.5);
+        }
+        light.group.style.opacity = light.opacity.toFixed(3);
+        if (Math.abs(goal - light.opacity) > .001) moving = true;
+      });
       b.el.style.setProperty('--contact-opacity', b.contact.toFixed(3));
       if (Math.abs(b.x - oldX) + Math.abs(b.y - oldY) + Math.abs(t.border - b.outline) + Math.abs(contact - b.contact) > .001) moving = true;
       b.el.style.setProperty('--nudge-x', b.x.toFixed(3) + 'px');
       b.el.style.setProperty('--nudge-y', b.y.toFixed(3) + 'px');
       b.el.style.setProperty('--proximity-outline', b.outline.toFixed(3));
     });
+    impacts.forEach(impact => { if (!impact.seen) impact.touching = false; });
     if (moving) animation = requestAnimationFrame(tick);
   }
   function animate() { if (chasePaused) return; if (!animation) { lastTime = 0; animation = requestAnimationFrame(tick); } }
@@ -253,6 +316,7 @@
   window.addEventListener('hero-chase-state', event => {
     const active = !!event.detail?.active;
     if (active === chasePaused) return;
+    if (active) clearSparks();
     chasePaused = active; pointer = null; pressing = false;
     aim = { held: null, responses: new Map() }; aimedAt = null;
     pauseMotion();

@@ -298,8 +298,13 @@ html[lang=zh-Hans] .personal-title{font-family:"Songti SC",SimSun,serif;letter-s
 /* Collaboration outlines appear only while affected by pointer play. */
 .hero-affiliations .hero-affiliation::after{content:"";position:absolute;inset:-2px -5px;border:1px solid rgba(54,95,73,.32);border-radius:5px;opacity:var(--proximity-outline,0);pointer-events:none;transition:opacity .16s ease}
 .hero-affiliations .hero-affiliation:hover .affiliation-name{text-decoration:none}
-.hero-affiliations .affiliation-contact{position:absolute;left:-5px;top:-2px;width:calc(100% + 10px);height:calc(100% + 4px);overflow:visible;pointer-events:none;opacity:var(--contact-opacity,0)}
-.affiliation-contact path{fill:none;stroke:rgba(44,85,62,.85);stroke-width:2.3;stroke-linecap:round;vector-effect:non-scaling-stroke}
+.hero-affiliations .affiliation-contact{position:absolute;left:-5px;top:-2px;width:calc(100% + 10px);height:calc(100% + 4px);overflow:visible;pointer-events:none;opacity:1}
+.affiliation-contact rect{fill:none;vector-effect:non-scaling-stroke}
+.affiliation-contact .contact-rim{stroke-width:1.7}
+.affiliation-contact .contact-halo{stroke-width:5;filter:blur(2px);opacity:.5}
+.hero-affiliations .affiliations-list{position:relative}
+.affiliation-spark{position:absolute;width:5px;height:2px;margin:-1px 0 0 -2.5px;border-radius:50%;background:#d3ad65;box-shadow:0 0 4px #d3ad6580;pointer-events:none;z-index:3}
+@media(prefers-reduced-motion:reduce),(hover:none),(pointer:coarse){.affiliation-spark,.hero-affiliations .affiliation-contact{display:none}}
 .hero-affiliations .hero-affiliation:focus-visible::after{opacity:1;background:rgba(179,200,166,.14)}
 @media(max-width:680px){
  .hero-affiliations .hero-affiliation{box-sizing:border-box;padding:.35rem .5rem;min-height:44px}
