@@ -79,29 +79,18 @@
 })();
 
 
-// Each new pointer entry advances the portrait zoom; leaving preserves the level.
+// The first pointer entry zooms toward the face once for this page load.
 (() => {
   const portrait = document.querySelector('.profile-photo-frame');
   if (!portrait) return;
   const enabled = window.matchMedia('(min-width:681px) and (hover:hover) and (pointer:fine) and (prefers-reduced-motion:no-preference)');
-  const scales = [1.6, 1.76, 1.94];
-  let level = 0;
-  portrait.addEventListener('pointerenter', event => {
+  function zoomOnce(event) {
     if (!enabled.matches || event.pointerType === 'touch') return;
-    level = (level + 1) % scales.length;
-    portrait.style.setProperty('--portrait-zoom-scale', String(scales[level]));
-    // Keep the face at its starting position as the crop moves closer.
-    const extraZoom = scales[level] / scales[0] - 1;
-    portrait.style.setProperty('--portrait-pan-x', String(6 * extraZoom) + '%');
-    portrait.style.setProperty('--portrait-pan-y', String(48 * extraZoom) + '%');
-    portrait.dataset.portraitZoom = String(level);
-  });
-  enabled.addEventListener('change', () => {
-    if (enabled.matches) return;
-    level = 0;
-    portrait.style.removeProperty('--portrait-zoom-scale');
-    portrait.style.removeProperty('--portrait-pan-x');
-    portrait.style.removeProperty('--portrait-pan-y');
-    portrait.dataset.portraitZoom = '0';
-  });
+    portrait.style.setProperty('--portrait-zoom-scale', '1.76');
+    portrait.style.setProperty('--portrait-pan-x', '0.6%');
+    portrait.style.setProperty('--portrait-pan-y', '4.8%');
+    portrait.dataset.portraitZoom = '1';
+    portrait.removeEventListener('pointerenter', zoomOnce);
+  }
+  portrait.addEventListener('pointerenter', zoomOnce);
 })();

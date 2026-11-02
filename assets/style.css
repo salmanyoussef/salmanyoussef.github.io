@@ -457,3 +457,6 @@ html{scroll-padding-top:var(--anchor-header-space,140px)}
  .profile-photo-frame .profile-photo{transition:transform .3s ease}
  .profile-photo-frame .profile-photo{transform:translate(var(--portrait-pan-x,0%),var(--portrait-pan-y,0%)) scale(var(--portrait-zoom-scale,1.6))}
 }
+
+/* Preserve the first-hover crop even when the viewport or pointer mode changes. */
+.profile-photo-frame .profile-photo{transform:translate(var(--portrait-pan-x,0%),var(--portrait-pan-y,0%)) scale(var(--portrait-zoom-scale,1.6))}
