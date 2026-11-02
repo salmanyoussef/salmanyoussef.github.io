@@ -16,7 +16,7 @@ LABELS = {'en': 'English', 'fr': 'Français', 'ar': 'العربية', 'tr': 'Tü
 LANG_TAGS = {'en': 'en', 'fr': 'fr', 'ar': 'ar', 'tr': 'tr', 'zh': 'zh-Hans'}
 LOCALES = {'en': 'en_CA', 'fr': 'fr_CA', 'ar': 'ar_AR', 'tr': 'tr_TR', 'zh': 'zh_CN'}
 DESCRIPTIONS = {
- 'fr': 'Salman Ayman Youssef — ingénieur en systèmes d’IA et cybersécurité, chercheur, consultant indépendant et enseignant en informatique. Diplômé en informatique avec distinction et mineure en mathématiques.',
+ 'fr': 'Salman Ayman Youssef — ingénieur en systèmes d’IA et cybersécurité, chercheur, consultant en freelance et enseignant en informatique. Diplômé en informatique avec distinction et mineure en mathématiques.',
  'ar': 'سلمان أيمن يوسف — مهندس أنظمة الذكاء الاصطناعي والأمن السيبراني، وباحث واستشاري مستقل ومدرّس لعلوم الحاسوب. خريج علوم الحاسوب بامتياز مع تخصص فرعي في الرياضيات.',
  'zh': '萨勒曼·艾曼·优素福 — AI 与网络安全系统工程师、研究员、独立顾问和计算机科学教师。计算机科学荣誉学士，优等毕业，数学辅修。',
  'tr': 'Salman Ayman Youssef — yapay zekâ ve siber güvenlik sistemleri mühendisi, araştırmacı, bağımsız danışman ve bilgisayar bilimleri eğitmeni. Üstün başarıyla bilgisayar bilimleri lisans mezunu; matematik yan dalı.'
