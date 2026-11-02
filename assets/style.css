@@ -420,3 +420,14 @@ html{scroll-padding-top:var(--anchor-header-space,140px)}
  -webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;
 }
 .profile-photo-frame::after{content:none}
+
+/* Warm orange review stars, sampled from the supplied Upwork reference. */
+#testimonials .client-review-card{display:flex;flex-direction:column}
+.client-review-rating{display:flex;align-items:center;gap:.65rem;margin:0 0 .65rem;align-self:flex-start}
+.client-review-stars{display:flex;align-items:center;gap:3px;color:#ec652b}
+.client-review-stars svg{display:block;width:21px;height:21px;fill:currentColor;stroke:currentColor;stroke-width:1.1;stroke-linejoin:round}
+.client-review-rating strong{font-size:.95rem;line-height:1;font-weight:700;color:var(--ink)}
+#testimonials .client-review-source{margin:auto 0 0!important;padding-top:1rem}
+.client-review-source a{display:inline-block;transition:transform .2s ease,color .2s ease}
+@media(hover:hover) and (pointer:fine){.client-review-source a:hover{transform:translateY(-2px)}}
+@media(prefers-reduced-motion:reduce){.client-review-source a{transition:none}.client-review-source a:hover{transform:none}}
