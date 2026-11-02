@@ -371,7 +371,6 @@ html[lang=zh-Hans] .personal-title{font-family:"Songti SC",SimSun,serif;letter-s
  .hero-main>.hero-actions .btn.chase-ready.is-chasing,.hero-main>.hero-actions .btn.chase-ready.is-caught,.hero-main>.hero-actions .btn.chase-ready.is-returning{z-index:30;background:var(--paper);box-shadow:0 9px 24px -10px rgba(38,61,51,.38);border-color:var(--accent)}
  .hero-main>.hero-actions .btn.chase-ready.is-caught{background:var(--sage);box-shadow:0 3px 14px -7px rgba(38,61,51,.3)}
  .hero-main[data-chase-mode="chasing"] .hero-affiliations,.hero-main[data-chase-mode="caught"] .hero-affiliations,.hero-main[data-chase-mode="returning"] .hero-affiliations{pointer-events:none}
- .hero-main[data-chase-mode="chasing"] .hero-affiliation::after,.hero-main[data-chase-mode="caught"] .hero-affiliation::after,.hero-main[data-chase-mode="returning"] .hero-affiliation::after{background:transparent;box-shadow:none;border-color:rgba(89,100,93,.12)}
 }
 
 /* Native fragment navigation also clears the measured sticky header. */
