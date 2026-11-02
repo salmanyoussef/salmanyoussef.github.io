@@ -104,6 +104,7 @@
   const playful = matchMedia('(min-width:681px) and (hover:hover) and (pointer:fine) and (prefers-reduced-motion:no-preference)');
   const section = list.closest('.hero-affiliations');
   let bodies = [], pointer = null, animation = 0, lastTime = 0;
+  let chaseActive = false;
   let origin = { left: 0, top: 0 }, focused = false, pressing = false;
   let aim = { held: null, responses: new Map() }, aimedAt = null;
   function clearMotion() {
@@ -186,7 +187,7 @@
     // One shared interpolation keeps every collision constraint intact, while
     // this smaller home step gives non-active tiles an independent slow return.
     const homeStep = (1 - Math.exp(-dt / 850)) / alpha;
-    const p = pointer && { x: pointer.x - origin.left, y: pointer.y - origin.top };
+    const p = !chaseActive && pointer && { x: pointer.x - origin.left, y: pointer.y - origin.top };
     const hovered = p && aim.held;
     const targets = bodies.map(b => {
       const left = b.left + b.x, top = b.top + b.y;
@@ -291,7 +292,7 @@
   }
   function animate() { if (!animation) { lastTime = 0; animation = requestAnimationFrame(tick); } }
   window.addEventListener('pointermove', event => {
-    if (!playful.matches || focused || event.pointerType === 'touch') return;
+    if (!playful.matches || focused || chaseActive || event.pointerType === 'touch') return;
     const p = { x: event.clientX, y: event.clientY, time: event.timeStamp };
     const near = p.x >= origin.left - 100 && p.x <= origin.left + list.clientWidth + 100 && p.y >= origin.top - 100 && p.y <= origin.top + list.clientHeight + 100;
     const displaced = bodies.some(b => Math.abs(b.x) + Math.abs(b.y) > .05);
@@ -318,6 +319,14 @@
     aim.responses.forEach(response => { response.directionAt = shift(response.directionAt); });
     origin = { left: r.left, top: r.top };
   }, { passive: true });
+  window.addEventListener('hero-chase-state', event => {
+    const active = !!event.detail?.active;
+    if (active === chaseActive) return;
+    // Ignore chase input, but let displaced entries and their lights settle.
+    chaseActive = active; pointer = null; pressing = false;
+    aim = { held: null, responses: new Map() }; aimedAt = null;
+    animate();
+  });
   playful.addEventListener('change', schedule);
   mobile.addEventListener('change', schedule);
 
