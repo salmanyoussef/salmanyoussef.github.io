@@ -2,6 +2,16 @@
   const list = document.querySelector('.hero-affiliations .affiliations-list');
   if (!list) return;
   const entries = [...list.children];
+  const ns = 'http://www.w3.org/2000/svg';
+  const contactPaths = new Map(entries.map(el => {
+    const svg = document.createElementNS(ns, 'svg');
+    svg.classList.add('affiliation-contact');
+    svg.setAttribute('aria-hidden', 'true');
+    svg.setAttribute('focusable', 'false');
+    const path = document.createElementNS(ns, 'path');
+    svg.append(path); el.append(svg);
+    return [el, path];
+  }));
   const mobile = matchMedia('(max-width:680px)');
   let queued = false;
   function layout() {
@@ -52,7 +62,9 @@
     cancelAnimationFrame(animation);
     animation = 0;
     bodies.forEach(b => {
-      b.x = b.y = b.outline = b.drive = 0;
+      b.x = b.y = b.outline = b.drive = b.contact = 0;
+      b.el.style.removeProperty('--contact-opacity');
+      contactPaths.get(b.el).setAttribute('d', '');
       b.el.style.removeProperty('--nudge-x');
       b.el.style.removeProperty('--nudge-y');
       b.el.style.removeProperty('--proximity-outline');
@@ -73,7 +85,7 @@
     bodies = playful.matches ? entries.map(el => {
       const r = el.getBoundingClientRect();
       return { el, left: r.left - box.left, top: r.top - box.top,
-        width: r.width, height: r.height, x: 0, y: 0, outline: 0, drive: 0 };
+        width: r.width, height: r.height, x: 0, y: 0, outline: 0, drive: 0, contact: 0 };
     }) : [];
     pointer = null;
   }
@@ -136,7 +148,7 @@
       return { b, held,
         left: held || restingAtBarrier ? left : strength ? left + b.drive * 36 : left - b.x * homeStep,
         y: held || restingAtBarrier ? b.y : strength ? Math.max(-3, Math.min(3, b.y + response.vertical * .6 * strength)) : b.y * (1 - homeStep),
-        border: held ? 1 : strength, force: b.drive };
+        border: 0, contacts: [], force: b.drive };
     });
     const rows = [];
     targets.forEach(t => {
@@ -164,7 +176,17 @@
         if (pass % 2) { for (let i = last - 1; i >= 0; i--) projectPair(i); }
         else { for (let i = 0; i < last; i++) projectPair(i); }
       }
-      row.forEach(t => { if (Math.abs(t.left - t.b.left) > .5 && Math.abs(t.left - t.b.left - t.b.x) > .5) t.border = Math.max(t.border, .65); });
+      // Show the actual meeting edges, including a stationary tile being pushed.
+      for (let i = 0; i < last; i++) {
+        const a = row[i], b = row[i + 1];
+        const affected = Math.abs(a.left - a.b.left) + Math.abs(b.left - b.b.left) > .5;
+        if (!affected || b.left - a.left - a.b.width > gap + .6) continue;
+        const top = Math.max(a.b.top + a.y, b.b.top + b.y);
+        const bottom = Math.min(a.b.top + a.y + a.b.height, b.b.top + b.y + b.b.height);
+        if (bottom <= top) continue;
+        a.contacts.push({ side: 'right', center: (top + bottom) / 2 - a.b.top - a.y, length: bottom - top });
+        b.contacts.push({ side: 'left', center: (top + bottom) / 2 - b.b.top - b.y, length: bottom - top });
+      }
     });
     let moving = false;
     targets.forEach(t => {
@@ -172,8 +194,33 @@
       const oldX = b.x, oldY = b.y;
       b.x += (x - b.x) * alpha;
       b.y += (t.y - b.y) * alpha;
+      const displaced = Math.hypot(b.x, b.y);
+      if (p && !t.held && Math.abs(t.force) > .01 && displaced > .15) {
+        const px = Math.max(0, Math.min(b.width, p.x - b.left - b.x));
+        const py = Math.max(0, Math.min(b.height, p.y - b.top - b.y));
+        const edges = [px, b.width - px, py, b.height - py];
+        const side = ['left', 'right', 'top', 'bottom'][edges.indexOf(Math.min(...edges))];
+        t.contacts.push({ side, center: side === 'left' || side === 'right' ? py : px, length: 20 });
+      }
+      t.border = Math.max(Math.min(1, displaced / 1.5), t.contacts.length ? 1 : 0);
       b.outline += (t.border - b.outline) * alpha;
-      if (Math.abs(b.x - oldX) + Math.abs(b.y - oldY) + Math.abs(t.border - b.outline) > .001) moving = true;
+      const contact = t.contacts.length ? 1 : 0;
+      b.contact += (contact - b.contact) * alpha;
+      if (t.contacts.length) {
+        const paths = t.contacts.map(c => {
+          const vertical = c.side === 'left' || c.side === 'right';
+          const limit = vertical ? b.height : b.width;
+          const start = Math.max(4, c.center - c.length / 2);
+          const end = Math.min(limit - 4, c.center + c.length / 2);
+          if (end <= start) return '';
+          // Match the inset outline, preserving the entry's original hit area.
+          const edge = c.side === 'left' || c.side === 'top' ? .5 : vertical ? b.width + 9.5 : b.height + 3.5;
+          return vertical ? `M${edge},${start + 2}V${end + 2}` : `M${start + 5},${edge}H${end + 5}`;
+        });
+        contactPaths.get(b.el).setAttribute('d', paths.join(' '));
+      }
+      b.el.style.setProperty('--contact-opacity', b.contact.toFixed(3));
+      if (Math.abs(b.x - oldX) + Math.abs(b.y - oldY) + Math.abs(t.border - b.outline) + Math.abs(contact - b.contact) > .001) moving = true;
       b.el.style.setProperty('--nudge-x', b.x.toFixed(3) + 'px');
       b.el.style.setProperty('--nudge-y', b.y.toFixed(3) + 'px');
       b.el.style.setProperty('--proximity-outline', b.outline.toFixed(3));
