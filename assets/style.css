@@ -431,3 +431,11 @@ html{scroll-padding-top:var(--anchor-header-space,140px)}
 .client-review-source a{display:inline-block;transition:transform .2s ease,color .2s ease}
 @media(hover:hover) and (pointer:fine){.client-review-source a:hover{transform:translateY(-2px)}}
 @media(prefers-reduced-motion:reduce){.client-review-source a{transition:none}.client-review-source a:hover{transform:none}}
+
+/* Keep TutorOcean stars compact and attribution at the bottom of each student card. */
+#student-reviews .student-review-stars{display:flex;align-items:center;flex-wrap:nowrap;gap:2px;color:#f4c169;margin:0 0 .35rem;align-self:flex-start}
+#student-reviews .student-review-stars svg{display:block;width:24px;height:24px;max-width:24px;max-height:24px;fill:currentColor;flex:0 0 24px}
+#student-reviews .review-heading{margin:0 0 .75rem;font-weight:600;line-height:1.4}
+#student-reviews .student-review-footer{margin-top:auto;padding-top:1rem}
+#student-reviews .student-review-name{margin:0;font-size:.8rem;font-weight:600;color:var(--muted)}
+#student-reviews .student-card-source{margin:.4rem 0 0!important;padding-top:0}
