@@ -104,8 +104,10 @@
       render(); wake(); return;
     }
     const p = localPointer();
-    if (insideArena(p, 20)) lastInside = now;
-    else if (now - lastInside > 350) { returnHome(); return; }
+    if (p) {
+      if (insideArena(p, 20)) lastInside = now;
+      else if (now - lastInside > 350) { returnHome(); return; }
+    }
     // A cat finishes its escape, then rests while the pursuer is still.
     // Coast to a complete stop instead of continually choosing escape routes.
     if (now - lastMotionTime > 160) {
@@ -177,7 +179,13 @@
   window.addEventListener('blur', () => { pointer = null; returnHome(); });
   document.documentElement.addEventListener('pointerleave', () => { pointer = null; returnHome(); });
   window.addEventListener('resize', measure, { passive: true });
-  window.addEventListener('scroll', measure, { passive: true });
+  // Scrolling changes viewport coordinates, not the button's layout or game state.
+  window.addEventListener('scroll', () => {
+    box = host.getBoundingClientRect();
+    // Wait for fresh pointer input; scrolling must not count as leaving the arena.
+    pointer = null; motionAnchor = null; pointerVX = pointerVY = 0;
+    lastPointerTime = 0; lastMotionTime = clock() - 161; lastInside = clock();
+  }, { passive: true });
   eligible.addEventListener('change', measure);
   if ('ResizeObserver' in window) new ResizeObserver(measure).observe(host);
   if (document.fonts) document.fonts.ready.then(measure);
