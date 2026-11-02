@@ -31,12 +31,15 @@
     button.style.removeProperty('--chase-x'); button.style.removeProperty('--chase-y');
   }
   function measure() {
-    reset();
+    const preserve = eligible.matches && (mode === 'chasing' || mode === 'caught');
+    const offsetX = preserve ? x - homeX : 0, offsetY = preserve ? y - homeY : 0;
+    stopFrame();
+    if (!preserve) reset();
     button.classList.toggle('chase-ready', eligible.matches);
     box = host.getBoundingClientRect();
     const rect = button.getBoundingClientRect();
     width = rect.width; height = rect.height;
-    homeX = rect.left - box.left; homeY = rect.top - box.top;
+    homeX = rect.left - box.left - offsetX; homeY = rect.top - box.top - offsetY;
     let arenaHeight = box.height;
     // Match the annotated area: the introduction through the first three
     // collaboration rows, excluding the portrait and the lower rows.
@@ -49,9 +52,11 @@
     }
     maxX = Math.max(0, box.width - width);
     maxY = Math.max(0, arenaHeight - height);
-    x = homeX; y = homeY;
+    x = clamp(homeX + offsetX, 0, maxX); y = clamp(homeY + offsetY, 0, maxY);
     allowed = eligible.matches && maxX >= 50 && maxY >= 160;
     button.classList.toggle('chase-ready', allowed);
+    if (preserve && allowed) render();
+    else if (!allowed) reset();
     pointer = null; motionAnchor = null; lastMotionTime = 0; pointerVX = pointerVY = 0;
   }
   function localPointer() { return pointer && { x: pointer.x - box.left, y: pointer.y - box.top }; }
@@ -85,8 +90,12 @@
     feint = Math.random() < .5 ? -1 : 1;
   }
   function wake() { if (!frame) frame = requestAnimationFrame(tick); }
+  function pauseChase() {
+    stopFrame(); vx = vy = pointerVX = pointerVY = 0;
+    pointer = null; motionAnchor = null; lastPointerTime = 0;
+  }
   function returnHome() {
-    if (mode === 'idle') return;
+    if (mode !== 'caught') return;
     setMode('returning'); vx = vy = 0; wake();
   }
   function catchButton() {
@@ -104,10 +113,7 @@
       render(); wake(); return;
     }
     const p = localPointer();
-    if (p) {
-      if (insideArena(p, 20)) lastInside = now;
-      else if (now - lastInside > 350) { returnHome(); return; }
-    }
+    if (!insideArena(p)) { pauseChase(); return; }
     // A cat finishes its escape, then rests while the pursuer is still.
     // Coast to a complete stop instead of continually choosing escape routes.
     if (now - lastMotionTime > 160) {
@@ -161,9 +167,13 @@
     const moved = !motionAnchor || Math.hypot(pointer.x - motionAnchor.x, pointer.y - motionAnchor.y) >= 1;
     if (moved) { lastMotionTime = now; motionAnchor = { ...pointer }; }
     const p = localPointer();
-    if (mode === 'caught') { if (!insideArena(p, 28)) returnHome(); return; }
+    if (mode === 'caught') {
+      if (p.x < x || p.x > x + width || p.y < y || p.y > y + height) returnHome();
+      return;
+    }
     if (mode === 'returning') return;
     if (mode === 'chasing') {
+      if (!insideArena(p)) { pauseChase(); return; }
       if (now - started > 140 && inCore(p)) catchButton();
       else if (moved) { if (!frame) { lastFrame = 0; routeUntil = 0; } wake(); }
       return;
@@ -174,10 +184,12 @@
     started = lastInside = now; setMode('chasing'); chooseRoute(now); wake();
   }, { passive: true });
   button.addEventListener('pointerdown', () => { if (mode === 'chasing') catchButton(); });
-  host.addEventListener('focusin', event => { if (event.target.matches(':focus-visible')) { cooldown = clock() + 2500; reset(); } });
+  button.addEventListener('pointerleave', () => { if (mode === 'caught') { cooldown = clock() + 2500; returnHome(); } });
+  button.addEventListener('click', () => { if (mode === 'chasing') catchButton(); if (mode === 'caught') reset(); });
+  host.addEventListener('focusin', event => { if (event.target === button && event.target.matches(':focus-visible') && mode === 'chasing') catchButton(); });
   window.addEventListener('keydown', event => { if (event.key === 'Escape' && mode !== 'idle') { cooldown = clock() + 2500; returnHome(); } });
-  window.addEventListener('blur', () => { pointer = null; returnHome(); });
-  document.documentElement.addEventListener('pointerleave', () => { pointer = null; returnHome(); });
+  window.addEventListener('blur', () => { if (mode === 'caught') returnHome(); else if (mode === 'chasing') pauseChase(); });
+  document.documentElement.addEventListener('pointerleave', () => { if (mode === 'caught') returnHome(); else if (mode === 'chasing') pauseChase(); });
   window.addEventListener('resize', measure, { passive: true });
   // Scrolling changes viewport coordinates, not the button's layout or game state.
   window.addEventListener('scroll', () => {
