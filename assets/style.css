@@ -450,3 +450,10 @@ html{scroll-padding-top:var(--anchor-header-space,140px)}
 
 /* Continue directly beneath Eman with the same gap as the feedback cards. */
 #student-reviews>.project-grid{margin-block:0}
+
+/* Zoom the photo inside its stationary faded frame. */
+.profile-photo-frame,.profile-photo-frame:hover{transform:none;transition:none}
+@media(min-width:681px) and (hover:hover) and (pointer:fine) and (prefers-reduced-motion:no-preference){
+ .profile-photo-frame .profile-photo{transition:transform .3s ease}
+ .profile-photo-frame:hover .profile-photo{transform:scale(1.64)}
+}
