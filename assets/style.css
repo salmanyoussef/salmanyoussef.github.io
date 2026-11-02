@@ -376,12 +376,15 @@ html[lang=zh-Hans] .personal-title{font-family:"Songti SC",SimSun,serif;letter-s
 /* Native fragment navigation also clears the measured sticky header. */
 html{scroll-padding-top:var(--anchor-header-space,140px)}
 
-/* Lift skill, education, and testimonial badges with their surrounding card. */
+/* Lift project, skill, education, and testimonial badges with their surrounding card. */
+#projects .skills-block>.tech-badge,#projects .skills-block>.pill,
 #skills .skills-block>.tech-badge,#skills .skills-block>.pill,
 #education .skills-block>.pill,#testimonials .skills-block>.pill{
  position:relative;transition:transform .2s ease,box-shadow .2s ease;
 }
 @media(hover:hover) and (pointer:fine) and (prefers-reduced-motion:no-preference){
+ #projects .project-card:hover .skills-block>.tech-badge,
+ #projects .project-card:hover .skills-block>.pill,
  #skills .section-card:hover .skills-block>.tech-badge,
  #skills .section-card:hover .skills-block>.pill,
  #education .section-card:hover .skills-block>.pill,
