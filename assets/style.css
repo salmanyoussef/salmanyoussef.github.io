@@ -396,7 +396,7 @@ html{scroll-padding-top:var(--anchor-header-space,140px)}
 }
 
 /* Student feedback follows a divider and ends close to its source link. */
-#student-reviews{margin-top:2.5rem;margin-bottom:0;border-top:1px solid var(--line);padding-top:1.5rem;scroll-margin-top:var(--anchor-header-space,140px)}
+#student-reviews{margin-top:1.15rem;margin-bottom:0;border:0;padding:0;scroll-margin-top:var(--anchor-header-space,140px)}
 #student-feedback-heading{margin:0 0 1.7rem;border:0;padding:0}
 #student-reviews .gold-standard{color:#f4c169}
 
@@ -447,3 +447,6 @@ html{scroll-padding-top:var(--anchor-header-space,140px)}
 }
 #testimonials .project-card .review-heading{font-family:Georgia,"Times New Roman",serif;font-size:1.08rem;font-weight:600;line-height:1.65;margin:0 0 .75rem;color:var(--ink)}
 #student-reviews .student-review-stars{margin-bottom:.65rem}
+
+/* Continue directly beneath Eman with the same gap as the feedback cards. */
+#student-reviews>.project-grid{margin-block:0}
