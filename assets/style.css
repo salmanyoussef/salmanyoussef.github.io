@@ -402,3 +402,11 @@ html{scroll-padding-top:var(--anchor-header-space,140px)}
 
 #student-reviews .student-review-source{margin:1rem 0 0!important}
 #skills{padding-top:2rem}
+
+/* Keep each student review source at the card's bottom with a gentle link lift. */
+#student-reviews .project-card{display:flex;flex-direction:column}
+#student-reviews blockquote p:last-child{margin-bottom:0}
+#student-reviews .student-card-source{margin:auto 0 0!important;padding-top:1rem}
+#student-reviews .project-links a{display:inline-block;transition:transform .2s ease,color .2s ease}
+@media(hover:hover) and (pointer:fine){#student-reviews .project-links a:hover{transform:translateY(-2px)}}
+@media(prefers-reduced-motion:reduce){#student-reviews .project-links a{transition:none}#student-reviews .project-links a:hover{transform:none}}
