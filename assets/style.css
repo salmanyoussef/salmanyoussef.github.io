@@ -474,3 +474,8 @@ html{scroll-padding-top:var(--anchor-header-space,140px)}
 
 /* Keep every hero interaction below the sticky navigation header. */
 .hero{isolation:isolate}
+
+/* Responsive navigation: keep every section link visible on phones. */
+@media(max-width:680px){.nav-links{flex-wrap:wrap;overflow:visible;gap:.25rem .85rem;padding-bottom:0}.nav-links a{font-size:.78rem;line-height:1.5;padding-block:.2rem}}
+/* Let the header scroll away when a landscape screen has little vertical space. */
+@media(max-height:500px){.nav{position:relative;top:auto}}
