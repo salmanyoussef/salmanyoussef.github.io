@@ -16,7 +16,7 @@ section{padding-top:4.5rem;scroll-margin-top:105px}.section-head{border-top:1px 
 
 /* Frame the daylight portrait without altering the original photograph. */
 .profile-photo-frame{width:100%;aspect-ratio:4/5;overflow:hidden;border-radius:160px 160px 14px 14px;border:1px solid #b9c1b2;box-shadow:14px 14px 0 #e2e7d8}
-.profile-photo-frame .profile-photo{width:100%;height:100%;aspect-ratio:auto;object-fit:cover;object-position:center;border:0;border-radius:0;box-shadow:none;transform:scale(1.6);transform-origin:50% 100%;max-height:none}
+.profile-photo-frame .profile-photo{width:100%;height:100%;aspect-ratio:auto;object-fit:cover;object-position:center;border:0;border-radius:0;box-shadow:none;transform:scale(1);transform-origin:50% 42%;max-height:none}
 @media(max-width:680px){.profile-photo-frame{max-height:440px}}
 
 
@@ -458,11 +458,11 @@ html{scroll-padding-top:var(--anchor-header-space,140px)}
 .profile-photo-frame,.profile-photo-frame:hover{transform:none;transition:none}
 @media(min-width:681px) and (hover:hover) and (pointer:fine) and (prefers-reduced-motion:no-preference){
  .profile-photo-frame .profile-photo{transition:transform .3s ease}
- .profile-photo-frame .profile-photo{transform:translate(var(--portrait-pan-x,0%),var(--portrait-pan-y,0%)) scale(var(--portrait-zoom-scale,1.6))}
+ .profile-photo-frame .profile-photo{transform:translate(var(--portrait-pan-x,0%),var(--portrait-pan-y,0%)) scale(var(--portrait-zoom-scale,1))}
 }
 
 /* Preserve the first-hover crop even when the viewport or pointer mode changes. */
-.profile-photo-frame .profile-photo{transform:translate(var(--portrait-pan-x,0%),var(--portrait-pan-y,0%)) scale(var(--portrait-zoom-scale,1.6))}
+.profile-photo-frame .profile-photo{transform:translate(var(--portrait-pan-x,0%),var(--portrait-pan-y,0%)) scale(var(--portrait-zoom-scale,1))}
 
 /* A clicked catch stays highlighted and keeps the chase active until refresh. */
 .hero-main>.hero-actions .btn.is-locked{

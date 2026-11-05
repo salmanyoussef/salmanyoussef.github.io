@@ -86,9 +86,9 @@
   const enabled = window.matchMedia('(min-width:681px) and (hover:hover) and (pointer:fine) and (prefers-reduced-motion:no-preference)');
   function zoomOnce(event) {
     if (!enabled.matches || event.pointerType === 'touch') return;
-    portrait.style.setProperty('--portrait-zoom-scale', '1.76');
-    portrait.style.setProperty('--portrait-pan-x', '0.6%');
-    portrait.style.setProperty('--portrait-pan-y', '4.8%');
+    portrait.style.setProperty('--portrait-zoom-scale', '1.08');
+    portrait.style.setProperty('--portrait-pan-x', '0%');
+    portrait.style.setProperty('--portrait-pan-y', '0%');
     portrait.dataset.portraitZoom = '1';
     portrait.removeEventListener('pointerenter', zoomOnce);
   }
